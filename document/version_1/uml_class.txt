@@ -1,0 +1,36 @@
+@startuml
+class Labyrinthe {
+
++ {static} MUR : String
++ {static} PJ : String
++ {static} VIDE : String
++ {static} HAUT : String
++ {static} BAS : String
++ {static} GAUCHE : String
++ {static} DROITE : String
++ pj : Perso
++ murs : boolean[][]
+
++ Labyrinthe(nom : String)
++ getSuivant(x : int, y : int, action String) : int[]
++ deplacerPerso(action ; String) 
++ etreFini() : boolean
++ getLengthY() : int
++ getLength() : int
++ getMur(x : int, y : int)
+
+
+}
+
+class Perso {
+  + x : int
+  + y : int
+
+  Perso(int dx, int dy)
+  etrePresent(int dx, int dy) : boolean
+  getX() : int
+  getY() : int
+}
+
+
+@enduml
