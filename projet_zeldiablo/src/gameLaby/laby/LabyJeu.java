@@ -43,4 +43,8 @@ public class LabyJeu implements Jeu{
         return labyrinthe.etreFini();
     }
 
+    public Labyrinthe getLabyrinthe() {
+        return labyrinthe;
+    }
+
 }
