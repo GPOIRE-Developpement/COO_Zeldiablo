@@ -13,7 +13,7 @@ public class LabyJeu implements Jeu{
     public final Labyrinthe labyrinthe;
 
     public LabyJeu() throws IOException {
-        this.labyrinthe = new Labyrinthe("laby1.txt");
+        this.labyrinthe = new Labyrinthe("labySimple/laby1.txt");
     }
 
     public void update(double seconde, Clavier clavier) {
