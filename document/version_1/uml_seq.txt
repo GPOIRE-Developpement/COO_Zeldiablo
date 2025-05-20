@@ -1,0 +1,16 @@
+@startuml
+Main -> Magasin: tri(compasant)
+group while
+    Magasin -> CopieCD : copieCD.get(0)
+    CopieCD --> Magasin : CD : minCD
+    group loop
+        Magasin -> Comparateur : etreAvant(cd, minCD)
+        Comparateur --> Magasin : boolean
+    end
+    Magasin -> ListeFin : add(minCD)
+    ListeFin --> Magasin
+    Magasin -> CopieCD : remove(minCD)
+    CopieCD --> Magasin
+end
+Magasin --> Main
+@enduml
