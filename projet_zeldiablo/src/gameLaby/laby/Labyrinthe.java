@@ -3,6 +3,7 @@ package gameLaby.laby;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * classe labyrinthe. represente un labyrinthe avec
@@ -35,7 +36,7 @@ public class Labyrinthe {
     /**
      * attribut de monstre
      */
-    public Monstre monstre;
+    public ArrayList<Entite> monstres;
 
     /**
      * les murs du labyrinthe
@@ -102,7 +103,7 @@ public class Labyrinthe {
         // creation labyrinthe vide
         this.murs = new boolean[nbColonnes][nbLignes];
         this.pj = null;
-        this.monstre = null;
+        this.monstres = new ArrayList<>();
 
         // lecture des cases
         String ligne = bfRead.readLine();
@@ -122,6 +123,8 @@ public class Labyrinthe {
                         break;
                     case VIDE:
                         this.murs[colonne][numeroLigne] = false;
+                        Monstre monstre = new Monstre(colonne, numeroLigne);
+                        monstres.add(monstre);
                         break;
                     case PJ:
                         // pas de mur
@@ -129,7 +132,6 @@ public class Labyrinthe {
                         // ajoute PJ
                         this.pj = new Perso(colonne, numeroLigne);
                         break;
-
                     default:
                         throw new Error("caractere inconnu " + c);
                 }
