@@ -2,7 +2,7 @@ package gameLaby.laby;
 
 abstract public class Entite {
 
-	int x,y,PV,ATK,HP;
+	int x,y,atk,hp;
 
 	public Entite(int x, int y) {
 		this.x = x;
@@ -31,10 +31,18 @@ abstract public class Entite {
 	}
 
 	public int getHP() {
-		return HP;
+		return hp;
 	}
 
 	public int getATK() {
-		return ATK;
+		return atk;
+	}
+
+	public boolean estVivant(){
+		return hp > 0;
+	}
+
+	public void setHP(int n){
+		hp -= n;
 	}
 }
