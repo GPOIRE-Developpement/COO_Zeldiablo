@@ -209,6 +209,10 @@ public class Labyrinthe {
         return this.murs[x][y];
     }
 
+    /**
+     * Vérifier si l'entité est sur une case à effet
+     * @param ent
+     */
     public void estSurCase(Entite ent){
         cases[ent.getX()][ent.getY()].activer(ent);
     }
