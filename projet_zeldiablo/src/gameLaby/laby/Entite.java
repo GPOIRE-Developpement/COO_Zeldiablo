@@ -1,6 +1,18 @@
 package gameLaby.laby;
 
+import java.util.ArrayList;
+
 abstract public class Entite {
+
+	/**
+	 * constantes actions possibles
+	 */
+	public static final String HAUT = "Haut";
+	public static final String BAS = "Bas";
+	public static final String GAUCHE = "Gauche";
+	public static final String DROITE = "Droite";
+
+
 
 	int x,y,atk,hp;
 
@@ -45,4 +57,52 @@ abstract public class Entite {
 	public void setHP(int n){
 		hp -= n;
 	}
+
+
+	/**
+	 * retourne la case suivante selon une actions
+	 *
+	 * @param x      case depart
+	 * @param y      case depart
+	 * @param action action effectuee
+	 * @return case suivante
+	 */
+	static int[] getSuivant(int x, int y, String action) {
+		switch (action) {
+			case HAUT:
+				// on monte une ligne
+				y--;
+				break;
+			case BAS:
+				// on descend une ligne
+				y++;
+				break;
+			case DROITE:
+				// on augmente colonne
+				x++;
+				break;
+			case GAUCHE:
+				// on augmente colonne
+				x--;
+				break;
+			default:
+				throw new Error("action inconnue");
+		}
+		int[] res = {x, y};
+		return res;
+	}
+
+
+
+	public int[] deplacer(String action) {
+		// case courante
+		int[] courante = {this.x, this.y};
+
+		// calcule case suivante
+		int[] suivante = getSuivant(courante[0], courante[1], action);
+
+		return suivante;
+	}
+
+
 }

@@ -21,14 +21,6 @@ public class Labyrinthe {
     public static final char MONSTER = 'M';
 
     /**
-     * constantes actions possibles
-     */
-    public static final String HAUT = "Haut";
-    public static final String BAS = "Bas";
-    public static final String GAUCHE = "Gauche";
-    public static final String DROITE = "Droite";
-
-    /**
      * attribut du personnage
      */
     public Perso pj;
@@ -51,38 +43,7 @@ public class Labyrinthe {
 
     public int nbMonstre = 3;
 
-    /**
-     * retourne la case suivante selon une actions
-     *
-     * @param x      case depart
-     * @param y      case depart
-     * @param action action effectuee
-     * @return case suivante
-     */
-    static int[] getSuivant(int x, int y, String action) {
-        switch (action) {
-            case HAUT:
-                // on monte une ligne
-                y--;
-                break;
-            case BAS:
-                // on descend une ligne
-                y++;
-                break;
-            case DROITE:
-                // on augmente colonne
-                x++;
-                break;
-            case GAUCHE:
-                // on augmente colonne
-                x--;
-                break;
-            default:
-                throw new Error("action inconnue");
-        }
-        int[] res = {x, y};
-        return res;
-    }
+
 
     /**
      * charge le labyrinthe
@@ -159,11 +120,9 @@ public class Labyrinthe {
      * @param action une des actions possibles
      */
     public void deplacerPerso(String action) {
-        // case courante
-        int[] courante = {this.pj.x, this.pj.y};
 
         // calcule case suivante
-        int[] suivante = getSuivant(courante[0], courante[1], action);
+        int[] suivante = pj.deplacer(action);
 
         boolean monstrePresent = false;
         for (Entite entite : monstres) {
@@ -179,7 +138,16 @@ public class Labyrinthe {
             this.pj.y = suivante[1];
             estSurCase(pj);
         }
+        for (Entite entite : monstres) {
+            String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
+            for (Entite entite2 : monstres) {
+                entite2.deplacer(direction[(int)Math.floor(Math.random() * direction.length)]);
+            }
+        }
     }
+
+
+
 
 
     /**
