@@ -128,7 +128,7 @@ public class Labyrinthe {
                             monstres.add(monstre);
                         }
                         break;
-                    case PJ:
+	                case PJ:
                         // pas de mur
                         this.murs[colonne][numeroLigne] = false;
                         // ajoute PJ
