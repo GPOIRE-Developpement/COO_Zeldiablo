@@ -38,6 +38,7 @@ public class Labyrinthe {
 
     /**
      * les cases à action du labyrinthe
+     * CaseDeclencheuse[x][y]
      */
     public CaseDeclencheuse[][] cases;
 
