@@ -6,14 +6,9 @@ package gameLaby.laby;
 public class Bouclier extends Objet{
 
     /**
-     * Nom du bouclier
-     */
-    String nom;
-
-    /**
      * Point de résistance du bouclier
      */
-    int def;
+    private int def;
 
     /**
      * constructeur de bouclier
@@ -23,17 +18,15 @@ public class Bouclier extends Objet{
      * @param y position Y
      */
     public Bouclier(String nom, int def, int x, int y) {
-        this.nom = nom;
+        super(nom,x,y);
         this.def = def;
-        this.X = x;
-        this.Y = y;
     }
 
     /**
      * @return le nom du bouclier
      */
     public String getNom(){
-        return this.nom;
+        return super.getNom();
     }
 
     /**

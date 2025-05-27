@@ -96,7 +96,7 @@ public class Labyrinthe {
                         this.murs[colonne][numeroLigne] = false;
                         // ajoute PJ
                         this.pj = new Perso(colonne, numeroLigne);
-                        pj.setHp(10);
+                        pj.setHP(10);
                         pj.setAtk(1);
                         break;
                     case CaseDeclencheuse.PIEGE:
@@ -143,29 +143,28 @@ public class Labyrinthe {
         // si c'est pas un mur, on effectue le deplacement
         if (!this.murs[suivante[0]][suivante[1]] && !monstrePresent) {
             // on met a jour personnage
-            this.pj.x = suivante[0];
-            this.pj.y = suivante[1];
+            this.pj.setX(suivante[0]);
+            this.pj.setY(suivante[1]);
             estSurCase(pj);
-            System.out.println(pj.getHP() + " HP DU PERSO");
         }
         String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
         for (Entite entite : monstres) {
             int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
             monstrePresent = isMonstrePresent(position);
-            if (!this.murs[position[0]][position[1]] && !monstrePresent && (pj.x != position[0] || pj.y != position[1])) {
+            if (!this.murs[position[0]][position[1]] && !monstrePresent && (pj.getX() != position[0] || pj.getY() != position[1])) {
                 // on met a jour le monstre
-                entite.x = position[0];
-                entite.y = position[1];
+                entite.setX(position[0]);
+                entite.setY(position[1]);
                 estSurCase(entite);
             }
 
         }
     }
 
-    private boolean isMonstrePresent(int[] suivante) {
+    private boolean isMonstrePresent(int[] position) {
         boolean monstrePresent = false;
         for (Entite entite : monstres) {
-            if (suivante[0] == entite.x && suivante[1] == entite.y) {
+            if (position[0] == entite.getX() && position[1] == entite.getY()) {
                 monstrePresent = true;
             }
         }
@@ -240,7 +239,7 @@ public class Labyrinthe {
         for (int i = 0; i < nbMonstre; i++) {
             int x = (int) Math.floor(Math.random() * nbColonne);
             int y = (int) Math.floor(Math.random() * nbLigne);
-            while (this.murs[x][y] || pj.x == x && pj.y == y) {
+            while (this.murs[x][y] || pj.getX() == x && pj.getY() == y) {
                 x = (int) Math.floor(Math.random() * nbColonne);
                 y = (int) Math.floor(Math.random() * nbLigne);
             }
@@ -248,4 +247,22 @@ public class Labyrinthe {
             monstres.add(monstre);
         }
     }
+
+//    /**
+//     * Methode permettant de vérifier si il y a quelque chose à la case en position x,y
+//     * @param x position en x
+//     * @param y position en y
+//     * @return boolean, true si c'est vide, false sinon
+//     */
+//    public boolean isEmpty(int x, int y) {
+//        if ((this.pj.getX() == x && this.pj.getY() == y) || getMur(x,y)) {
+//            return false;
+//        }
+//        for (Entite mstr : monstres) {
+//            if (mstr.getX() == x && mstr.getY() == y) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 }

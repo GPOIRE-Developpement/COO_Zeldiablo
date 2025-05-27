@@ -14,7 +14,8 @@ abstract public class Entite {
 
 
 
-	int x,y,atk,hp;
+
+	private int x,y,atk,hp;
 
 	public Entite(int x, int y) {
 		this.x = x;
@@ -41,6 +42,13 @@ abstract public class Entite {
 		return y;
 	}
 
+	public void setX(int x) {
+		this.x = x;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
+
 	public int getHP() {
 		return hp;
 	}
@@ -57,6 +65,9 @@ abstract public class Entite {
 		this.hp = hp + n;
 	}
 
+	public void setAtk(int n){
+		this.atk = atk + n;
+	}
 
 	/**
 	 * retourne la case suivante selon une actions

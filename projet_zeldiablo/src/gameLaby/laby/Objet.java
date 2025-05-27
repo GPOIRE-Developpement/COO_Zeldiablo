@@ -8,8 +8,8 @@ public abstract class Objet {
     /**
      * Position de l'objet
      */
-    int X;
-    int Y;
+    private int X;
+    private int Y;
 
     /**
      * costantes char
@@ -19,10 +19,17 @@ public abstract class Objet {
 
     boolean possede = false;
 
+
     /**
      * nom de l'objet
      */
-    String nom;
+    private String nom;
+
+    public Objet(String nom, int x, int y) {
+        this.nom = nom;
+        this.X = x;
+        this.Y = y;
+    }
 
     /**
      * @param x nouvelle position X
@@ -51,4 +58,9 @@ public abstract class Objet {
     public int getY(){
         return Y;
     }
+
+    public String getNom(){
+        return nom;
+    }
+
 }

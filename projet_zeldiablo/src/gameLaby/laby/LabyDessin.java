@@ -19,6 +19,10 @@ public class LabyDessin implements DessinJeu {
     static final String PATH = "texture/";
     static final String WALL = PATH + "wall/simple_wall.png";
     static final String TOWER = PATH + "wall/tower.png";
+    static final String GROUND = PATH + "ground/simple_grass.png";
+
+    static final String PERSO = PATH + "character/front.png";
+    static final String ORC = PATH + "orc/front.png";
 
 
     public void dessinerJeu(Jeu jeu, Canvas canvas) {
@@ -29,20 +33,21 @@ public class LabyDessin implements DessinJeu {
 
         final GraphicsContext gc = canvas.getGraphicsContext2D();
 
-
-        gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
         gc.setFill(Color.BLACK);
         Labyrinthe laby = labyJeu.getLabyrinthe();
 
         File imgf_wall = new File(WALL);
         Image img_wall = new Image(imgf_wall.toURI().toString());
 
+        File imgf_ground = new File(GROUND);
+        Image img_ground = new Image(imgf_ground.toURI().toString());
+
         for (int x = 0; x < laby.getLength(); x++) {
             for (int y = 0; y < laby.getLengthY(); y++) {
                 if (laby.getMur(x,y)) {
                     gc.drawImage(img_wall, x*size, y*size, size, size);
+                } else {
+                    gc.drawImage(img_ground, x*size, y*size, size, size);
                 }
             }
         }
@@ -85,16 +90,20 @@ public class LabyDessin implements DessinJeu {
         }
 
         //dessin du monstre
+        File imgf_orc = new File(ORC);
+        Image img_orc = new Image(imgf_orc.toURI().toString());
+
         ArrayList<Entite> monstres = labyJeu.getLabyrinthe().getMonstres();
         for (Entite entite : monstres) {
-            gc.setFill(Color.GREEN);
-            gc.fillRect(entite.getX()*size, entite.getY()*size, size, size);
+            gc.drawImage(img_orc, entite.getX()*size, entite.getY()*size, size, size);
         }
 
         //gestion joueur
-        gc.setFill(Color.RED);
-        Perso perso = laby.pj;
-        gc.fillOval(perso.x*echelle, perso.y*echelle, echelle, echelle);
+        File imgf_pj = new File(PERSO);
+        Image img_pj = new Image(imgf_pj.toURI().toString());
+        int posX = labyJeu.getLabyrinthe().pj.getX();
+        int posY = labyJeu.getLabyrinthe().pj.getY();
+        gc.drawImage(img_pj, posX*size, posY*size, size, size);
 
     }
 

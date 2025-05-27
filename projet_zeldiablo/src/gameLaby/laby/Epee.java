@@ -7,14 +7,9 @@ package gameLaby.laby;
 public class Epee extends Objet{
 
     /**
-     * Nom de l'épée
-     */
-    String nom;
-
-    /**
      * Degat de l'épée
      */
-    int dommage;
+    private int dommage;
 
     /**
      * constructeur de Epee
@@ -24,17 +19,15 @@ public class Epee extends Objet{
      * @param y position en Y
      */
     public Epee(String nom, int dommage, int x, int y) {
-        this.nom = nom;
+        super(nom, x, y);
         this.dommage = dommage;
-        this.X = x;
-        this.Y = y;
     }
 
     /**
      * @return le nom de l'épée
      */
     public String getNom(){
-        return this.nom;
+        return super.getNom();
     }
 
     /**
