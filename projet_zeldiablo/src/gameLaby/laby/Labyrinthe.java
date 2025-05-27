@@ -146,6 +146,7 @@ public class Labyrinthe {
             this.pj.x = suivante[0];
             this.pj.y = suivante[1];
             estSurCase(pj);
+            System.out.println(pj.getHP() + " HP DU PERSO");
         }
         String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
         for (Entite entite : monstres) {

@@ -17,11 +17,11 @@ public class Perso extends Entite {
     }
 
     public void setHp(int n){
-        hp = n;
+        this.hp = n;
     }
 
     public void setAtk(int n){
-        atk = n;
+        this.atk = n;
     }
 
 }

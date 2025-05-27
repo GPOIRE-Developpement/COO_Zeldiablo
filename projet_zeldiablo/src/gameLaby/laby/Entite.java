@@ -29,7 +29,6 @@ abstract public class Entite {
 	 * @return true si l'entité est bien en (dx,dy)
 	 */
 	public boolean etrePresent(int dx, int dy) {
-
 		return (this.x == dx && this.y == dy);
 	}
 
@@ -55,7 +54,7 @@ abstract public class Entite {
 	}
 
 	public void setHP(int n){
-		hp += n;
+		this.hp = hp + n;
 	}
 
 
@@ -99,9 +98,7 @@ abstract public class Entite {
 		int[] courante = {this.x, this.y};
 
 		// calcule case suivante
-		int[] suivante = getSuivant(courante[0], courante[1], action);
-
-		return suivante;
+        return getSuivant(courante[0], courante[1], action);
 	}
 
 

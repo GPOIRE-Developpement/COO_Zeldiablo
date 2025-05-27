@@ -4,15 +4,22 @@ import gameArkanoid.Balle;
 import gameArkanoid.Raquette;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import moteurJeu.DessinJeu;
 import moteurJeu.Jeu;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class LabyDessin implements DessinJeu {
 
     static final int size = 50;
+
+    static final String PATH = "texture/";
+    static final String WALL = PATH + "wall/simple_wall.png";
+    static final String TOWER = PATH + "wall/tower.png";
+
 
     public void dessinerJeu(Jeu jeu, Canvas canvas) {
 
@@ -29,10 +36,13 @@ public class LabyDessin implements DessinJeu {
         gc.setFill(Color.BLACK);
         Labyrinthe laby = labyJeu.getLabyrinthe();
 
+        File imgf_wall = new File(WALL);
+        Image img_wall = new Image(imgf_wall.toURI().toString());
+
         for (int x = 0; x < laby.getLength(); x++) {
             for (int y = 0; y < laby.getLengthY(); y++) {
                 if (laby.getMur(x,y)) {
-                    gc.fillRect(x*echelle, y*echelle, echelle, echelle);
+                    gc.drawImage(img_wall, x*size, y*size, size, size);
                 }
             }
         }
@@ -63,13 +73,6 @@ public class LabyDessin implements DessinJeu {
             x = x + caseSize+marge;
         }
 
-        //dessin du monstre
-        ArrayList<Entite> monstres = labyJeu.getLabyrinthe().getMonstres();
-        for (Entite entite : monstres) {
-            gc.setFill(Color.GREEN);
-            gc.fillRect(entite.getX()*size, entite.getY()*size, size, size);
-        }
-
         //on parcours les cases
         CaseDeclencheuse[][] cases = labyJeu.getLabyrinthe().getCase();
         for (int colonne=0; colonne<cases.length; colonne++) {
@@ -79,6 +82,13 @@ public class LabyDessin implements DessinJeu {
                     gc.fillRect(colonne*size+3, ligne*size+3, size-6, size-6);
                 }
             }
+        }
+
+        //dessin du monstre
+        ArrayList<Entite> monstres = labyJeu.getLabyrinthe().getMonstres();
+        for (Entite entite : monstres) {
+            gc.setFill(Color.GREEN);
+            gc.fillRect(entite.getX()*size, entite.getY()*size, size, size);
         }
 
         //gestion joueur
