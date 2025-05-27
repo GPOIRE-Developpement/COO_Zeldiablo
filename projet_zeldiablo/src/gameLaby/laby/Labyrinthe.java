@@ -125,10 +125,6 @@ public class Labyrinthe {
                         break;
                     case VIDE:
                         this.murs[colonne][numeroLigne] = false;
-                        if (monstres.isEmpty()) {
-                            Monstre monstre = new Monstre(colonne, numeroLigne);
-                            monstres.add(monstre);
-                        }
                         break;
 	                case PJ:
                         // pas de mur
