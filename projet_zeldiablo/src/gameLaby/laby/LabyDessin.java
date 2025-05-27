@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 import moteurJeu.DessinJeu;
 import moteurJeu.Jeu;
 
+import java.util.ArrayList;
+
 public class LabyDessin implements DessinJeu {
 
     static final int size = 50;
@@ -35,10 +37,6 @@ public class LabyDessin implements DessinJeu {
             }
         }
 
-        gc.setFill(Color.RED);
-        Perso perso = laby.pj;
-        gc.fillOval(perso.x*echelle, perso.y*echelle, echelle, echelle);
-
         //gestion de l'inventaire
         gc.setFill(Color.BLUE);
         gc.fillRect(0,labyJeu.getLabyrinthe().getLengthY()*LabyDessin.size,labyJeu.getLabyrinthe().getLength()*LabyDessin.size, LabyJeu.INTERFACE_HEIGHT);
@@ -54,7 +52,7 @@ public class LabyDessin implements DessinJeu {
         int marge = 2;
         int caseSize = 60;
         gc.setFill(Color.RED);
-        gc.fillRect(x1+border, y1+border,6*marge+5*caseSize,2*border+caseSize);
+        gc.fillRect(x1+border, y1+border,6*marge+5*caseSize,border+caseSize);
 
         gc.setFill(Color.BLACK);
         //creation des carrés
@@ -64,6 +62,30 @@ public class LabyDessin implements DessinJeu {
             gc.fillRect(x, y, caseSize,caseSize);
             x = x + caseSize+marge;
         }
+
+        //dessin du monstre
+        ArrayList<Entite> monstres = labyJeu.getLabyrinthe().getMonstres();
+        for (Entite entite : monstres) {
+            gc.setFill(Color.GREEN);
+            gc.fillRect(entite.getX()*size, entite.getY()*size, size, size);
+        }
+
+        //on parcours les cases
+        CaseDeclencheuse[][] cases = labyJeu.getLabyrinthe().getCase();
+        for (int colonne=0; colonne<cases.length; colonne++) {
+            for (int ligne=0; ligne<cases[colonne].length; ligne++) {
+                if (cases[colonne][ligne] != null) {
+                    gc.setFill(Color.ORANGE);
+                    gc.fillRect(colonne*size+3, ligne*size+3, size-6, size-6);
+                }
+            }
+        }
+
+        //gestion joueur
+        gc.setFill(Color.RED);
+        Perso perso = laby.pj;
+        gc.fillOval(perso.x*echelle, perso.y*echelle, echelle, echelle);
+
     }
 
 }

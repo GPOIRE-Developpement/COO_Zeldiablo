@@ -104,7 +104,7 @@ public class Labyrinthe {
         this.murs = new boolean[nbColonnes][nbLignes];
         this.pj = null;
         this.monstres = new ArrayList<>();
-
+        this.cases = new CaseDeclencheuse[nbColonnes][nbLignes];
         // lecture des cases
         String ligne = bfRead.readLine();
 
@@ -123,14 +123,20 @@ public class Labyrinthe {
                         break;
                     case VIDE:
                         this.murs[colonne][numeroLigne] = false;
-                        Monstre monstre = new Monstre(colonne, numeroLigne);
-                        monstres.add(monstre);
+                        if (monstres.isEmpty()) {
+                            Monstre monstre = new Monstre(colonne, numeroLigne);
+                            monstres.add(monstre);
+                        }
                         break;
                     case PJ:
                         // pas de mur
                         this.murs[colonne][numeroLigne] = false;
                         // ajoute PJ
                         this.pj = new Perso(colonne, numeroLigne);
+                        break;
+                    case CaseDeclencheuse.PIEGE :
+                        CasePiege piege = new CasePiege();
+                        cases [colonne][numeroLigne] = piege;
                         break;
                     default:
                         throw new Error("caractere inconnu " + c);
@@ -160,11 +166,19 @@ public class Labyrinthe {
         // calcule case suivante
         int[] suivante = getSuivant(courante[0], courante[1], action);
 
+        boolean monstrePresent = false;
+        for (Entite entite : monstres) {
+            if (suivante[0] == entite.x && suivante[1] == entite.y) {
+                monstrePresent = true;
+            }
+        }
+
         // si c'est pas un mur, on effectue le deplacement
-        if (!this.murs[suivante[0]][suivante[1]]) {
+        if (!this.murs[suivante[0]][suivante[1]] && !monstrePresent) {
             // on met a jour personnage
             this.pj.x = suivante[0];
             this.pj.y = suivante[1];
+            estSurCase(pj);
         }
     }
 
@@ -216,6 +230,17 @@ public class Labyrinthe {
      * @param ent
      */
     public void estSurCase(Entite ent){
-        cases[ent.getX()][ent.getY()].activer(ent);
+        CaseDeclencheuse caseDeclencheuse = cases[ent.getX()][ent.getY()];
+        if (caseDeclencheuse != null) {
+            caseDeclencheuse.activer(ent);
+        }
+    }
+
+    public ArrayList<Entite> getMonstres() {
+        return monstres;
+    }
+
+    public CaseDeclencheuse[][] getCase() {
+        return cases;
     }
 }
