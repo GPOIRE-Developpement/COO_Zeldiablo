@@ -97,6 +97,8 @@ public class Labyrinthe {
                         this.murs[colonne][numeroLigne] = false;
                         // ajoute PJ
                         this.pj = new Perso(colonne, numeroLigne);
+                        pj.setHp(10);
+                        pj.setAtk(1);
                         break;
                     case CaseDeclencheuse.PIEGE :
                         CasePiege piege = new CasePiege();

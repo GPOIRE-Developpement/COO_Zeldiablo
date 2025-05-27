@@ -16,4 +16,12 @@ public class Perso extends Entite {
         super(dx, dy);
     }
 
+    public void setHp(int n){
+        hp = n;
+    }
+
+    public void setAtk(int n){
+        atk = n;
+    }
+
 }

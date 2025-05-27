@@ -55,7 +55,7 @@ abstract public class Entite {
 	}
 
 	public void setHP(int n){
-		hp -= n;
+		hp += n;
 	}
 
 

@@ -20,19 +20,19 @@ public class LabyJeu implements Jeu{
 
     public void update(double seconde, Clavier clavier) {
         if (clavier.gauche) {
-            labyrinthe.deplacerPerso(Labyrinthe.GAUCHE);
+            labyrinthe.deplacerPerso(Entite.GAUCHE);
         }
 
         if (clavier.droite) {
-            labyrinthe.deplacerPerso(Labyrinthe.DROITE);
+            labyrinthe.deplacerPerso(Entite.DROITE);
         }
 
         if (clavier.haut) {
-            labyrinthe.deplacerPerso(Labyrinthe.HAUT);
+            labyrinthe.deplacerPerso(Entite.HAUT);
         }
 
         if (clavier.bas) {
-            labyrinthe.deplacerPerso(Labyrinthe.BAS);
+            labyrinthe.deplacerPerso(Entite.BAS);
         }
 
     }
