@@ -12,8 +12,7 @@ abstract public class Entite {
 	public static final String GAUCHE = "Gauche";
 	public static final String DROITE = "Droite";
 
-
-
+	private String position = "Bas";
 
 	private int x,y,atk,hp;
 
@@ -69,6 +68,10 @@ abstract public class Entite {
 		this.atk = atk + n;
 	}
 
+	public String getPosition() {
+		return position;
+	}
+
 	/**
 	 * retourne la case suivante selon une actions
 	 *
@@ -107,6 +110,8 @@ abstract public class Entite {
 	public int[] deplacer(String action) {
 		// case courante
 		int[] courante = {this.x, this.y};
+
+		this.position = action;
 
 		// calcule case suivante
         return getSuivant(courante[0], courante[1], action);

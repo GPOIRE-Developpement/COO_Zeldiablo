@@ -23,30 +23,30 @@ public class Labyrinthe {
     /**
      * attribut du personnage
      */
-    public Perso pj;
+    private Perso pj;
 
     /**
      * attribut de monstre
      */
-    public ArrayList<Entite> monstres;
+    private ArrayList<Entite> monstres;
 
     /**
      * les murs du labyrinthe
      */
-    public boolean[][] murs;
+    private boolean[][] murs;
 
     /**
      * Les objets du labyrinthe
      */
-    public ArrayList<Objet> objets;
+    private ArrayList<Objet> objets;
 
     /**
      * les cases à action du labyrinthe
      * CaseDeclencheuse[x][y]
      */
-    public CaseDeclencheuse[][] cases;
+    private CaseDeclencheuse[][] cases;
 
-    public int nbMonstre = 3;
+    private int nbMonstre = 3;
 
 
     /**
@@ -72,6 +72,8 @@ public class Labyrinthe {
         this.pj = null;
         this.monstres = new ArrayList<>();
         this.cases = new CaseDeclencheuse[nbColonnes][nbLignes];
+        this.objets = new ArrayList<>();
+
         // lecture des cases
         String ligne = bfRead.readLine();
 
@@ -104,11 +106,11 @@ public class Labyrinthe {
                         cases[colonne][numeroLigne] = piege;
                         break;
                     case Objet.EPEE:
-                        Epee epee = new Epee("Epee en bois", 3, colonne, numeroLigne);
+                        Epee epee = new Epee("sword", 3, colonne, numeroLigne);
                         objets.add(epee);
                         break;
                     case Objet.BOUCLIER:
-                        Bouclier bouclier = new Bouclier("Bouclier en bois", 3, colonne, numeroLigne);
+                        Bouclier bouclier = new Bouclier("shield", 3, colonne, numeroLigne);
                         objets.add(bouclier);
                         break;
                     default:
@@ -213,6 +215,14 @@ public class Labyrinthe {
     public boolean getMur(int x, int y) {
         // utilise le tableau de boolean
         return this.murs[x][y];
+    }
+
+    public Perso getPj() {
+        return pj;
+    }
+
+    public ArrayList<Objet> getObjets() {
+        return objets;
     }
 
     /**

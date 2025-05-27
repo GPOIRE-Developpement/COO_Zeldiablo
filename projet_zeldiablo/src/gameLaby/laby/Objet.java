@@ -17,7 +17,7 @@ public abstract class Objet {
     public static final char EPEE = 'E';
     public static final char BOUCLIER = 'B';
 
-    boolean possede = false;
+    private boolean possede = false;
 
 
     /**

@@ -21,8 +21,10 @@ public class LabyDessin implements DessinJeu {
     static final String TOWER = PATH + "wall/tower.png";
     static final String GROUND = PATH + "ground/simple_grass.png";
 
-    static final String PERSO = PATH + "character/front.png";
-    static final String ORC = PATH + "orc/front.png";
+    static final String PERSO = PATH + "character/";
+    static final String MONSTER = PATH + "monster/";
+
+    static final String ITEM = PATH + "item/";
 
 
     public void dessinerJeu(Jeu jeu, Canvas canvas) {
@@ -89,20 +91,35 @@ public class LabyDessin implements DessinJeu {
             }
         }
 
+        //gestion de l'affichege des objets
+        ArrayList<Objet> objets = labyJeu.getLabyrinthe().getObjets();
+        for (Objet objet : objets) {
+            String path = ITEM + objet.getNom() + ".png";
+            //creation du fichier à partir du path
+            File imgf_item = new File(path);
+            Image img_item = new Image(imgf_item.toURI().toString());
+            gc.drawImage(img_item, objet.getX()*size, objet.getY()*size, size, size);
+        }
+
         //dessin du monstre
-        File imgf_orc = new File(ORC);
-        Image img_orc = new Image(imgf_orc.toURI().toString());
+
 
         ArrayList<Entite> monstres = labyJeu.getLabyrinthe().getMonstres();
         for (Entite entite : monstres) {
-            gc.drawImage(img_orc, entite.getX()*size, entite.getY()*size, size, size);
+            String path_monster = MONSTER + entite.getPosition() + ".png";
+            File imgf_monster = new File(path_monster);
+            Image img_monster = new Image(imgf_monster.toURI().toString());
+            gc.drawImage(img_monster, entite.getX()*size, entite.getY()*size, size, size);
         }
 
         //gestion joueur
-        File imgf_pj = new File(PERSO);
+        Perso pj = labyJeu.getLabyrinthe().getPj();
+
+        String path = PERSO + pj.getPosition() + ".png";
+        File imgf_pj = new File(path);
         Image img_pj = new Image(imgf_pj.toURI().toString());
-        int posX = labyJeu.getLabyrinthe().pj.getX();
-        int posY = labyJeu.getLabyrinthe().pj.getY();
+        int posX = pj.getX();
+        int posY = pj.getY();
         gc.drawImage(img_pj, posX*size, posY*size, size, size);
 
     }
