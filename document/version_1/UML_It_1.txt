@@ -1,0 +1,63 @@
+@startuml
+abstract class Entite {
+- X : int 
+- Y : int
+- PV : int
+- Atk : int
++ seDeplacer(posX : int, posY : int)
+}
+
+class Monstre {
+
+}
+
+interface CaseDeclencheuse {
++ activer(Entite : ent)
+}
+
+class CasePiege {
++ activer(Entite : ent)
+}
+
+class Sortie {
++activer(Entite : ent)
+}
+
+abstract class Objet {
+- X : int
+- Y : int
+- nom : String
++ setX()
++ setY() 
++ getX() : int
++ getY() : int
+}
+
+class Epee {
+- nom : String
+- Dommage : int
++ getNom()
++ getDegat()
++ Epee(nom : String, degat : int)
+
+}
+
+class Bouclier {
+- nom : String
+- def : int
++ getNom()
++ getDef()
++ Bouclier(nom : String, degat : int)
+
+}
+
+Objet <|-- Epee
+Objet <|-- Bouclier
+CaseDeclencheuse <|-- CasePiege
+CaseDeclencheuse <|-- Sortie
+Entite <|-- Monstre
+
+
+
+
+@enduml
