@@ -49,7 +49,6 @@ public class Labyrinthe {
     public int nbMonstre = 3;
 
 
-
     /**
      * charge le labyrinthe
      *
@@ -92,7 +91,7 @@ public class Labyrinthe {
                     case VIDE:
                         this.murs[colonne][numeroLigne] = false;
                         break;
-	                case PJ:
+                    case PJ:
                         // pas de mur
                         this.murs[colonne][numeroLigne] = false;
                         // ajoute PJ
@@ -100,9 +99,9 @@ public class Labyrinthe {
                         pj.setHp(10);
                         pj.setAtk(1);
                         break;
-                    case CaseDeclencheuse.PIEGE :
+                    case CaseDeclencheuse.PIEGE:
                         CasePiege piege = new CasePiege();
-                        cases [colonne][numeroLigne] = piege;
+                        cases[colonne][numeroLigne] = piege;
                         break;
                     case Objet.EPEE:
                         Epee epee = new Epee("Epee en bois", 3, colonne, numeroLigne);
@@ -139,12 +138,7 @@ public class Labyrinthe {
         // calcule case suivante
         int[] suivante = pj.deplacer(action);
 
-        boolean monstrePresent = false;
-        for (Entite entite : monstres) {
-            if (suivante[0] == entite.x && suivante[1] == entite.y) {
-                monstrePresent = true;
-            }
-        }
+        boolean monstrePresent = isMonstrePresent(suivante);
 
         // si c'est pas un mur, on effectue le deplacement
         if (!this.murs[suivante[0]][suivante[1]] && !monstrePresent) {
@@ -153,16 +147,29 @@ public class Labyrinthe {
             this.pj.y = suivante[1];
             estSurCase(pj);
         }
+        String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
         for (Entite entite : monstres) {
-            String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
-            for (Entite entite2 : monstres) {
-                entite2.deplacer(direction[(int)Math.floor(Math.random() * direction.length)]);
+            int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
+            monstrePresent = isMonstrePresent(position);
+            if (!this.murs[position[0]][position[1]] && !monstrePresent && (pj.x != position[0] || pj.y != position[1])) {
+                // on met a jour le monstre
+                entite.x = position[0];
+                entite.y = position[1];
+                estSurCase(entite);
             }
+
         }
     }
 
-
-
+    private boolean isMonstrePresent(int[] suivante) {
+        boolean monstrePresent = false;
+        for (Entite entite : monstres) {
+            if (suivante[0] == entite.x && suivante[1] == entite.y) {
+                monstrePresent = true;
+            }
+        }
+        return monstrePresent;
+    }
 
 
     /**
@@ -198,6 +205,7 @@ public class Labyrinthe {
 
     /**
      * return mur en (i,j)
+     *
      * @param x
      * @param y
      * @return
@@ -209,9 +217,10 @@ public class Labyrinthe {
 
     /**
      * Vérifier si l'entité est sur une case à effet
+     *
      * @param ent
      */
-    public void estSurCase(Entite ent){
+    public void estSurCase(Entite ent) {
         CaseDeclencheuse caseDeclencheuse = cases[ent.getX()][ent.getY()];
         if (caseDeclencheuse != null) {
             caseDeclencheuse.activer(ent);
@@ -228,11 +237,11 @@ public class Labyrinthe {
 
     public void generationMonstre(int nbColonne, int nbLigne) {
         for (int i = 0; i < nbMonstre; i++) {
-            int x = (int) Math.floor(Math.random()*nbColonne);
-            int y = (int) Math.floor(Math.random()*nbLigne);
+            int x = (int) Math.floor(Math.random() * nbColonne);
+            int y = (int) Math.floor(Math.random() * nbLigne);
             while (this.murs[x][y] || pj.x == x && pj.y == y) {
-                x = (int) Math.floor(Math.random()*nbColonne);
-                y = (int) Math.floor(Math.random()*nbLigne);
+                x = (int) Math.floor(Math.random() * nbColonne);
+                y = (int) Math.floor(Math.random() * nbLigne);
             }
             Monstre monstre = new Monstre(x, y);
             monstres.add(monstre);
