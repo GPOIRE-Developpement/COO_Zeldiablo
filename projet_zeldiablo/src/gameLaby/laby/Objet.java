@@ -12,6 +12,14 @@ public abstract class Objet {
     int Y;
 
     /**
+     * costantes char
+     */
+    public static final char EPEE = 'E';
+    public static final char BOUCLIER = 'B';
+
+    boolean possede = false;
+
+    /**
      * nom de l'objet
      */
     String nom;
