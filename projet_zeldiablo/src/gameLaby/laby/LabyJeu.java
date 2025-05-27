@@ -10,6 +10,8 @@ public class LabyJeu implements Jeu{
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
 
+    public static final int INTERFACE_HEIGHT = 90;
+
     public final Labyrinthe labyrinthe;
 
     public LabyJeu() throws IOException {

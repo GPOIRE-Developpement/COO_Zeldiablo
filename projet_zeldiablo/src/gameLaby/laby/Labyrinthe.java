@@ -37,6 +37,12 @@ public class Labyrinthe {
     public boolean[][] murs;
 
     /**
+     * les cases à action du labyrinthe
+     * CaseDeclencheuse[x][y]
+     */
+    public CaseDeclencheuse[][] cases;
+
+    /**
      * retourne la case suivante selon une actions
      *
      * @param x      case depart
@@ -194,5 +200,9 @@ public class Labyrinthe {
     public boolean getMur(int x, int y) {
         // utilise le tableau de boolean
         return this.murs[x][y];
+    }
+
+    public void estSurCase(Entite ent){
+        cases[ent.getX()][ent.getY()].activer(ent);
     }
 }
