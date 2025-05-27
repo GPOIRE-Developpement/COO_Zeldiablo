@@ -17,6 +17,7 @@ public class Labyrinthe {
     public static final char MUR = 'X';
     public static final char PJ = 'P';
     public static final char VIDE = '.';
+    public static final char MONSTER = 'M';
 
     /**
      * constantes actions possibles
@@ -30,6 +31,11 @@ public class Labyrinthe {
      * attribut du personnage
      */
     public Perso pj;
+
+    /**
+     * attribut de monstre
+     */
+    public Monstre monstre;
 
     /**
      * les murs du labyrinthe
@@ -96,6 +102,7 @@ public class Labyrinthe {
         // creation labyrinthe vide
         this.murs = new boolean[nbColonnes][nbLignes];
         this.pj = null;
+        this.monstre = null;
 
         // lecture des cases
         String ligne = bfRead.readLine();
@@ -202,6 +209,10 @@ public class Labyrinthe {
         return this.murs[x][y];
     }
 
+    /**
+     * Vérifier si l'entité est sur une case à effet
+     * @param ent
+     */
     public void estSurCase(Entite ent){
         cases[ent.getX()][ent.getY()].activer(ent);
     }
