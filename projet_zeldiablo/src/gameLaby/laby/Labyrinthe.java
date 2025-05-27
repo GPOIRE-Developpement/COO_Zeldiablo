@@ -3,6 +3,7 @@ package gameLaby.laby;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * classe labyrinthe. represente un labyrinthe avec
@@ -35,7 +36,7 @@ public class Labyrinthe {
     /**
      * attribut de monstre
      */
-    public Monstre monstre;
+    public ArrayList<Entite> monstres;
 
     /**
      * les murs du labyrinthe
@@ -47,6 +48,8 @@ public class Labyrinthe {
      * CaseDeclencheuse[x][y]
      */
     public CaseDeclencheuse[][] cases;
+
+    public int nbMonstre = 3;
 
     /**
      * retourne la case suivante selon une actions
@@ -102,8 +105,8 @@ public class Labyrinthe {
         // creation labyrinthe vide
         this.murs = new boolean[nbColonnes][nbLignes];
         this.pj = null;
-        this.monstre = null;
-
+        this.monstres = new ArrayList<>();
+        this.cases = new CaseDeclencheuse[nbColonnes][nbLignes];
         // lecture des cases
         String ligne = bfRead.readLine();
 
@@ -123,13 +126,16 @@ public class Labyrinthe {
                     case VIDE:
                         this.murs[colonne][numeroLigne] = false;
                         break;
-                    case PJ:
+	                case PJ:
                         // pas de mur
                         this.murs[colonne][numeroLigne] = false;
                         // ajoute PJ
                         this.pj = new Perso(colonne, numeroLigne);
                         break;
-
+                    case CaseDeclencheuse.PIEGE :
+                        CasePiege piege = new CasePiege();
+                        cases [colonne][numeroLigne] = piege;
+                        break;
                     default:
                         throw new Error("caractere inconnu " + c);
                 }
@@ -142,6 +148,7 @@ public class Labyrinthe {
 
         // ferme fichier
         bfRead.close();
+        generationMonstre(nbColonnes, nbLignes);
     }
 
 
@@ -158,11 +165,19 @@ public class Labyrinthe {
         // calcule case suivante
         int[] suivante = getSuivant(courante[0], courante[1], action);
 
+        boolean monstrePresent = false;
+        for (Entite entite : monstres) {
+            if (suivante[0] == entite.x && suivante[1] == entite.y) {
+                monstrePresent = true;
+            }
+        }
+
         // si c'est pas un mur, on effectue le deplacement
-        if (!this.murs[suivante[0]][suivante[1]]) {
+        if (!this.murs[suivante[0]][suivante[1]] && !monstrePresent) {
             // on met a jour personnage
             this.pj.x = suivante[0];
             this.pj.y = suivante[1];
+            estSurCase(pj);
         }
     }
 
@@ -214,6 +229,30 @@ public class Labyrinthe {
      * @param ent
      */
     public void estSurCase(Entite ent){
-        cases[ent.getX()][ent.getY()].activer(ent);
+        CaseDeclencheuse caseDeclencheuse = cases[ent.getX()][ent.getY()];
+        if (caseDeclencheuse != null) {
+            caseDeclencheuse.activer(ent);
+        }
+    }
+
+    public ArrayList<Entite> getMonstres() {
+        return monstres;
+    }
+
+    public CaseDeclencheuse[][] getCase() {
+        return cases;
+    }
+
+    public void generationMonstre(int nbColonne, int nbLigne) {
+        for (int i = 0; i < nbMonstre; i++) {
+            int x = (int) Math.floor(Math.random()*nbColonne);
+            int y = (int) Math.floor(Math.random()*nbLigne);
+            while (this.murs[x][y] || pj.x == x && pj.y == y) {
+                x = (int) Math.floor(Math.random()*nbColonne);
+                y = (int) Math.floor(Math.random()*nbLigne);
+            }
+            Monstre monstre = new Monstre(x, y);
+            monstres.add(monstre);
+        }
     }
 }

@@ -2,7 +2,7 @@ package gameLaby.laby;
 
 abstract public class Entite {
 
-	int x,y;
+	int x,y,PV,ATK,HP;
 
 	public Entite(int x, int y) {
 		this.x = x;
@@ -28,5 +28,13 @@ abstract public class Entite {
 
 	public int getY() {
 		return y;
+	}
+
+	public int getHP() {
+		return HP;
+	}
+
+	public int getATK() {
+		return ATK;
 	}
 }
