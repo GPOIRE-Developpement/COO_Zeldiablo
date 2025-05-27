@@ -44,6 +44,11 @@ public class Labyrinthe {
     public boolean[][] murs;
 
     /**
+     * Les objets du labyrinthe
+     */
+    public ArrayList<Objet> objets;
+
+    /**
      * les cases à action du labyrinthe
      * CaseDeclencheuse[x][y]
      */
@@ -135,6 +140,14 @@ public class Labyrinthe {
                     case CaseDeclencheuse.PIEGE :
                         CasePiege piege = new CasePiege();
                         cases [colonne][numeroLigne] = piege;
+                        break;
+                    case Objet.EPEE:
+                        Epee epee = new Epee("Epee en bois", 3, colonne, numeroLigne);
+                        objets.add(epee);
+                        break;
+                    case Objet.BOUCLIER:
+                        Bouclier bouclier = new Bouclier("Bouclier en bois", 3, colonne, numeroLigne);
+                        objets.add(bouclier);
                         break;
                     default:
                         throw new Error("caractere inconnu " + c);
