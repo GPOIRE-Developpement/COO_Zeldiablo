@@ -49,6 +49,8 @@ public class Labyrinthe {
      */
     public CaseDeclencheuse[][] cases;
 
+    public int nbMonstre = 3;
+
     /**
      * retourne la case suivante selon une actions
      *
@@ -150,6 +152,7 @@ public class Labyrinthe {
 
         // ferme fichier
         bfRead.close();
+        generationMonstre(nbColonnes, nbLignes);
     }
 
 
@@ -242,5 +245,18 @@ public class Labyrinthe {
 
     public CaseDeclencheuse[][] getCase() {
         return cases;
+    }
+
+    public void generationMonstre(int nbColonne, int nbLigne) {
+        for (int i = 0; i < nbMonstre; i++) {
+            int x = (int) Math.floor(Math.random()*nbColonne);
+            int y = (int) Math.floor(Math.random()*nbLigne);
+            while (this.murs[x][y] || pj.x == x && pj.y == y) {
+                x = (int) Math.floor(Math.random()*nbColonne);
+                y = (int) Math.floor(Math.random()*nbLigne);
+            }
+            Monstre monstre = new Monstre(x, y);
+            monstres.add(monstre);
+        }
     }
 }
