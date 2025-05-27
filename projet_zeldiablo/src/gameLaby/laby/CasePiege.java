@@ -10,6 +10,9 @@ public class CasePiege implements CaseDeclencheuse{
      * @param ent
      */
     public void activer(Entite ent){
+        System.out.println("Avant le piège : "+ent.getHP()+"HP");
+        ent.setHP(ent.getHP()-1);
+        System.out.println("Après le piège : "+ent.getHP()+"HP");
         System.out.println("Vous êtes sur une case piégée !");
     }
 }
