@@ -106,7 +106,7 @@ public class LabyDessin implements DessinJeu {
         ArrayList<Porte> portes = labyJeu.getLabyrinthe().getPortes();
         for (Porte porte : portes) {
             if (porte.getVerti()) {
-                System.out.println("blabal");
+                System.out.println("blabla");
             } else {
                 String etat = porte.getOuverte() ? "open" : "closed";
                 String path = DOOR+"front_door_" + etat + ".png";

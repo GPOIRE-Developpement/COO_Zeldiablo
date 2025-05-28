@@ -162,10 +162,10 @@ public class Labyrinthe {
         // calcule case suivante
         int[] suivante = pj.deplacer(action);
 
-        boolean monstrePresent = isMonstrePresent(suivante);
+        boolean deplacementPossible = isEmpty(suivante[0],suivante[1]);
 
         // si c'est pas un mur, on effectue le deplacement
-        if (!this.murs[suivante[0]][suivante[1]] && !monstrePresent) {
+        if (deplacementPossible) {
             // on met a jour personnage
             this.pj.setX(suivante[0]);
             this.pj.setY(suivante[1]);
@@ -176,12 +176,12 @@ public class Labyrinthe {
     boolean deplacement = true;
     public void deplacerMonstre() {
         if (deplacement) {
-            boolean monstrePresent;
+            boolean deplacementPossible;
             String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
             for (Entite entite : monstres) {
                 int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
-                monstrePresent = isMonstrePresent(position);
-                if (!this.murs[position[0]][position[1]] && !monstrePresent && (pj.getX() != position[0] || pj.getY() != position[1])) {
+                deplacementPossible = isEmpty(position[0],position[1]);
+                if (deplacementPossible) {
                     // on met a jour le monstre
                     entite.setX(position[0]);
                     entite.setY(position[1]);
@@ -194,15 +194,15 @@ public class Labyrinthe {
         }
     }
 
-    private boolean isMonstrePresent(int[] position) {
-        boolean monstrePresent = false;
-        for (Entite entite : monstres) {
-            if (position[0] == entite.getX() && position[1] == entite.getY()) {
-                monstrePresent = true;
-            }
-        }
-        return monstrePresent;
-    }
+//    private boolean isMonstrePresent(int[] position) {
+//        boolean monstrePresent = false;
+//        for (Entite entite : monstres) {
+//            if (position[0] == entite.getX() && position[1] == entite.getY()) {
+//                monstrePresent = true;
+//            }
+//        }
+//        return monstrePresent;
+//    }
 
 
     /**
@@ -310,21 +310,26 @@ public class Labyrinthe {
         return portes;
     }
 
-//    /**
-//     * Methode permettant de vérifier si il y a quelque chose à la case en position x,y
-//     * @param x position en x
-//     * @param y position en y
-//     * @return boolean, true si c'est vide, false sinon
-//     */
-//    public boolean isEmpty(int x, int y) {
-//        if ((this.pj.getX() == x && this.pj.getY() == y) || getMur(x,y)) {
-//            return false;
-//        }
-//        for (Entite mstr : monstres) {
-//            if (mstr.getX() == x && mstr.getY() == y) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
+    /**
+     * Methode permettant de vérifier si il y a quelque chose à la case en position x,y
+     * @param x position en x
+     * @param y position en y
+     * @return boolean, true si c'est vide, false sinon
+     */
+    public boolean isEmpty(int x, int y) {
+        if ((this.pj.getX() == x && this.pj.getY() == y) || getMur(x,y)) {
+            return false;
+        }
+        for (Entite mstr : monstres) {
+            if (mstr.getX() == x && mstr.getY() == y) {
+                return false;
+            }
+        }
+        for (Porte porte : portes) {
+            if ((porte.getX() == x && porte.getY() == y) && !porte.getOuverte()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

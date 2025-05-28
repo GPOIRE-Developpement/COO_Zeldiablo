@@ -9,12 +9,18 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 // copied from: https://gist.github.com/james-d/8327842
 // and modified to use canvas drawing instead of shapes
@@ -107,7 +113,50 @@ public class MoteurJeu extends Application {
 
         // creation de la scene
         final Scene scene = new Scene(root, WIDTH, HEIGHT);
-        primaryStage.setScene(scene);
+
+        //écran d'accueil
+        Image backgroundImage = new Image("file:texture/landscape/tilable_landscape.png");
+        ImageView bg1 = new ImageView(backgroundImage);
+        ImageView bg2 = new ImageView(backgroundImage);
+        bg1.setPreserveRatio(true);
+        bg2.setPreserveRatio(true);
+        bg1.setFitHeight(HEIGHT);
+        bg2.setFitHeight(HEIGHT);
+
+        Button play = new Button("Commencer");
+        play.setLayoutX(WIDTH/2);
+        play.setLayoutY(HEIGHT/2);
+        play.setOnAction(e -> {
+            primaryStage.setScene(scene);
+            startAnimation(canvas);
+        });
+
+        // Positionner bg2 juste à droite de bg1
+        bg2.setX(bg1.getImage().getWidth());
+
+        Pane root2 = new Pane(bg1, bg2, play);
+        Scene scene2 = new Scene(root2, WIDTH, HEIGHT);
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                // Faire défiler les deux images vers la gauche
+                bg1.setX(bg1.getX() - 1);
+                bg2.setX(bg2.getX() - 1);
+
+                // Si une image est complètement hors de l'écran à gauche, la replacer à droite de l'autre
+                if (bg1.getX() + bg1.getImage().getWidth() <= 0) {
+                    bg1.setX(bg2.getX() + bg2.getImage().getWidth());
+                }
+                if (bg2.getX() + bg2.getImage().getWidth() <= 0) {
+                    bg2.setX(bg1.getX() + bg1.getImage().getWidth());
+                }
+            }
+        };
+        timer.start();
+
+
+        primaryStage.setScene(scene2);
         primaryStage.show();
 
 
@@ -138,8 +187,21 @@ public class MoteurJeu extends Application {
                     }
                 });
 
-        // lance la boucle de jeu
-        startAnimation(canvas);
+//        StackPane startScreen = new StackPane();
+//        Button play = new Button("Commencer");
+
+//        File imgf_landscape = new File("texture/landscape/tilable_landscape.png");
+//        Image img_landscape = new Image(imgf_landscape.toURI().toString());
+
+//        startScreen.getChildren().add(play);
+
+//        root.setCenter(startScreen);
+
+//        play.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+//            // lance la boucle de jeu
+//            root.setCenter(canvasContainer);
+//            startAnimation(canvas);
+//        });
     }
 
     /**
