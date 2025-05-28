@@ -17,4 +17,8 @@ public class CasePiege implements CaseDeclencheuse{
         }
         System.out.println("Après le piège : "+ent.getHP()+" HP");
     }
+
+    public String getType() {
+        return "piege";
+    }
 }

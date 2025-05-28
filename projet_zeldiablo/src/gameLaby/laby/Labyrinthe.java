@@ -19,6 +19,7 @@ public class Labyrinthe {
     public static final char PJ = 'P';
     public static final char VIDE = '.';
     public static final char MONSTER = 'M';
+    public final char PORTE = 'D';
 
     /**
      * attribut du personnage
@@ -46,8 +47,13 @@ public class Labyrinthe {
      */
     private CaseDeclencheuse[][] cases;
 
+    /**
+     * nombre de monstres voulus
+     */
     private int nbMonstre = 3;
 
+
+     private ArrayList<Porte> portes;
 
     /**
      * charge le labyrinthe
@@ -73,6 +79,7 @@ public class Labyrinthe {
         this.monstres = new ArrayList<>();
         this.cases = new CaseDeclencheuse[nbColonnes][nbLignes];
         this.objets = new ArrayList<>();
+        this.portes = new ArrayList<>();
 
         // lecture des cases
         String ligne = bfRead.readLine();
@@ -102,16 +109,31 @@ public class Labyrinthe {
                         pj.setAtk(1);
                         break;
                     case CaseDeclencheuse.PIEGE:
+                        this.murs[colonne][numeroLigne] = false;
                         CasePiege piege = new CasePiege();
                         cases[colonne][numeroLigne] = piege;
                         break;
                     case Objet.EPEE:
+                        this.murs[colonne][numeroLigne] = false;
                         Epee epee = new Epee("sword", 3, colonne, numeroLigne);
                         objets.add(epee);
                         break;
                     case Objet.BOUCLIER:
+                        this.murs[colonne][numeroLigne] = false;
                         Bouclier bouclier = new Bouclier("shield", 3, colonne, numeroLigne);
                         objets.add(bouclier);
+                        break;
+                    case CaseDeclencheuse.INTERRUPTEUR:
+                        this.murs[colonne][numeroLigne] = false;
+                        cases[colonne][numeroLigne] = new Interrupteur();
+                        break;
+                    case PORTE:
+                        this.murs[colonne][numeroLigne] = false;
+                        if (this.murs[colonne-1][numeroLigne]) {
+                            portes.add(new Porte(colonne, numeroLigne, false));
+                        } else {
+                            portes.add(new Porte(colonne, numeroLigne, true));
+                        }
                         break;
                     default:
                         throw new Error("caractere inconnu " + c);
@@ -122,10 +144,10 @@ public class Labyrinthe {
             ligne = bfRead.readLine();
             numeroLigne++;
         }
-
         // ferme fichier
         bfRead.close();
         generationMonstre(nbColonnes, nbLignes);
+        associerPorteInt(nbColonnes, nbLignes);
     }
 
 
@@ -265,6 +287,27 @@ public class Labyrinthe {
             Monstre monstre = new Monstre(x, y);
             monstres.add(monstre);
         }
+    }
+
+    public void associerPorteInt(int nbColonnes, int nbLignes) {
+        int nbPortes = 0;
+        for (int i = 0; i < nbColonnes; i++) {
+            for (int j = 0; j < nbLignes; j++) {
+                if (cases[i][j] != null) {
+                    if (cases[i][j] instanceof Interrupteur) {
+                        ((Interrupteur) cases[i][j]).setPorte(portes.get(nbPortes));
+                        nbPortes++;
+                    }
+                }
+            }
+        }
+        if (nbPortes != portes.size()) {
+            throw new Error("Nombre de portes différent du nombre d'interrupteur");
+        }
+    }
+
+    public ArrayList<Porte> getPortes() {
+        return portes;
     }
 
 //    /**

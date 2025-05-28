@@ -13,4 +13,8 @@ public class Sortie implements CaseDeclencheuse{
         if(!(ent instanceof Perso)) return;
         System.out.println("Vous avez terminé");
     }
+
+    public String getType() {
+        return "sortie";
+    }
 }

@@ -20,6 +20,7 @@ public class LabyDessin implements DessinJeu {
     static final String WALL = PATH + "wall/";
     static final String TOWER = PATH + "wall/tower.png";
     static final String GROUND = PATH + "ground/simple_grass.png";
+    static final String DOOR = PATH + "door/";
 
     static final String PERSO = PATH + "character/plague/";
     static final String MONSTER = PATH + "monster/";
@@ -85,9 +86,33 @@ public class LabyDessin implements DessinJeu {
         for (int colonne = 0; colonne < cases.length; colonne++) {
             for (int ligne = 0; ligne < cases[colonne].length; ligne++) {
                 if (cases[colonne][ligne] != null) {
-                    gc.setFill(Color.ORANGE);
-                    gc.fillRect(colonne * size + 3, ligne * size + 3, size - 6, size - 6);
+                    switch (cases[colonne][ligne].getType()) {
+                        case "piege":
+                            gc.setFill(Color.ORANGE);
+                            gc.fillRect(colonne * size + 3, ligne * size + 3, size - 6, size - 6);
+                            break;
+                        case "interrupteur":
+                            gc.setFill(Color.RED);
+                            gc.fillRect(colonne * size + 3, ligne * size + 3, size - 6, size - 6);
+                            break;
+                        default:
+                            System.out.println("erreur je connais pas cette case");
+                    }
                 }
+            }
+        }
+
+        //gestion des portes
+        ArrayList<Porte> portes = labyJeu.getLabyrinthe().getPortes();
+        for (Porte porte : portes) {
+            if (porte.getVerti()) {
+                System.out.println("blabal");
+            } else {
+                String etat = porte.getOuverte() ? "open" : "closed";
+                String path = DOOR+"front_door_" + etat + ".png";
+                File imgf_door = new File(path);
+                Image img_door = new Image(imgf_door.toURI().toString());
+                gc.drawImage(img_door,porte.getX()*size, porte.getY()*size, size, size);
             }
         }
 
@@ -138,5 +163,8 @@ public class LabyDessin implements DessinJeu {
                 }
             }
         }
+
+
+
     }
 }
