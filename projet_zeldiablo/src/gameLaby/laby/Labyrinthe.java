@@ -149,17 +149,26 @@ public class Labyrinthe {
             this.pj.setY(suivante[1]);
             estSurCase(pj);
         }
-        String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
-        for (Entite entite : monstres) {
-            int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
-            monstrePresent = isMonstrePresent(position);
-            if (!this.murs[position[0]][position[1]] && !monstrePresent && (pj.getX() != position[0] || pj.getY() != position[1])) {
-                // on met a jour le monstre
-                entite.setX(position[0]);
-                entite.setY(position[1]);
-                estSurCase(entite);
-            }
+    }
 
+    boolean deplacement = true;
+    public void deplacerMonstre() {
+        if (deplacement) {
+            boolean monstrePresent;
+            String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
+            for (Entite entite : monstres) {
+                int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
+                monstrePresent = isMonstrePresent(position);
+                if (!this.murs[position[0]][position[1]] && !monstrePresent && (pj.getX() != position[0] || pj.getY() != position[1])) {
+                    // on met a jour le monstre
+                    entite.setX(position[0]);
+                    entite.setY(position[1]);
+                    estSurCase(entite);
+                }
+            }
+            deplacement = false;
+        } else {
+            deplacement = true;
         }
     }
 

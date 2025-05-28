@@ -4,6 +4,7 @@ import moteurJeu.Clavier;
 import moteurJeu.Jeu;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class LabyJeu implements Jeu{
 
@@ -34,6 +35,8 @@ public class LabyJeu implements Jeu{
         if (clavier.bas) {
             labyrinthe.deplacerPerso(Entite.BAS);
         }
+
+        labyrinthe.deplacerMonstre();
 
     }
 
