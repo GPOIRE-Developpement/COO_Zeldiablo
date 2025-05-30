@@ -36,6 +36,8 @@ public class LabyDessin implements DessinJeu {
 
         Labyrinthe laby = labyJeu.getLabyrinthe();
 
+        final int pvInit = 10;
+
         gc.setFill(Color.BLACK);
 
         File imgf_wall = new File(WALL + "wall.png");
@@ -69,6 +71,18 @@ public class LabyDessin implements DessinJeu {
         File imgf_inv = new File(BACKGROUND + "inventory_stacks.png");
         Image img_inv = new Image(imgf_inv.toURI().toString());
         gc.drawImage(img_inv, x1+10, y1+8, img_inv.getWidth()*2.25, img_inv.getHeight()*2.25);
+
+        //gestion de l'affichage des HP
+        gc.setFill(Color.rgb(246,56,65));
+        int pv = laby.getPj().getHP();
+        int nbPixelPvUnitaire = 105/10; //ici 105 c'est la largeur de la barre de pv;
+        gc.fillRect(38*1.25, y1+15+10*1.25, nbPixelPvUnitaire*pv*1.25, 13*1.25);
+
+
+        //gestion de la barre de vie vide du perso
+        File imgf_life = new File(PERSO + "empty_lifebar.png");
+        Image img_life = new Image(imgf_life.toURI().toString());
+        gc.drawImage(img_life,20, y1+15, img_life.getWidth()*1.25, img_life.getHeight()*1.25);
 
 //        int border = 5;
 //        int marge = 2;
