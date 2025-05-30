@@ -1,7 +1,5 @@
 package gameLaby.laby;
 
-import gameArkanoid.Balle;
-import gameArkanoid.Raquette;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 
 public class LabyDessin implements DessinJeu {
 
-    static final double size = 50;
+    static final double size = 44;
 
     static final String PATH = "texture/";
     static final String WALL = PATH + "wall/";
@@ -22,11 +20,11 @@ public class LabyDessin implements DessinJeu {
     static final String GROUND = PATH + "ground/simple_grass.png";
     static final String DOOR = PATH + "door/";
 
-    static final String PERSO = PATH + "character/plague/";
+    static final String SKIN = PATH + "character/plague/";
     static final String MONSTER = PATH + "monster/";
-
+    static final String BACKGROUND = PATH + "background/";
     static final String ITEM = PATH + "item/";
-
+    static final String PERSO = PATH + "perso/";
 
     public void dessinerJeu(Jeu jeu, Canvas canvas) {
 
@@ -36,8 +34,9 @@ public class LabyDessin implements DessinJeu {
 
         final GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        gc.setFill(Color.BLACK);
         Labyrinthe laby = labyJeu.getLabyrinthe();
+
+        gc.setFill(Color.BLACK);
 
         File imgf_wall = new File(WALL + "wall.png");
         Image img_wall = new Image(imgf_wall.toURI().toString());
@@ -45,6 +44,7 @@ public class LabyDessin implements DessinJeu {
         File imgf_ground = new File(GROUND);
         Image img_ground = new Image(imgf_ground.toURI().toString());
 
+        //gestion des murs et du sol
         for (int x = 0; x < laby.getLength(); x++) {
             for (int y = 0; y < laby.getLengthY(); y++) {
                 if (laby.getMur(x, y)) {
@@ -55,34 +55,38 @@ public class LabyDessin implements DessinJeu {
             }
         }
 
-        //gestion de l'inventaire
-        gc.setFill(Color.BLUE);
-        gc.fillRect(0, labyJeu.getLabyrinthe().getLengthY() * LabyDessin.size, labyJeu.getLabyrinthe().getLength() * LabyDessin.size, LabyJeu.INTERFACE_HEIGHT);
+        //background de l'inventaire
+        gc.setFill(Color.DARKGREY);
+        gc.fillRect(0,laby.getLengthY()*size,laby.getLength()*size,LabyJeu.INTERFACE_HEIGHT);
 
         //position de la ligne de démarcation infosJoueur/inventaire
-        double x1 = (double) (labyJeu.getLabyrinthe().getLength() / 3) * size;
-        double y1 = labyJeu.getLabyrinthe().getLengthY() * size;
-        double y2 = (labyJeu.getLabyrinthe().getLengthY() + LabyJeu.INTERFACE_HEIGHT) * size;
+        double x1 = (double) (laby.getLength() / 3) * size;
+        double y1 = laby.getLengthY() * size;
+        double y2 = (laby.getLengthY() + LabyJeu.INTERFACE_HEIGHT) * size;
         gc.strokeLine(x1, y1, x1, y2);
 
-        //gestion inventaire
-        int border = 5;
-        int marge = 2;
-        int caseSize = 60;
-        gc.setFill(Color.RED);
-        gc.fillRect(x1 + border, y1 + border, 6 * marge + 5 * caseSize, border + caseSize);
+        //gestion de l'inventaire
+        File imgf_inv = new File(BACKGROUND + "inventory_stacks.png");
+        Image img_inv = new Image(imgf_inv.toURI().toString());
+        gc.drawImage(img_inv, x1+10, y1+8, img_inv.getWidth()*2.25, img_inv.getHeight()*2.25);
 
-        gc.setFill(Color.BLACK);
-        //creation des carrés
-        int x = (int) ((x1 + marge + border));
-        int y = (int) ((y1 + marge + border));
-        for (int i = 0; i < 5; i++) {
-            gc.fillRect(x, y, caseSize, caseSize);
-            x = x + caseSize + marge;
-        }
+//        int border = 5;
+//        int marge = 2;
+//        int caseSize = 60;
+//        gc.setFill(Color.RED);
+//        gc.fillRect(x1 + border, y1 + border, 6 * marge + 5 * caseSize, border + caseSize);
+//
+//        gc.setFill(Color.BLACK);
+//        //creation des carrés
+//        int x = (int) ((x1 + marge + border));
+//        int y = (int) ((y1 + marge + border));
+//        for (int i = 0; i < 5; i++) {
+//            gc.fillRect(x, y, caseSize, caseSize);
+//            x = x + caseSize + marge;
+//        }
 
         //on parcours les cases
-        CaseDeclencheuse[][] cases = labyJeu.getLabyrinthe().getCase();
+        CaseDeclencheuse[][] cases = laby.getCase();
         for (int colonne = 0; colonne < cases.length; colonne++) {
             for (int ligne = 0; ligne < cases[colonne].length; ligne++) {
                 if (cases[colonne][ligne] != null) {
@@ -103,7 +107,7 @@ public class LabyDessin implements DessinJeu {
         }
 
         //gestion des portes
-        ArrayList<Porte> portes = labyJeu.getLabyrinthe().getPortes();
+        ArrayList<Porte> portes = laby.getPortes();
         for (Porte porte : portes) {
             if (porte.getVerti()) {
                 System.out.println("blabla");
@@ -117,7 +121,7 @@ public class LabyDessin implements DessinJeu {
         }
 
         //gestion de l'affichege des objets
-        ArrayList<Objet> objets = labyJeu.getLabyrinthe().getObjets();
+        ArrayList<Objet> objets = laby.getObjets();
         for (Objet objet : objets) {
             String path = ITEM + objet.getNom() + ".png";
             //creation du fichier à partir du path
@@ -127,7 +131,7 @@ public class LabyDessin implements DessinJeu {
         }
 
         //dessin des monstre
-        ArrayList<Entite> monstres = labyJeu.getLabyrinthe().getMonstres();
+        ArrayList<Entite> monstres = laby.getMonstres();
         for (Entite entite : monstres) {
             String path_monster = MONSTER + entite.getPosition() + ".png";
             File imgf_monster = new File(path_monster);
@@ -136,9 +140,9 @@ public class LabyDessin implements DessinJeu {
         }
 
         //gestion joueur
-        Perso pj = labyJeu.getLabyrinthe().getPj();
+        Perso pj = laby.getPj();
 
-        String path = PERSO + pj.getPosition() + ".png";
+        String path = SKIN + pj.getPosition() + ".png";
         File imgf_pj = new File(path);
         Image img_pj = new Image(imgf_pj.toURI().toString());
         int posX = pj.getX();

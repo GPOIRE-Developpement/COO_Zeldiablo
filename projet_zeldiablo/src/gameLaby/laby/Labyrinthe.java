@@ -50,7 +50,7 @@ public class Labyrinthe {
     /**
      * nombre de monstres voulus
      */
-    private int nbMonstre = 3;
+    private int nbMonstre = 4;
 
 
      private ArrayList<Porte> portes;

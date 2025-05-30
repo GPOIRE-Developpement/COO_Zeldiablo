@@ -11,7 +11,7 @@ public class LabyJeu implements Jeu{
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
 
-    public static final int INTERFACE_HEIGHT = 90;
+    public static final double INTERFACE_HEIGHT = 2*LabyDessin.size;
 
     public final Labyrinthe labyrinthe;
 

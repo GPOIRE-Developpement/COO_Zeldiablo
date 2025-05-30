@@ -4,6 +4,7 @@ package moteurJeu;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.event.EventHandler;
@@ -115,7 +116,7 @@ public class MoteurJeu extends Application {
         final Scene scene = new Scene(root, WIDTH, HEIGHT);
 
         //écran d'accueil
-        Image backgroundImage = new Image("file:texture/landscape/tilable_landscape.png");
+        Image backgroundImage = new Image("file:texture/background/test.png");
         ImageView bg1 = new ImageView(backgroundImage);
         ImageView bg2 = new ImageView(backgroundImage);
         bg1.setPreserveRatio(true);
@@ -123,26 +124,34 @@ public class MoteurJeu extends Application {
         bg1.setFitHeight(HEIGHT);
         bg2.setFitHeight(HEIGHT);
 
+        // Positionner bg2 juste à droite de bg1
+        double visibleWidth = bg1.getBoundsInParent().getWidth();
+        bg2.setX(bg1.getX() + visibleWidth);
+
+        //Bouton play
         Button play = new Button("Commencer");
-        play.setLayoutX(WIDTH/2);
+        play.setLayoutX(WIDTH/2-30);
         play.setLayoutY(HEIGHT/2);
         play.setOnAction(e -> {
             primaryStage.setScene(scene);
             startAnimation(canvas);
         });
 
-        // Positionner bg2 juste à droite de bg1
-        bg2.setX(bg1.getImage().getWidth());
+        //titre
+        Image title_img = new Image("file:texture/title/zeldiablo_title.png");
+        ImageView title = new ImageView(title_img);
+        title.setLayoutX(WIDTH/4 - 20);
+        title.setLayoutY(-50);
 
-        Pane root2 = new Pane(bg1, bg2, play);
+        Pane root2 = new Pane(bg1, bg2, play, title);
         Scene scene2 = new Scene(root2, WIDTH, HEIGHT);
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 // Faire défiler les deux images vers la gauche
-                bg1.setX(bg1.getX() - 1);
-                bg2.setX(bg2.getX() - 1);
+                bg1.setX(bg1.getX() - 0.5);
+                bg2.setX(bg2.getX() - 0.5);
 
                 // Si une image est complètement hors de l'écran à gauche, la replacer à droite de l'autre
                 if (bg1.getX() + bg1.getImage().getWidth() <= 0) {

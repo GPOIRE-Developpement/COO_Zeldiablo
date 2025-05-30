@@ -10,12 +10,10 @@ public interface CaseDeclencheuse {
     public final char PIEGE = 'T';//trap
     public final char INTERRUPTEUR = 'I';
 
-    final boolean active = false;
-
     public String getType();
     /**
      * Méthode activer est lancée lorsque l'entité en paramètre est sur la case
-     * @param ent
+     * @param ent entité présente sur la case declencheuse
      */
     public void activer(Entite ent);
 }
