@@ -184,7 +184,12 @@ public class Labyrinthe {
         }
     }
 
+    //booleen permettant de déplacer les monstre 1 unpdate sur 2 (on gérera avec un timer sans doute après)
     boolean deplacement = true;
+
+    /**
+     * Méthode permettant de déplacer toutes les entités de la liste monstres
+     */
     public void deplacerMonstre() {
         if (deplacement) {
             boolean deplacementPossible;
@@ -205,17 +210,6 @@ public class Labyrinthe {
         }
     }
 
-//    private boolean isMonstrePresent(int[] position) {
-//        boolean monstrePresent = false;
-//        for (Entite entite : monstres) {
-//            if (position[0] == entite.getX() && position[1] == entite.getY()) {
-//                monstrePresent = true;
-//            }
-//        }
-//        return monstrePresent;
-//    }
-
-
     /**
      * jamais fini
      *
@@ -232,7 +226,7 @@ public class Labyrinthe {
     /**
      * return taille selon Y
      *
-     * @return
+     * @return la taille du laby selon Y (le nombre de ligne)
      */
     public int getLengthY() {
         return murs[0].length;
@@ -241,7 +235,7 @@ public class Labyrinthe {
     /**
      * return taille selon X
      *
-     * @return
+     * @return la taille du laby selon X (le nombre de colonne)
      */
     public int getLength() {
         return murs.length;
@@ -250,19 +244,27 @@ public class Labyrinthe {
     /**
      * return mur en (i,j)
      *
-     * @param x
-     * @param y
-     * @return
+     * @param x indice de la colonne
+     * @param y indice de la ligne
+     * @return boolean, vrai si c'est un mur, faux sinon
      */
     public boolean getMur(int x, int y) {
         // utilise le tableau de boolean
         return this.murs[x][y];
     }
 
+    /**
+     * retourne le perso du laby
+     * @return un Perso
+     */
     public Perso getPj() {
         return pj;
     }
 
+    /**
+     * retourne la liste des objets du laby
+     * @return une liste d'Objets
+     */
     public ArrayList<Objet> getObjets() {
         return objets;
     }
@@ -270,7 +272,7 @@ public class Labyrinthe {
     /**
      * Vérifier si l'entité est sur une case à effet
      *
-     * @param ent
+     * @param ent entité sur la case
      */
     public void estSurCase(Entite ent) {
         CaseDeclencheuse caseDeclencheuse = cases[ent.getX()][ent.getY()];
@@ -287,6 +289,11 @@ public class Labyrinthe {
         return cases;
     }
 
+    /**
+     * Methode permettant de gérer la génération aléatoire des monstres
+     * @param nbColonne nombre de colonnes du laby
+     * @param nbLigne nombre de lignes du laby
+     */
     public void generationMonstre(int nbColonne, int nbLigne) {
         for (int i = 0; i < nbMonstre; i++) {
             int x = (int) Math.floor(Math.random() * nbColonne);
@@ -300,6 +307,11 @@ public class Labyrinthe {
         }
     }
 
+    /**
+     * Methode permettant d'associer des interrupteurs avec des portes
+     * @param nbColonnes nombre de colonnes du laby (parcours de cases)
+     * @param nbLignes nombre de lignes du laby (parcours de cases)
+     */
     public void associerPorteInt(int nbColonnes, int nbLignes) {
         int nbPortes = 0;
         for (int i = 0; i < nbColonnes; i++) {
@@ -317,6 +329,10 @@ public class Labyrinthe {
         }
     }
 
+    /**
+     * retourne la liste des portes du labyrinthe
+     * @return la liste des portes
+     */
     public ArrayList<Porte> getPortes() {
         return portes;
     }
