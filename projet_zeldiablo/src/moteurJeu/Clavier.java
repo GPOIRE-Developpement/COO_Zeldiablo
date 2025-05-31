@@ -8,6 +8,7 @@ public class Clavier {
      * controle appuyes
      */
     public boolean haut, bas, gauche, droite;
+    private int itemSelectionne = 0;
 
     /**
      * stocke les commandes
@@ -37,7 +38,22 @@ public class Clavier {
             case D:
                 this.droite = true;
                 break;
-
+            case DIGIT1:
+                itemSelectionne= 1;
+                System.out.println(event.getCode());
+                break;
+            case DIGIT2:
+                itemSelectionne = 2;
+                System.out.println(event.getCode());
+                break;
+            case DIGIT3:
+                itemSelectionne = 3;
+                System.out.println(event.getCode());
+                break;
+            case DIGIT4:
+                itemSelectionne = 4;
+                System.out.println(event.getCode());
+                break;
         }
 
     }
@@ -72,5 +88,13 @@ public class Clavier {
                 break;
 
         }
+    }
+
+    /**
+     * Methode permettant de récupérer l'item sélectionné
+     * @return l'entier correspondant à l'item selectionné
+     */
+    public int getItemSelectionne() {
+        return itemSelectionne;
     }
 }

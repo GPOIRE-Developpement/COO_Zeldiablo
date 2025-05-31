@@ -62,6 +62,10 @@ public class LabyDessin implements DessinJeu {
             }
         }
 
+        //##############
+        //INVENTAIRE
+        //##############
+
         //background de l'inventaire
         gc.setFill(Color.DARKGREY);
         gc.fillRect(0,laby.getLengthY()*size,laby.getLength()*size,LabyJeu.INTERFACE_HEIGHT);
@@ -77,34 +81,31 @@ public class LabyDessin implements DessinJeu {
         Image img_inv = new Image(imgf_inv.toURI().toString());
         gc.drawImage(img_inv, x1+10, y1+8, img_inv.getWidth()*2.25, img_inv.getHeight()*2.25);
 
+        //gestion de l'affichage de l'item selectionné
+        //16*2.25
+        File imgf_selector= new File(BACKGROUND + "selector.png");
+        Image img_selector = new Image(imgf_selector.toURI().toString());
+        int indiceSelect = laby.getPj().getInventaire().indexOf(laby.getPj().getItemSelecte());
+        if (indiceSelect >= 0 && indiceSelect < 5) {
+            gc.drawImage(img_selector, x1 + 10 + (33 + 17 * (indiceSelect))*2.25, y1 + 8 + 4*2.25, 16 * 2.25, 16 * 2.25);
+        }
+
         //gestion de l'affichage des HP
         gc.setFill(Color.rgb(246,56,65));
         int pv = laby.getPj().getHP();
         int nbPixelPvUnitaire = 105/10; //ici 105 c'est la largeur de la barre de pv;
         gc.fillRect(38*1.25, y1+15+10*1.25, nbPixelPvUnitaire*pv*1.25, 13*1.25);
 
-
         //gestion de la barre de vie vide du perso
         File imgf_life = new File(PERSO + "empty_lifebar.png");
         Image img_life = new Image(imgf_life.toURI().toString());
         gc.drawImage(img_life,20, y1+15, img_life.getWidth()*1.25, img_life.getHeight()*1.25);
 
-//        int border = 5;
-//        int marge = 2;
-//        int caseSize = 60;
-//        gc.setFill(Color.RED);
-//        gc.fillRect(x1 + border, y1 + border, 6 * marge + 5 * caseSize, border + caseSize);
-//
-//        gc.setFill(Color.BLACK);
-//        //creation des carrés
-//        int x = (int) ((x1 + marge + border));
-//        int y = (int) ((y1 + marge + border));
-//        for (int i = 0; i < 5; i++) {
-//            gc.fillRect(x, y, caseSize, caseSize);
-//            x = x + caseSize + marge;
-//        }
+        //##############
+        //CASES SPECIALES
+        //##############
 
-        //on parcours les cases
+        //gestion des cases declencheuses
         CaseDeclencheuse[][] cases = laby.getCase();
         for (int colonne = 0; colonne < cases.length; colonne++) {
             for (int ligne = 0; ligne < cases[colonne].length; ligne++) {
@@ -139,6 +140,10 @@ public class LabyDessin implements DessinJeu {
             }
         }
 
+        //##############
+        //OBJETS
+        //##############
+
         //gestion de l'affichege des objets
         ArrayList<Objet> objets = laby.getObjets();
         for (Objet objet : objets) {
@@ -148,6 +153,10 @@ public class LabyDessin implements DessinJeu {
             Image img_item = new Image(imgf_item.toURI().toString());
             gc.drawImage(img_item, objet.getX() * size, objet.getY() * size, size, size);
         }
+
+        //##############
+        //ENTITES
+        //##############
 
         //dessin des monstre
         ArrayList<Entite> monstres = laby.getMonstres();
@@ -168,6 +177,10 @@ public class LabyDessin implements DessinJeu {
         int posY = pj.getY();
         gc.drawImage(img_pj, posX * size, posY * size, size, size);
 
+        //##############
+        //MURS UPPER
+        //##############
+
         //mur de base si pas etendu
         File imgf_side_wall = new File(WALL+"wall_side.png");
         Image img_side_wall = new Image(imgf_side_wall.toURI().toString());
@@ -186,8 +199,5 @@ public class LabyDessin implements DessinJeu {
                 }
             }
         }
-
-
-
     }
 }
