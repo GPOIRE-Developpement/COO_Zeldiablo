@@ -2,26 +2,36 @@ package moteurJeu;
 
 //https://github.com/zarandok/megabounce/blob/master/MainCanvas.java
 
+import gameLaby.laby.LabyJeu;
+import gameLaby.laby.MainLaby;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 // copied from: https://gist.github.com/james-d/8327842
 // and modified to use canvas drawing instead of shapes
@@ -57,6 +67,22 @@ public class MoteurJeu extends Application {
     Clavier controle = new Clavier();
 
     /**
+     * attribut permettant de gérer la génération du labyrinthe
+     */
+
+    private class Auditeur implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
+            Button b = (Button) event.getSource();
+            try {
+                MoteurJeu.jeu = new LabyJeu("labySimple/"+b.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new Error("Problèmes dans la gestion des niveaux");
+            }
+        }
+    }
+
+    /**
      * lancement d'un jeu
      *
      * @param jeu    jeu a lancer
@@ -86,7 +112,6 @@ public class MoteurJeu extends Application {
         WIDTH = width;
         HEIGHT = height;
     }
-
 
     //#################################
     // SURCHARGE Application
@@ -124,17 +149,25 @@ public class MoteurJeu extends Application {
         bg1.setFitHeight(HEIGHT);
         bg2.setFitHeight(HEIGHT);
 
-        // Positionner bg2 juste à droite de bg1
+        // on positionne bg2 juste à droite de bg1
         double visibleWidth = bg1.getBoundsInParent().getWidth();
         bg2.setX(bg1.getX() + visibleWidth);
 
         //Bouton play
         Button play = new Button("Commencer");
-        play.setLayoutX(WIDTH/2-30);
+        play.setLayoutX(WIDTH/3-30);
         play.setLayoutY(HEIGHT/2);
         play.setOnAction(e -> {
             primaryStage.setScene(scene);
             startAnimation(canvas);
+        });
+
+        //bouton de selection de niveau
+        Button lvlSelector = new Button("Niveaux");
+        lvlSelector.setLayoutX((WIDTH*2)/3-30);
+        lvlSelector.setLayoutY(HEIGHT/2);
+        lvlSelector.setOnAction(e -> {
+            afficherNiveaux();
         });
 
         //titre
@@ -143,9 +176,10 @@ public class MoteurJeu extends Application {
         title.setLayoutX(WIDTH/4 - 20);
         title.setLayoutY(-50);
 
-        Pane root2 = new Pane(bg1, bg2, play, title);
+        Pane root2 = new Pane(bg1, bg2, play, title, lvlSelector);
         Scene scene2 = new Scene(root2, WIDTH, HEIGHT);
 
+        //timer pour le gif qui tourne à l'"infini"
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -195,22 +229,44 @@ public class MoteurJeu extends Application {
                         }
                     }
                 });
+    }
 
-//        StackPane startScreen = new StackPane();
-//        Button play = new Button("Commencer");
+    /**
+     * Methode permettant d'afficher le menu pour selectionner le niveau
+     */
+    private void afficherNiveaux() {
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("test selection niveau");
+        dialog.setWidth(WIDTH/2);
+        dialog.setHeight(HEIGHT/2);
 
-//        File imgf_landscape = new File("texture/landscape/tilable_landscape.png");
-//        Image img_landscape = new Image(imgf_landscape.toURI().toString());
+        File dossLaby = new File("labySimple/");
+        File[] labys = dossLaby.listFiles();
+        ArrayList<String> nomLabys = new ArrayList<>();
 
-//        startScreen.getChildren().add(play);
+        for (File f : labys) {
+            nomLabys.add(f.getName());
+        }
 
-//        root.setCenter(startScreen);
+        GridPane choix = new GridPane();
+        choix.setHgap(10);
+        choix.setVgap(10);
 
-//        play.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-//            // lance la boucle de jeu
-//            root.setCenter(canvasContainer);
-//            startAnimation(canvas);
-//        });
+        for (int i = 1; i <= nomLabys.size(); i++) {
+            Label label = new Label("Niveau " + i);
+            Button button = new Button(nomLabys.get(i-1));
+            Auditeur audi = new Auditeur();
+            button.addEventHandler(ActionEvent.ACTION,audi);
+            choix.add(label,0,i);
+            choix.add(button,1,i);
+        }
+        choix.setAlignment(Pos.CENTER);
+
+        dialog.getDialogPane().setContent(choix);
+
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
+//        dialog.getDialogPane().setContent(test2);
+        dialog.showAndWait();
     }
 
     /**
