@@ -1,9 +1,9 @@
-package gameLaby.laby;
+package gameLaby.laby.objets;
 
 /**
  * Classe qui représente un objet bouclier
  */
-public class Bouclier extends Objet{
+public class Bouclier extends Objet {
 
     /**
      * Point de résistance du bouclier

@@ -1,4 +1,6 @@
-package gameLaby.laby;
+package gameLaby.laby.casesSpe;
+
+import gameLaby.laby.entites.Entite;
 
 /**
  * Interface CaseDeclencheuse permet de définir le modèle d'une CaseDeclencheuse

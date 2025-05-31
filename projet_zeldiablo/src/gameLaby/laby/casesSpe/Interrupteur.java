@@ -1,4 +1,7 @@
-package gameLaby.laby;
+package gameLaby.laby.casesSpe;
+
+import gameLaby.laby.entites.Entite;
+import gameLaby.laby.entites.Perso;
 
 public class Interrupteur implements CaseDeclencheuse {
 

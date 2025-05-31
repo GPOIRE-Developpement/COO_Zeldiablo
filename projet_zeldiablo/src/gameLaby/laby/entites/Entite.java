@@ -1,6 +1,4 @@
-package gameLaby.laby;
-
-import java.util.ArrayList;
+package gameLaby.laby.entites;
 
 abstract public class Entite {
 

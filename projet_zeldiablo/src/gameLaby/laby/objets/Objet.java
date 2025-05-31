@@ -1,4 +1,4 @@
-package gameLaby.laby;
+package gameLaby.laby.objets;
 
 /**
  * Classe abstraite qui représente les objets présents dans le jeu

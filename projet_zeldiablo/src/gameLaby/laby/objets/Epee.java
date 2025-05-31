@@ -1,10 +1,10 @@
-package gameLaby.laby;
+package gameLaby.laby.objets;
 
 
 /**
  * Classe qui représente un objet Epée
  */
-public class Epee extends Objet{
+public class Epee extends Objet {
 
     /**
      * Degat de l'épée

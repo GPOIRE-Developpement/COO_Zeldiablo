@@ -1,5 +1,10 @@
 package gameLaby.laby;
 
+import gameLaby.laby.casesSpe.CaseDeclencheuse;
+import gameLaby.laby.casesSpe.Porte;
+import gameLaby.laby.entites.Entite;
+import gameLaby.laby.entites.Perso;
+import gameLaby.laby.objets.Objet;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

@@ -1,10 +1,10 @@
 package gameLaby.laby;
 
+import gameLaby.laby.entites.Entite;
 import moteurJeu.Clavier;
 import moteurJeu.Jeu;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class LabyJeu implements Jeu{
 

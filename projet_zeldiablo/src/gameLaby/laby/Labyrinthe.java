@@ -1,5 +1,16 @@
 package gameLaby.laby;
 
+import gameLaby.laby.casesSpe.CaseDeclencheuse;
+import gameLaby.laby.casesSpe.CasePiege;
+import gameLaby.laby.casesSpe.Interrupteur;
+import gameLaby.laby.casesSpe.Porte;
+import gameLaby.laby.entites.Entite;
+import gameLaby.laby.entites.Monstre;
+import gameLaby.laby.entites.Perso;
+import gameLaby.laby.objets.Bouclier;
+import gameLaby.laby.objets.Epee;
+import gameLaby.laby.objets.Objet;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
