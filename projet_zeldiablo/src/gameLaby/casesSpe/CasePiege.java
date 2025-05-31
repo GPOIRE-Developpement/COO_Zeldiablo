@@ -1,6 +1,6 @@
-package gameLaby.laby.casesSpe;
+package gameLaby.casesSpe;
 
-import gameLaby.laby.entites.Entite;
+import gameLaby.entites.Entite;
 
 /**
  * Classe CasePiege implements CaseDeclencheuse et définit les actions d'une case piégée

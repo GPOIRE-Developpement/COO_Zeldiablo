@@ -1,4 +1,4 @@
-package gameLaby.laby.casesSpe;
+package gameLaby.casesSpe;
 
 public class Porte {
 

@@ -1,7 +1,7 @@
-package gameLaby.laby.casesSpe;
+package gameLaby.casesSpe;
 
-import gameLaby.laby.entites.Entite;
-import gameLaby.laby.entites.Perso;
+import gameLaby.entites.Entite;
+import gameLaby.entites.Perso;
 
 /**
  * Classe Sortie implements CaseDeclencheuse et définit la case qui permet de finir le niveau

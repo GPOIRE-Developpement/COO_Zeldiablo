@@ -1,4 +1,4 @@
-package gameLaby.laby;
+package gameLaby;
 
 import moteurJeu.MoteurJeu;
 

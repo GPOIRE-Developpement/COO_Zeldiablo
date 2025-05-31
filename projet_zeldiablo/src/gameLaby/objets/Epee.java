@@ -1,4 +1,4 @@
-package gameLaby.laby.objets;
+package gameLaby.objets;
 
 
 /**

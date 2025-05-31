@@ -1,6 +1,6 @@
-package gameLaby.laby;
+package gameLaby;
 
-import gameLaby.laby.entites.Entite;
+import gameLaby.entites.Entite;
 import moteurJeu.Clavier;
 import moteurJeu.Jeu;
 
@@ -11,7 +11,7 @@ public class LabyJeu implements Jeu{
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
 
-    public static final double INTERFACE_HEIGHT = 2*LabyDessin.size;
+    public static final double INTERFACE_HEIGHT = 2* LabyDessin.size;
 
     public final Labyrinthe labyrinthe;
 
