@@ -1,0 +1,59 @@
+Itérations 1:
+
+fonctionnalités :
+
+Création d'un labyrinthe par défaut
+Critères de validation :
+	• Le labyrinthe par défaut est constitué d'une arène de taille 10*10 ;
+	• Le personnage est placé au centre de l'arène ;
+	• Les monstres (s'il y en a) sont placés sur des cases vides (à adapter).
+
+
+Collision avec murs 
+Critères de validation : 
+	• La collision fonctionne dans les 4 directions ;
+	• Si la case est vide, le personnage avance.
+
+
+Création de monstre immobile (placement aléatoire) : 
+Critères de validation : 
+	• Il est possible de construire un labyrinthe par défaut contenant quelques monstres (le labyrinthe par défaut est à définir).
+	• Les monstres sont créés sur des cases vides.
+	• Il n'est pas possible de générer des monstres sur des cases non vides (position du joueur, d'autres monstres ou de murs)
+	• Les monstres doivent apparaitre dans l'interface graphique sous la forme d'un cercle rouge.
+	• Les monstres ne se déplacent pas (mais attaquent éventuellement le héros s'il passe à proximité - cf taches attaque dans les parties suivantes).
+
+collision avec monstre
+Critère de validation
+	• La collision fonctionne dans les 4 directions.
+	• Si la case est vide, le personnage avance.
+	• (Le monstre se déplace à chaque fois après le joueur.)
+
+Case déclencheur
+Critères de validation : 
+	• Les cases avec effet sont des cases traversables.
+	• Lorsqu'un personnage (héros ou monstre) marche sur cette case, elle déclenche immédiatement un effet
+	• cet effet se traduit pour le moment, par un affichage dans la console à préciser
+
+Case piégée
+Critères de validation : 
+Les dégâts ne se déclenchent que lorsque le joueur arrive sur la case, il peut ensuite
+rester sur cette case aussi longtemps qu'il le souhaite sans subir d'autres dégâts.
+	• Lorsque la case devient à nouveau vide, le piège se réamorce.
+	• (optionnel) Lorsqu'une case a été détectée comme un piège, elle s'affiche différemment dans le labyrinthe (en brun) ce qui permet au joueur d'en tenir compte ensuite.
+
+Inventaire (Terminal, objets)
+Critères de validation : 
+	• L'inventaire est de taille infinie.
+	• Lorsque le joueur cherche à prendre un objet alors qu'il n'y a rien sur la case où il se trouve, rien ne se passe.
+	• Lorsqu'un joueur prend un objet, l'objet disparait du labyrinthe (et n'est plus affiché) mais apparait dans son inventaire.
+	• A chaque évolution du jeu, le jeu affiche dans la console l'inventaire du héros.
+	• Les objets sont affichés dans le labyrinthe tant qu'ils sont présents (sous la forme d'un cercle noir)
+
+Armes
+Critères de validation :
+	• Une arme est définie par ses dégâts.
+	• Lorsque le héros prend une arme, l'arme est ajoutée à son inventaire et disparait du labyrinthe.
+	• Lorsqu'un héros possède une arme et attaque un monstre, son attaque est augmentée des dégâts de l'arme.
+	• Un héros ne peut utiliser qu'une seule arme à la fois. Lorsqu'un héros possède plusieurs armes dans son inventaire, il s'équipe automatiquement de l'arme la plus forte.
+
