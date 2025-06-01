@@ -8,9 +8,9 @@ import gameLaby.entites.Entite;
  */
 public interface CaseDeclencheuse {
 
-    public final char SORTIE = 'S';
-    public final char PIEGE = 'T';//trap
-    public final char INTERRUPTEUR = 'I';
+    public static final char SORTIE = 'S';
+    public static final char PIEGE = 'T';//trap
+    public static final char INTERRUPTEUR = 'I';
 
     public String getType();
     /**

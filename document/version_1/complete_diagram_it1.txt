@@ -1,0 +1,164 @@
+@startuml
+
+package casesSpe {
+    interface CaseDeclencheuse {
+        +<static> SORTIE : char
+        +<static> INTERRUPTEUR : char
+        +<static> PIEGE : char
+        +getType() : String
+        +activer(Entite entite)
+    }
+
+    class CasePiege {
+        + activer(Entiter ent)
+        + getType() : String
+    }
+
+    class Interrupteur {
+        + Interrupteur()
+        + activer(Entiter ent)
+        + setPorte(Porte p)
+        + getType() : String
+    }
+
+    class Porte {
+        - x : int
+        - y : int
+        - ouverte : boolean
+        - verticale : boolean
+        + Porte(x : int, y : int, verti : boolean)
+        + getVerti() : boolean
+        + fermer()
+        + ouvrir()
+        + getOuverte() : boolean
+        + getX() : int
+        + getY() : int
+    }
+
+    class Sortie {
+        + activer(Entiter ent)
+        + getType() : String
+    }
+}
+
+package entites {
+    abstract class Entite {
+        +<static> HAUT : String
+        +<static> BAS : String
+        +<static> GAUCHE : String
+        +<static> DROITE : String
+        - position : String
+        - x : int
+        - y : int
+        - atk : int
+        - hp : int
+        + Entite(x : int, y : int)
+        + etrePresent(dx : int, dy : int) : boolean
+        + getX() : int
+        + getY() : int
+        + setX(x : int)
+        + setY(y : int)
+        + getHP() : int
+        + getATK() : int
+        + estVivant() : boolean
+        + setHP(n :int)
+        + setAtk(n : int)
+        + getPosition() : String
+        + getSuivant(x : int, y : int, action : String) : int[]
+        + deplacer(action : String) : int[]
+    }
+
+    class Monstre {
+        + Monstre(posx : int, posy : int)
+    }
+
+    class Perso {
+        + Perso(dx : int, dy : int)
+        + selectionnerObjet(indice : int)
+        + getItemSelecte() : Objet
+        + getInventaire : ArrayList<Objet>
+    }
+}
+
+package objets {
+    abstract class Objet {
+        +<static> EPEE : char
+        +<static> BOUCLIER : char
+        - x : int
+        - y : int
+        - possede : boolean
+        - nom : String
+        + Objet(nom : String, x : int, y : int)
+        + getX() : int
+        + getY () : int
+        + getNom() : String
+    }
+
+    class Epee {
+        - dommage : int
+        + Epee(nom : String, x : int, y : int)
+        + getNom() : String
+        + getDommage() : int
+    }
+
+    class Bouclier {
+        - def : int
+        + Bouclier(nom : String, x : int, y : int)
+        + getNom() : String
+        + getDef() : int
+    }
+}
+
+class Labyrinthe {
+    +<static> MUR : char
+    +<static> PJ : char
+    +<static> VIDE : char
+    +<static> PORTE : char
+    +<static> MONSTRE : char
+    - murs : boolean[][]
+    - nbMonstre : int
+    - deplacement : boolean
+    + Labyrinthe(nom : String)
+    + deplacerPerso(action String)
+    + deplacerMonstre() 
+    + etreFini() : boolean
+    + getLength() : int
+    + getLengthY() : int
+    + getMur(x : int, y : int) : boolean
+    + getPJ() : Perso
+    + getObjets() : ArrayList<Objet>
+    + estSurCase(Entite ent)
+    + getMonstres : ArrayList<Entite>
+    + getCase() : CaseDeclencheuse[][]
+    + generationMonstre(nbColonnes : int, nbLignes : int)
+    + associerPorteInt(nbColonnes : int, nbLignes : int)
+    + getPortes() : ArrayList<Porte>
+    + isEmpty(x : int, y : int) : boolean
+}
+
+/'Relations'/
+
+CaseDeclencheuse <|.. CasePiege
+CaseDeclencheuse <|.. Interrupteur
+CaseDeclencheuse <|.. Sortie
+
+Entite <|-- Monstre
+Entite <|-- Perso
+
+Objet <|-- Epee
+Objet <|-- Bouclier
+
+/'Attributs'/
+
+Interrupteur -> "1" Porte : + porte
+
+Perso -> "1" Objet : - itemSelecte
+Perso -> "1..4" Objet : - inventaire
+
+Labyrinthe -> "1" Perso : - pj
+Labyrinthe -> "*" Entite : - monstres
+Labyrinthe -> "*" Objet : - objets
+Labyrinthe -> "*" CaseDeclencheuse : - cases
+Labyrinthe -> "*" Porte : - portes
+
+@enduml

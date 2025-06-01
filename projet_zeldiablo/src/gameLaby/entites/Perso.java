@@ -20,6 +20,7 @@ public class Perso extends Entite {
     public Perso(int dx, int dy) {
         super(dx, dy);
         inventaire.add(new Epee("epee",10,10,10));
+        inventaire.add(new Epee("epee",10,10,10));
     }
 
     public void selectionnerObjet(int indice) {

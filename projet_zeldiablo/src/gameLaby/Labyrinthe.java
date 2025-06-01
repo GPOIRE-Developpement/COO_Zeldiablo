@@ -185,7 +185,7 @@ public class Labyrinthe {
     }
 
     //booleen permettant de déplacer les monstre 1 unpdate sur 2 (on gérera avec un timer sans doute après)
-    boolean deplacement = true;
+    private boolean deplacement = true;
 
     /**
      * Méthode permettant de déplacer toutes les entités de la liste monstres
