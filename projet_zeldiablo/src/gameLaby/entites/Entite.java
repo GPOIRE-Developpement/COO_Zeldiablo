@@ -58,9 +58,7 @@ abstract public class Entite {
 		return hp > 0;
 	}
 
-	public void setHP(int n){
-		this.hp = hp + n;
-	}
+	public void setHP(int n){ this.hp = hp + n; }
 
 	public void setAtk(int n){
 		this.atk = atk + n;
@@ -129,6 +127,4 @@ abstract public class Entite {
 		int posY = entite.getY();
 		return (this.x == posX) && (this.y - 1 == posY) || (this.x == posX) && (this.y + 1 == posY) || (this.x - 1 == posX) && (this.y == posY) || (this.x + 1 == posX) && (this.y == posY);
 	}
-
-
 }
