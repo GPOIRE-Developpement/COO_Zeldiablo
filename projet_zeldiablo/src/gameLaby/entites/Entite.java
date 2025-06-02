@@ -72,6 +72,10 @@ abstract public class Entite {
 		this.atk = atk + n;
 	}
 
+	public int getAtk(){
+		return atk;
+	}
+
 	public String getPosition() {
 		return position;
 	}
