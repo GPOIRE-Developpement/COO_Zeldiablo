@@ -83,4 +83,8 @@ public class LabyJeu implements Jeu{
     public static void jeuFini(){
         System.out.println("Vous avez terminé la partie");
     }
+
+    public static int getNiveau() {
+        return niveau;
+    }
 }

@@ -17,8 +17,6 @@ public class Interrupteur implements CaseDeclencheuse {
         }
     }
 
-
-
     public Interrupteur() {
         this.porte = null;
     }
