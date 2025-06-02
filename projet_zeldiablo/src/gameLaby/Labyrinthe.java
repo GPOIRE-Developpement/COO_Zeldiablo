@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * classe labyrinthe. represente un labyrinthe avec
@@ -71,7 +72,7 @@ public class Labyrinthe {
      * @return labyrinthe cree
      * @throws IOException probleme a la lecture / ouverture
      */
-    public Labyrinthe(String nom) throws IOException {
+    public Labyrinthe(String nom, Perso p) throws IOException {
         // ouvrir fichier
         FileReader fichier = new FileReader(nom);
         BufferedReader bfRead = new BufferedReader(fichier);
@@ -112,10 +113,16 @@ public class Labyrinthe {
                     case PJ:
                         // pas de mur
                         this.murs[colonne][numeroLigne] = false;
-                        // ajoute PJ
-                        this.pj = new Perso(colonne, numeroLigne);
-                        pj.setHP(10);
-                        pj.setAtk(1);
+                        // ajoute PJ ou conserver l'ancien
+                        if (p == null){
+                            this.pj = new Perso(colonne, numeroLigne);
+                            this.pj.setHP(10);
+                            this.pj.setAtk(1);
+                        }else{
+                            this.pj = p;
+                            this.pj.setX(colonne);
+                            this.pj.setY(numeroLigne);
+                        }
                         break;
                     case CaseDeclencheuse.PIEGE:
                         this.murs[colonne][numeroLigne] = false;
@@ -196,7 +203,12 @@ public class Labyrinthe {
         if (deplacement) {
             boolean deplacementPossible;
             String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
+            List<Entite> morts = new ArrayList<>();
             for (Entite entite : monstres) {
+                if(!entite.estVivant()){
+                    morts.add(entite);
+                    continue;
+                }
                 int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
                 deplacementPossible = isEmpty(position[0],position[1]);
                 if (deplacementPossible) {
@@ -208,8 +220,12 @@ public class Labyrinthe {
                 if(entite.peutAttaquer(pj)) {
                     entite.attaquer(pj);
                 }
+
             }
             deplacement = false;
+            for(Entite ent : morts){
+                monstres.remove(ent);
+            }
         } else {
             deplacement = true;
         }

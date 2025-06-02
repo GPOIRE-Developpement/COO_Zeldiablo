@@ -62,6 +62,15 @@ public class Perso extends Entite {
     }
 
     public void attaquer(Entite entite) {
-        System.out.println("perso Attaque");
+        entite.setHP(-atk);
+    }
+
+    @Override
+    public void setHP(int hp){
+        super.setHP(hp);
+
+        if(!super.estVivant()){
+            System.exit(0);
+        }
     }
 }

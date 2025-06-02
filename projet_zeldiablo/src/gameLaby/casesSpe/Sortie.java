@@ -17,7 +17,7 @@ public class Sortie implements CaseDeclencheuse {
         if(!(ent instanceof Perso)) return;
 
         try{
-            LabyJeu.niveauSuivant();
+            LabyJeu.niveauSuivant((Perso) ent);
         }catch(Exception e){
             LabyJeu.jeuFini();
         }
