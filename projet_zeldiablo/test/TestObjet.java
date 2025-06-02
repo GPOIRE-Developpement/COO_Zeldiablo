@@ -1,5 +1,6 @@
 import gameLaby.objets.Bouclier;
 import gameLaby.objets.Epee;
+import gameLaby.objets.Potion;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,5 +43,16 @@ public class TestObjet {
     public void testConstantesObjet() {
         assertEquals('E', Epee.EPEE, "Constante EPEE incorrecte.");
         assertEquals('B', Bouclier.BOUCLIER, "Constante BOUCLIER incorrecte.");
+        assertEquals('V', Potion.POTION, "Constante POTION incorrecte.");
+    }
+
+    @Test
+    public void testCreationPotion() {
+        Potion potion = new Potion("Potion de vie", 2, 3, 3);
+
+        assertEquals("fill_bottle", potion.getNom(), "Le nom du potion est incorrect.");
+        assertEquals(2, potion.getVie(), "La résistance du potion est incorrecte.");
+        assertEquals(3, potion.getX(), "La position X du potion est incorrecte.");
+        assertEquals(3, potion.getY(), "La position Y du potion est incorrecte.");
     }
 }
