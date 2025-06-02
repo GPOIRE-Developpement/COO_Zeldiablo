@@ -132,8 +132,9 @@ public class LabyDessin implements DessinJeu {
                             gc.fillRect(colonne * size + 3, ligne * size + 3, size - 6, size - 6);
                             break;
                         case "sortie":
-                            gc.setFill(Color.BLUE);
-                            gc.fillRect(colonne * size + 3, ligne * size + 3, size - 6, size - 6);
+                            File imgf_stair = new File(PATH+"ground/stair.png");
+                            Image img_stair = new Image(imgf_stair.toURI().toString());
+                            gc.drawImage(img_stair,colonne*size,ligne*size,size,size);
                             break;
                         default:
                             System.out.println("erreur je connais pas cette case");
