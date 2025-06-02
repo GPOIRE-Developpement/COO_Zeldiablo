@@ -36,23 +36,28 @@ public class Perso extends Entite {
      */
     public void interagir(List<Objet> objet) {
         Objet objetAttraper = null;
+        boolean objetPied = false;
         for (Objet obj : objet){
             if (this.getX() == obj.getX() && this.getY() == obj.getY()){
                 if (inventaire.size() < 4){
                     objetAttraper = obj;
                 }
+                objetPied = true;
             }
         }
         if (objetAttraper!= null) {
             inventaire.add(objetAttraper);
             objet.remove(objetAttraper);
         } else {
-            if (this.itemSelecte != null) {
+            if (this.itemSelecte != null && !objetPied) {
                 inventaire.remove(itemSelecte);
                 itemSelecte.setX(this.getX());
                 itemSelecte.setY(this.getY());
                 objet.add(itemSelecte);
             }
+        }
+        if (inventaire.isEmpty()){
+            itemSelecte = null;
         }
     }
 

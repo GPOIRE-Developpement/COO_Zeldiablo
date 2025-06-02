@@ -1,5 +1,7 @@
 package gameLaby.entites;
 
+import java.util.Objects;
+
 abstract public class Entite {
 
 	/**
@@ -125,6 +127,9 @@ abstract public class Entite {
 	public boolean peutAttaquer(Entite entite) {
 		int posX = entite.getX();
 		int posY = entite.getY();
-		return (this.x == posX) && (this.y - 1 == posY) || (this.x == posX) && (this.y + 1 == posY) || (this.x - 1 == posX) && (this.y == posY) || (this.x + 1 == posX) && (this.y == posY);
+		return ((this.x == posX) && (this.y - 1 == posY) && Objects.equals(this.position, HAUT)) ||
+				((this.x == posX) && (this.y + 1 == posY) && Objects.equals(this.position, BAS)) ||
+				((this.x - 1 == posX) && (this.y == posY) && Objects.equals(this.position, GAUCHE)) ||
+				((this.x + 1 == posX) && (this.y == posY) && Objects.equals(this.position, DROITE));
 	}
 }

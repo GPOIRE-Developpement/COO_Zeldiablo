@@ -56,9 +56,9 @@ public class Labyrinthe {
 	/**
 	 * nombre de monstres voulus
 	 */
-	private int nbMonstre = 4;
+	private int nbMonstre = 2;
 
-    private int nbFantome = 2;
+    private int nbFantome = 1;
 
 
 	private ArrayList<Porte> portes;
@@ -186,7 +186,7 @@ public class Labyrinthe {
 		// calcule case suivante
 		int[] suivante = pj.deplacer(action);
 
-		boolean deplacementPossible = isEmpty(suivante[0], suivante[1]);
+		boolean deplacementPossible = isEmpty(suivante[0], suivante[1], pj);
 
 		// si c'est pas un mur, on effectue le deplacement
 		if (deplacementPossible) {
@@ -197,14 +197,14 @@ public class Labyrinthe {
 		}
 	}
 
-	//booleen permettant de déplacer les monstre 1 unpdate sur 2 (on gérera avec un timer sans doute après)
-	private boolean deplacement = true;
+	//entier permettant de déplacer les monstre 1 unpdate sur 3 (ou4) (on gérera avec un timer sans doute après)
+	private int nbActu = 0;
 
 	/**
 	 * Méthode permettant de déplacer toutes les entités de la liste monstres
 	 */
 	public void deplacerMonstre() {
-		if (deplacement) {
+		if (nbActu == 4) {
 			boolean deplacementPossible = false;
 			String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
 			List<Entite> morts = new ArrayList<>();
@@ -214,12 +214,7 @@ public class Labyrinthe {
 					continue;
 				}
 				int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
-				if (entite instanceof Monstre) {
-					deplacementPossible = isEmpty(position[0], position[1]);
-				}
-				if (entite instanceof Fantome) {
-					deplacementPossible = isEmptyFant(position[0], position[1]);
-				}
+				deplacementPossible = isEmpty(position[0],position[1],entite);
 				if (deplacementPossible) {
 					// on met a jour le monstre
 					entite.setX(position[0]);
@@ -231,12 +226,12 @@ public class Labyrinthe {
 				}
 
 			}
-			deplacement = false;
+			nbActu = 0;
 			for(Entite ent : morts){
 				monstres.remove(ent);
 			}
 		} else {
-			deplacement = true;
+			nbActu++;
 		}
 	}
 
@@ -341,6 +336,25 @@ public class Labyrinthe {
 	}
 
 	/**
+	 * Methode permettant de gérer la génération aléatoire des fantômes
+	 *
+	 * @param nbColonne nombre de colonnes du laby
+	 * @param nbLigne   nombre de lignes du laby
+	 */
+	public void generationFantome(int nbColonne, int nbLigne) {
+		for (int i = 0; i < nbFantome; i++) {
+			int x = (int) Math.floor(Math.random() * nbColonne);
+			int y = (int) Math.floor(Math.random() * nbLigne);
+			while (this.murs[x][y] || pj.getX() == x && pj.getY() == y) {
+				x = (int) Math.floor(Math.random() * nbColonne);
+				y = (int) Math.floor(Math.random() * nbLigne);
+			}
+			Fantome fantome = new Fantome(x, y);
+			monstres.add(fantome);
+		}
+	}
+
+	/**
 	 * Methode permettant d'associer des interrupteurs avec des portes
 	 *
 	 * @param nbColonnes nombre de colonnes du laby (parcours de cases)
@@ -379,24 +393,7 @@ public class Labyrinthe {
 	 * @param y position en y
 	 * @return boolean, true si c'est vide, false sinon
 	 */
-	public boolean isEmpty(int x, int y) {
-		if ((this.pj.getX() == x && this.pj.getY() == y) || getMur(x, y)) {
-			return false;
-		}
-		for (Entite mstr : monstres) {
-			if (mstr.getX() == x && mstr.getY() == y) {
-				return false;
-			}
-		}
-        for (Porte porte : portes) {
-            if ((porte.getX() == x && porte.getY() == y) && !porte.getOuverte()) {
-                return false;
-            }
-        }
-		return true;
-	}
-
-	public boolean isEmptyFant(int x, int y) {
+	public boolean isEmpty(int x, int y, Entite entite) {
 		if ((this.pj.getX() == x && this.pj.getY() == y)) {
 			return false;
 		}
@@ -405,28 +402,19 @@ public class Labyrinthe {
 				return false;
 			}
 		}
-		if (x < 0 || y < 0 || x > murs.length - 1 || y > murs[0].length - 1) {
-			return false;
+		if (entite instanceof Fantome) {
+            return x > 0 && y > 0 && x < (murs.length - 1) && y < (murs[0].length - 1);
+		} else {
+			if (getMur(x, y)) {
+				return false;
+			}
+			for (Porte porte : portes) {
+				if ((porte.getX() == x && porte.getY() == y) && !porte.getOuverte()) {
+					return false;
+				}
+			}
 		}
 		return true;
 	}
 
-	/**
-	 * Methode permettant de gérer la génération aléatoire des fantômes
-	 *
-	 * @param nbColonne nombre de colonnes du laby
-	 * @param nbLigne   nombre de lignes du laby
-	 */
-	public void generationFantome(int nbColonne, int nbLigne) {
-		for (int i = 0; i < nbFantome; i++) {
-			int x = (int) Math.floor(Math.random() * nbColonne);
-			int y = (int) Math.floor(Math.random() * nbLigne);
-			while (this.murs[x][y] || pj.getX() == x && pj.getY() == y) {
-				x = (int) Math.floor(Math.random() * nbColonne);
-				y = (int) Math.floor(Math.random() * nbLigne);
-			}
-			Fantome fantome = new Fantome(x, y);
-			monstres.add(fantome);
-		}
-	}
 }
