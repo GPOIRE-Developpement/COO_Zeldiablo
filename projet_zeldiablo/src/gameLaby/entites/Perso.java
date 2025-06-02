@@ -10,8 +10,16 @@ import java.util.List;
  */
 public class Perso extends Entite {
 
+    /**
+     * Liste d'objet qui représente l'inventaire du joueur
+     */
     private ArrayList<Objet> inventaire = new ArrayList<>();
+
+    /**
+     * Représente l'objet qui est séléctionné dans l'inventaire
+     */
     private Objet itemSelecte;
+
     /**
      * constructeur
      *
@@ -22,6 +30,10 @@ public class Perso extends Entite {
         super(dx, dy);
     }
 
+    /**
+     * Méthode permettant d'interagir avec les objets présent dans le labyrinthe ou dans l'inventaire
+     * @param objet Liste des objets d'un labyrinthe
+     */
     public void interagir(List<Objet> objet) {
         Objet objetAttraper = null;
         for (Objet obj : objet){
@@ -44,24 +56,42 @@ public class Perso extends Entite {
         }
     }
 
+    /**
+     * Permet de séléctionner un objet présent dans l'inventaire
+     * @param indice indice de l'objet à selectionner
+     */
     public void selectionnerObjet(int indice) {
         if (indice >= 1 && indice <= inventaire.size()) {
             itemSelecte = inventaire.get(indice-1);
         }
     }
 
+    /**
+     * @return retourne l'objet qui est séléctionné dans l'inventaire
+     */
     public Objet getItemSelecte() {
         return itemSelecte;
     }
 
+    /**
+     * @return retourne l'inventaire du personnage
+     */
     public ArrayList<Objet> getInventaire() {
         return inventaire;
     }
 
+    /**
+     * Permet au personnage d'attaquer
+     * @param entite l'entite à attaquer
+     */
     public void attaquer(Entite entite) {
         entite.setHP(-atk);
     }
 
+    /**
+     * Modifie le nombre d'Hp du perso
+     * @param hp Nouveaux Hp
+     */
     @Override
     public void setHP(int hp){
         super.setHP(hp);
