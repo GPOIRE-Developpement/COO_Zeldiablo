@@ -69,7 +69,11 @@ public class LabyJeu implements Jeu{
         if(LabyJeu.niveaux != null && LabyJeu.niveau <= LabyJeu.niveaux.size()){
             LabyJeu.labyrinthe = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau));
         }else{
-            System.out.println("Vous avez terminé la partie");
+            jeuFini();
         }
+    }
+
+    public static void jeuFini(){
+        System.out.println("Vous avez terminé la partie");
     }
 }
