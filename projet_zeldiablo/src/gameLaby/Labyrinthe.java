@@ -1,9 +1,6 @@
 package gameLaby;
 
-import gameLaby.casesSpe.CaseDeclencheuse;
-import gameLaby.casesSpe.CasePiege;
-import gameLaby.casesSpe.Interrupteur;
-import gameLaby.casesSpe.Porte;
+import gameLaby.casesSpe.*;
 import gameLaby.entites.Entite;
 import gameLaby.entites.Monstre;
 import gameLaby.entites.Perso;
@@ -30,7 +27,8 @@ public class Labyrinthe {
     public static final char PJ = 'P';
     public static final char VIDE = '.';
     public static final char MONSTER = 'M';
-    public final char PORTE = 'D';
+    public static final char PORTE = 'D';
+    public static final char SORTIE = 'S';
 
     /**
      * attribut du personnage
@@ -146,6 +144,10 @@ public class Labyrinthe {
                             portes.add(new Porte(colonne, numeroLigne, true));
                         }
                         break;
+                    case SORTIE:
+                        this.murs[colonne][numeroLigne] = false;
+                        cases[colonne][numeroLigne] = new Sortie();
+                        break;
                     default:
                         throw new Error("caractere inconnu " + c);
                 }
@@ -202,6 +204,9 @@ public class Labyrinthe {
                     entite.setX(position[0]);
                     entite.setY(position[1]);
                     estSurCase(entite);
+                }
+                if(entite.peutAttaquer(pj)) {
+                    entite.attaquer(pj);
                 }
             }
             deplacement = false;

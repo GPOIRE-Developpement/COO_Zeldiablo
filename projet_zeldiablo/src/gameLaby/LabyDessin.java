@@ -119,6 +119,8 @@ public class LabyDessin implements DessinJeu {
                             gc.setFill(Color.RED);
                             gc.fillRect(colonne * size + 3, ligne * size + 3, size - 6, size - 6);
                             break;
+                        case "sortie":
+                            break;
                         default:
                             System.out.println("erreur je connais pas cette case");
                     }

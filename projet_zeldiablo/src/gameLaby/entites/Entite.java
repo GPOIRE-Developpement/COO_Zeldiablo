@@ -12,7 +12,7 @@ abstract public class Entite {
 
 	private String position = "Bas";
 
-	private int x,y,atk,hp;
+	protected int x,y,atk,hp;
 
 	public Entite(int x, int y) {
 		this.x = x;
@@ -113,6 +113,21 @@ abstract public class Entite {
 
 		// calcule case suivante
         return getSuivant(courante[0], courante[1], action);
+	}
+
+
+	public abstract void attaquer(Entite entite);
+
+
+	/**
+	 * Méthode permettant de vérifier qu'une entité peut attaquer
+	 * @param entite
+	 * @return boolean
+	 */
+	public boolean peutAttaquer(Entite entite) {
+		int posX = entite.getX();
+		int posY = entite.getY();
+		return (this.x == posX) && (this.y - 1 == posY) || (this.x == posX) && (this.y + 1 == posY) || (this.x - 1 == posX) && (this.y == posY) || (this.x + 1 == posX) && (this.y == posY);
 	}
 
 

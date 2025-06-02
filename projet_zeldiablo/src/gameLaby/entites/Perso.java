@@ -54,4 +54,8 @@ public class Perso extends Entite {
     public ArrayList<Objet> getInventaire() {
         return inventaire;
     }
+
+    public void attaquer(Entite entite) {
+        System.out.println("perso Attaque");
+    }
 }

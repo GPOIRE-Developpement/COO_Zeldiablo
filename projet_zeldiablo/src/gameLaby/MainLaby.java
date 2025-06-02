@@ -3,6 +3,8 @@ package gameLaby;
 import moteurJeu.MoteurJeu;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainLaby {
 
@@ -11,7 +13,11 @@ public class MainLaby {
         int height = 600;
         int pFPS = 7;
 
-        LabyJeu labyJeu = new LabyJeu("labySimple/laby2.txt");
+        List<String> niveaux = new ArrayList<>();
+        niveaux.add("labySimple/laby2.txt");
+        niveaux.add("labySimple/laby3.txt");
+
+        LabyJeu labyJeu = new LabyJeu(niveaux);
         LabyDessin labyDessin = new LabyDessin();
 
         MoteurJeu.setTaille(labyJeu.getLabyrinthe().getLength()*LabyDessin.size, labyJeu.getLabyrinthe().getLengthY()*LabyDessin.size + LabyJeu.INTERFACE_HEIGHT);
@@ -19,5 +25,4 @@ public class MainLaby {
 
         MoteurJeu.launch(labyJeu,labyDessin);
     }
-
 }
