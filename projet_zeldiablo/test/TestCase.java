@@ -16,7 +16,7 @@ public class TestCase {
     @Test
     public void joueurSurCasePiegee(){
         Perso perso = new Perso(5, 9);
-        perso.setHP(5);
+        perso.setHp(5);
         CasePiege casePiege = new CasePiege();
 
         assertEquals("Un problème est survenu lors de l'initialisation de la vie", 5, perso.getHP());
