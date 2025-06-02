@@ -385,20 +385,6 @@ public class Labyrinthe {
 		return true;
 	}
 
-    public boolean isEmptyFant(int x, int y) {
-        if ((this.pj.getX() == x && this.pj.getY() == y)) {
-            return false;
-        }
-        for (Entite mstr : monstres) {
-            if (mstr.getX() == x && mstr.getY() == y) {
-                return false;
-            }
-        }
-        if (x < 0 || y < 0 || x > murs.length - 1 || y > murs[0].length - 1) {
-            return false;
-        }
-        return true;
-    }
 	public boolean isEmptyFant(int x, int y) {
 		if ((this.pj.getX() == x && this.pj.getY() == y)) {
 			return false;
