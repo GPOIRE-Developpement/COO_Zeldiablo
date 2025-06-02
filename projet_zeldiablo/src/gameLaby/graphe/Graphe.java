@@ -125,8 +125,20 @@ public class Graphe {
 
     public Position resourdre(Position depart, Position arrivee){
         // Parcourir l'ensemble des portes pour définir leurs status
+        for(int i = 0; i < portes.size(); i++){
+            List<Arc> arcs = passePortes.get(i).getArcs();
+            int cout = 0;
+            if(portes.get(i).getOuverte()){
+                cout = 1;
+            }
+            for(int j = 0; j < arcs.size(); j++){
+                arcs.get(j).setCout(cout);
+            }
+        }
 
         // Calculer ensuite le trajet le plus court entre depart et arrivée
+
+
 
         return null;
     }
