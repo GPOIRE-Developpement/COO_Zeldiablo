@@ -199,7 +199,7 @@ public class Labyrinthe {
 	 */
 	public void deplacerMonstre() {
 		if (deplacement) {
-			boolean deplacementPossible;
+			boolean deplacementPossible = false;
 			String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
 			List<Entite> morts = new ArrayList<>();
 			for (Entite entite : monstres) {
@@ -208,7 +208,12 @@ public class Labyrinthe {
 					continue;
 				}
 				int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
-				deplacementPossible = isEmpty(position[0],position[1]);
+				if (entite instanceof Monstre) {
+					deplacementPossible = isEmpty(position[0], position[1]);
+				}
+				if (entite instanceof Fantome) {
+					deplacementPossible = isEmptyFant(position[0], position[1]);
+				}
 				if (deplacementPossible) {
 					// on met a jour le monstre
 					entite.setX(position[0]);
