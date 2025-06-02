@@ -27,6 +27,8 @@ public class LabyJeu implements Jeu{
     public LabyJeu(List<String> niveaux) throws IOException {
         LabyJeu.niveau = 0;
         LabyJeu.niveaux = niveaux;
+
+        LabyJeu.niveauSuivant();
     }
 
     public void update(double seconde, Clavier clavier) {
@@ -65,12 +67,12 @@ public class LabyJeu implements Jeu{
     }
 
     public static void niveauSuivant() throws IOException{
-        LabyJeu.niveau++;
-        if(LabyJeu.niveaux != null && LabyJeu.niveau <= LabyJeu.niveaux.size()){
+        if(LabyJeu.niveaux != null && LabyJeu.niveau < LabyJeu.niveaux.size()){
             LabyJeu.labyrinthe = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau));
         }else{
             jeuFini();
         }
+        LabyJeu.niveau++;
     }
 
     public static void jeuFini(){
