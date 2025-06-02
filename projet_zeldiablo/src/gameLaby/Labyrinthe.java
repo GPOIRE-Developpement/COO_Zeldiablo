@@ -164,6 +164,7 @@ public class Labyrinthe {
 		// ferme fichier
 		bfRead.close();
 		generationMonstre(nbColonnes, nbLignes);
+		generationFantome(nbColonnes,nbLignes);
 		associerPorteInt(nbColonnes, nbLignes);
 	}
 

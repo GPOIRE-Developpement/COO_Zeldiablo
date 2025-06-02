@@ -3,6 +3,8 @@ package gameLaby;
 import gameLaby.casesSpe.CaseDeclencheuse;
 import gameLaby.casesSpe.Porte;
 import gameLaby.entites.Entite;
+import gameLaby.entites.Fantome;
+import gameLaby.entites.Monstre;
 import gameLaby.entites.Perso;
 import gameLaby.objets.Objet;
 import javafx.scene.canvas.Canvas;
@@ -21,7 +23,6 @@ public class LabyDessin implements DessinJeu {
 
     static final String PATH = "texture/";
     static final String WALL = PATH + "wall/";
-    static final String TOWER = PATH + "wall/tower.png";
     static final String GROUND = PATH + "ground/simple_grass.png";
     static final String DOOR = PATH + "door/";
 
@@ -81,14 +82,26 @@ public class LabyDessin implements DessinJeu {
         Image img_inv = new Image(imgf_inv.toURI().toString());
         gc.drawImage(img_inv, x1+10, y1+8, img_inv.getWidth()*2.25, img_inv.getHeight()*2.25);
 
-        //gestion de l'affichage de l'item selectionné
-        //16*2.25
-        File imgf_selector= new File(BACKGROUND + "selector.png");
-        Image img_selector = new Image(imgf_selector.toURI().toString());
-        int indiceSelect = laby.getPj().getInventaire().indexOf(laby.getPj().getItemSelecte());
-        if (indiceSelect >= 0 && indiceSelect < 5) {
-            gc.drawImage(img_selector, x1 + 10 + (33 + 17 * (indiceSelect))*2.25, y1 + 8 + 4*2.25, 16 * 2.25, 16 * 2.25);
+        //gestion de l'affichage des items de l'inventaire
+        ArrayList<Objet> inventaire = laby.getPj().getInventaire();
+        int i = 0;
+        for (Objet o : inventaire) {
+            File imgf_obj = new File(ITEM + o.getNom() + ".png");
+            Image img_obj = new Image(imgf_obj.toURI().toString());
+            gc.drawImage(img_obj, x1+11+(38+17*(i+1)*2.25), y1 + 10 + 4*2.25, 14 * 2.25, 14 * 2.25);
+            i++;
         }
+
+        //gestion de l'affichage de l'item selectionné
+        if (!inventaire.isEmpty()) {
+            File imgf_selector= new File(BACKGROUND + "selector.png");
+            Image img_selector = new Image(imgf_selector.toURI().toString());
+            int indiceSelect = inventaire.indexOf(laby.getPj().getItemSelecte());
+            if (indiceSelect >= 0 && indiceSelect < 5) {
+                gc.drawImage(img_selector, x1 + 10 + (33 + 17 * (indiceSelect))*2.25, y1 + 8 + 4*2.25, 16 * 2.25, 16 * 2.25);
+            }
+        }
+
 
         //gestion de l'affichage des HP
         gc.setFill(Color.rgb(246,56,65));
@@ -120,6 +133,8 @@ public class LabyDessin implements DessinJeu {
                             gc.fillRect(colonne * size + 3, ligne * size + 3, size - 6, size - 6);
                             break;
                         case "sortie":
+                            gc.setFill(Color.BLUE);
+                            gc.fillRect(colonne * size + 3, ligne * size + 3, size - 6, size - 6);
                             break;
                         default:
                             System.out.println("erreur je connais pas cette case");
@@ -160,10 +175,16 @@ public class LabyDessin implements DessinJeu {
         //ENTITES
         //##############
 
+        ArrayList<Entite> fantomes = new ArrayList<>();
+
         //dessin des monstre
         ArrayList<Entite> monstres = laby.getMonstres();
         for (Entite entite : monstres) {
-            String path_monster = MONSTER + entite.getPosition() + ".png";
+            String rep = "monstre/"; //permet de gérer si il y a d'autres monstres qui se comportent comme le monstre de base
+            if (entite instanceof Fantome) {
+                fantomes.add(entite);
+            }
+            String path_monster = MONSTER + rep + entite.getPosition() + ".png";
             File imgf_monster = new File(path_monster);
             Image img_monster = new Image(imgf_monster.toURI().toString());
             gc.drawImage(img_monster, entite.getX() * size, entite.getY() * size, size, size);
@@ -201,5 +222,13 @@ public class LabyDessin implements DessinJeu {
                 }
             }
         }
+
+        //creation des fantomes, ils doivent être devant les murs en back
+        for (Entite fantome : fantomes) {
+            File imgf_fantome = new File(MONSTER+"fantome/"+ fantome.getPosition()+".png");
+            Image img_fantomes = new Image(imgf_fantome.toURI().toString());
+            gc.drawImage(img_fantomes, fantome.getX() * size, fantome.getY() * size, size, size);
+        }
+
     }
 }

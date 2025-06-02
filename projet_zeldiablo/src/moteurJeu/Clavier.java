@@ -1,5 +1,6 @@
 package moteurJeu;
 
+import gameLaby.LabyJeu;
 import javafx.scene.input.KeyEvent;
 
 public class Clavier {
@@ -38,24 +39,29 @@ public class Clavier {
             case D:
                 this.droite = true;
                 break;
+
             case DIGIT1:
                 itemSelectionne= 1;
                 System.out.println(event.getCode());
                 break;
+
             case DIGIT2:
                 itemSelectionne = 2;
                 System.out.println(event.getCode());
                 break;
+
             case DIGIT3:
                 itemSelectionne = 3;
                 System.out.println(event.getCode());
                 break;
+
             case DIGIT4:
                 itemSelectionne = 4;
                 System.out.println(event.getCode());
                 break;
+
             case E:
-                this.interaction = true;
+                LabyJeu.interagir();
                 break;
             case SPACE:
                 this.attaquer = true;
@@ -90,10 +96,6 @@ public class Clavier {
             // si touche droite
             case D:
                 this.droite = false;
-                break;
-
-            case E:
-                this.interaction = false;
                 break;
 
             case SPACE:

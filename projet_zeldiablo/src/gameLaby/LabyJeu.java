@@ -21,7 +21,7 @@ public class LabyJeu implements Jeu{
     private static List<String> niveaux;
 
     public LabyJeu(String nomFichier) throws IOException {
-        LabyJeu.labyrinthe = new Labyrinthe(nomFichier, null);
+        LabyJeu.labyrinthe = new Labyrinthe(nomFichier);
         LabyJeu.niveaux = null;
     }
 
@@ -49,14 +49,14 @@ public class LabyJeu implements Jeu{
             labyrinthe.deplacerPerso(Entite.BAS);
         }
 
-        if (clavier.interaction){
-            labyrinthe.getPj().interagir(labyrinthe.getObjets());
-        }
-
         labyrinthe.getPj().selectionnerObjet(clavier.getItemSelectionne());
 
         labyrinthe.deplacerMonstre();
 
+    }
+
+    public static void interagir() {
+        labyrinthe.getPj().interagir(labyrinthe.getObjets());
     }
 
     public void init() {
@@ -73,7 +73,7 @@ public class LabyJeu implements Jeu{
 
     public static void niveauSuivant(Perso p) throws IOException{
         if(LabyJeu.niveaux != null && LabyJeu.niveau < LabyJeu.niveaux.size()){
-            LabyJeu.labyrinthe = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau), p);
+            LabyJeu.labyrinthe = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau));
         }else{
             jeuFini();
         }
