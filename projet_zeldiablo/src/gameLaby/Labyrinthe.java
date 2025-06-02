@@ -7,6 +7,7 @@ import gameLaby.entites.Perso;
 import gameLaby.objets.Bouclier;
 import gameLaby.objets.Epee;
 import gameLaby.objets.Objet;
+import gameLaby.objets.Potion;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -139,6 +140,10 @@ public class Labyrinthe {
                         Bouclier bouclier = new Bouclier("shield", 3, colonne, numeroLigne);
                         objets.add(bouclier);
                         break;
+                    case Objet.POTION:
+                        this.murs[colonne][numeroLigne] = false;
+                        Potion potion = new Potion("potion de vie", 2, colonne, numeroLigne);
+                        objets.add(potion);
                     case CaseDeclencheuse.INTERRUPTEUR:
                         this.murs[colonne][numeroLigne] = false;
                         cases[colonne][numeroLigne] = new Interrupteur();
