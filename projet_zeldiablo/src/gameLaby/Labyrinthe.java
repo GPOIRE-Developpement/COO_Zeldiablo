@@ -71,7 +71,7 @@ public class Labyrinthe {
      * @return labyrinthe cree
      * @throws IOException probleme a la lecture / ouverture
      */
-    public Labyrinthe(String nom) throws IOException {
+    public Labyrinthe(String nom, Perso p) throws IOException {
         // ouvrir fichier
         FileReader fichier = new FileReader(nom);
         BufferedReader bfRead = new BufferedReader(fichier);
@@ -112,10 +112,16 @@ public class Labyrinthe {
                     case PJ:
                         // pas de mur
                         this.murs[colonne][numeroLigne] = false;
-                        // ajoute PJ
-                        this.pj = new Perso(colonne, numeroLigne);
-                        pj.setHP(10);
-                        pj.setAtk(1);
+                        // ajoute PJ ou conserver l'ancien
+                        if (p == null){
+                            this.pj = new Perso(colonne, numeroLigne);
+                        }else{
+                            this.pj = p;
+                            this.pj.setX(colonne);
+                            this.pj.setY(numeroLigne);
+                            this.pj.setHP(10);
+                            this.pj.setAtk(1);
+                        }
                         break;
                     case CaseDeclencheuse.PIEGE:
                         this.murs[colonne][numeroLigne] = false;

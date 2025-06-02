@@ -1,6 +1,7 @@
 package gameLaby;
 
 import gameLaby.entites.Entite;
+import gameLaby.entites.Perso;
 import moteurJeu.Clavier;
 import moteurJeu.Jeu;
 
@@ -20,7 +21,7 @@ public class LabyJeu implements Jeu{
     private static List<String> niveaux;
 
     public LabyJeu(String nomFichier) throws IOException {
-        LabyJeu.labyrinthe = new Labyrinthe(nomFichier);
+        LabyJeu.labyrinthe = new Labyrinthe(nomFichier, null);
         LabyJeu.niveaux = null;
     }
 
@@ -28,7 +29,7 @@ public class LabyJeu implements Jeu{
         LabyJeu.niveau = 0;
         LabyJeu.niveaux = niveaux;
 
-        LabyJeu.niveauSuivant();
+        LabyJeu.niveauSuivant(null);
     }
 
     public void update(double seconde, Clavier clavier) {
@@ -66,9 +67,9 @@ public class LabyJeu implements Jeu{
         return labyrinthe;
     }
 
-    public static void niveauSuivant() throws IOException{
+    public static void niveauSuivant(Perso p) throws IOException{
         if(LabyJeu.niveaux != null && LabyJeu.niveau < LabyJeu.niveaux.size()){
-            LabyJeu.labyrinthe = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau));
+            LabyJeu.labyrinthe = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau), p);
         }else{
             jeuFini();
         }
