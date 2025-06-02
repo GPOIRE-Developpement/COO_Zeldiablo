@@ -7,7 +7,7 @@ public class Clavier {
     /**
      * controle appuyes
      */
-    public boolean haut, bas, gauche, droite;
+    public boolean haut, bas, gauche, droite, interaction;
     private int itemSelectionne = 0;
 
     /**
@@ -54,8 +54,10 @@ public class Clavier {
                 itemSelectionne = 4;
                 System.out.println(event.getCode());
                 break;
+            case E:
+                this.interaction = true;
+                break;
         }
-
     }
 
     /**
@@ -87,6 +89,9 @@ public class Clavier {
                 this.droite = false;
                 break;
 
+            case E:
+                this.interaction = false;
+                break;
         }
     }
 
