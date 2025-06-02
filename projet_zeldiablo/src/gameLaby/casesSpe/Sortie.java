@@ -1,5 +1,6 @@
 package gameLaby.casesSpe;
 
+import gameLaby.LabyJeu;
 import gameLaby.entites.Entite;
 import gameLaby.entites.Perso;
 
@@ -14,7 +15,12 @@ public class Sortie implements CaseDeclencheuse {
      */
     public void activer(Entite ent){
         if(!(ent instanceof Perso)) return;
-        System.out.println("Vous avez terminé");
+
+        try{
+            LabyJeu.niveauSuivant();
+        }catch(Exception e){
+            LabyJeu.jeuFini();
+        }
     }
 
     public String getType() {
