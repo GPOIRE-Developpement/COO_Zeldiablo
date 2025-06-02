@@ -1,0 +1,85 @@
+Itération 2
+
+finalisation des Armes : 
+Critères validés : 
+	• Lorsque le héros prend une arme, l'arme est ajoutée à son inventaire et disparait du labyrinthe.
+	• Lorsqu'un héros possède une arme et attaque un monstre, son attaque est augmentée des dégâts de l'arme.
+	• Un héros ne peut utiliser qu'une seule arme à la fois. Lorsqu'un héros possède plusieurs armes dans son inventaire, il s'équipe automatiquement de l'arme la plus forte.
+
+reprise de la fonctionnalité de l'inventaire : 
+Critères validés : 
+	• A chaque fois qu'un joueur prend un objet, en plus de disparaitre dans le labyrinthe, celui-ci s'affiche dans l'inventaire 
+	• Les objets sélectionnés (meilleure arme et meilleur bouclier) sont d'une couleur différente. 
+	• Les objets affichés dans l'inventaire ont des formes spécifiques (rond pour un bouclier et un trait vertical pour une arme).
+
+finalisation de la fonctionnalité basique des monstres : 
+Critère validé : 
+      	• Les monstres ne se déplacent pas (mais attaquent éventuellement le héros s'il passe à proximité - cf taches attaque dans les parties suivantes).
+
+Ouverture de passage secret : 
+Critères de validation :
+	• Une porte est un type de case particulière. Une porte n'a pas d'orientation et occupe toute une case.
+	• Une porte peut être fermée ou ouverte. Une porte fermée bloque le trajet et une porte ouverte est traversable.
+	• La porte s'ouvre au passage du personnage sur la case qui déclenche son ouverture.
+	• Une fois la porte ouverte, elle reste ouverte.
+	• Les portes sont affichées d'une manière particulière : elles sont de couleur noire et sont représentées par des carrés qui occupent toute la case. Le carré est plein ou vide en fonction de l'état de la porte (ouverte/fermée).
+
+Fermeture de passage : 
+Critères de validation : 
+	• Cette case a l'effet inverse de la case précédente.
+	• Une porte fermée reste fermée.
+	• Une même porte peut être manipulée par plusieurs cases (de type fermeture/ouverture)
+
+Gestion du labyrinthe multi-Etage
+Critère de validation visé : 
+	• Les escaliers sont des cases traversables par le héros et les monstres.
+	• Lorsque le héros se trouve sur un escalier, il peut l'activer et il change alors de niveau
+
+Déplacement aléatoire de monstres : 
+Critères de validation : 
+A chaque évolution du jeu, que le joueur se déplace ou non, les monstres se déplacent.
+	• Les monstres sont bloqués par les obstacles. S'ils ont choisi de se diriger vers un obstacle (mur, joueur, ...), leur mouvement est alors annulé (sauf s'il s'agit de fantômes).
+	• Deux monstres ou un monstre et un joueur ne peuvent pas se trouver sur la même case (Si la tache Collision entre monstre est fonctionnelle).
+	• A chaque évolution, tous les monstres tentent de se déplacer.
+	• L'interface graphique se met à jour en fonction des déplacements des Monstres
+
+Fantômes : 
+Critères de validation : 
+	• Les fantômes peuvent traverser des murs mais pas les autres personnages (les autres monstres ou le héros)
+	• Les autres monstres continuent à être bloqués par des murs.
+	• Les attaques des fantômes fonctionnent de la même manière que les attaques des monstres de base.
+ 
+(
+Attaque des monstres :
+Critères de validation :
+	• Lorsque le monstre est à côté du joueur, il attaque et ne se déplace pas. Par défaut,
+	• le Héros perd 1 point de vie.
+	• Lorsque le monstre est loin du joueur, il n'attaque pas mais se déplace.
+)
+
+Attaque du joueur : 
+Critères de validation : 
+	• L'attaque a effectivement lieu quand le joueur appuie sur la touche.
+	• TOUS les monstres à côté du joueur prennent un point de dégât.
+	• TOUS les monstres éloignés du joueur ne subissent pas de dégâts.
+	• S'il n'y a aucun monstre autour du joueur, l'attaque à quand même lieu et empêche le déplacement du joueur, mais les monstres ne prennent pas de dégâts.
+
+Attaque directionnelle :
+Critères de validation : 
+	• L'attaque a lieu dans la dernière direction suivie par le héros.
+	• L'attaque ne peut toucher au maximum qu'un monstre et seulement si ce monstre se trouve juste devant le personnage.
+	• Les monstres situés à côté du personnage dans une autre direction ne subissent pas de dégâts.
+	• Si aucun monstre n'est présent devant le héros, aucun monstre ne subit de dégâts.
+
+Mort des monstres : 
+Critères de validation :
+	• Les monstres ont par défaut 2 points de vie et ne peuvent pas avoir de points de vie négatifs.
+	• Lorsqu'un monstre par défaut est touché deux fois, il disparait.
+	• Le héros attaque avant le monstre, si le monstre meurt, le monstre n'a pas le temps de répliquer et disparait avant.
+
+Fin du Jeu : Mort du Héro
+Critère de validation :
+	• Le héros par défaut dispose de 5 points de vie.
+	• Chaque monstre fait 1 point de dégât lorsque le héros se fait attaquer.
+	• Quand le héros meurt, un message de n est aché sur la console et le jeu s'arrête
+

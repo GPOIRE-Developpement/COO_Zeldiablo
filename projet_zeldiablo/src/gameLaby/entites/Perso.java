@@ -99,11 +99,11 @@ public class Perso extends Entite {
 
     /**
      * Modifie le nombre d'Hp du perso
-     * @param hp Nouveaux Hp
+     * @param n Nouveaux Hp
      */
     @Override
-    public void subirDegat(int hp){
-        super.subirDegat(hp);
+    public void subirDegat(int n){
+        super.subirDegat(n);
         if(!super.estVivant()){
             System.exit(0);
         }
