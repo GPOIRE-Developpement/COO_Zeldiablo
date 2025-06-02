@@ -63,5 +63,12 @@ public class LabyJeu implements Jeu{
         return labyrinthe;
     }
 
-
+    public static void niveauSuivant() throws IOException{
+        LabyJeu.niveau++;
+        if(LabyJeu.niveau <= LabyJeu.niveaux.size()){
+            LabyJeu.labyrinthe = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau));
+        }else{
+            System.out.println("Vous avez terminé la partie");
+        }
+    }
 }
