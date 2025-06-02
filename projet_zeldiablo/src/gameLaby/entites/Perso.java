@@ -56,7 +56,7 @@ public class Perso extends Entite {
     }
 
     public void attaquer(Entite entite) {
-        System.out.println("perso Attaque");
+        entite.setHP(-atk);
     }
 
     @Override
