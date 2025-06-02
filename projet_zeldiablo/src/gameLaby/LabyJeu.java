@@ -49,7 +49,7 @@ public class LabyJeu implements Jeu{
         }
 
         if (clavier.interaction){
-            labyrinthe.getPj().attraperObjet(labyrinthe.getObjets());
+            labyrinthe.getPj().interagir(labyrinthe.getObjets());
         }
 
         labyrinthe.getPj().selectionnerObjet(clavier.getItemSelectionne());

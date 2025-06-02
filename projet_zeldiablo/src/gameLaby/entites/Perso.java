@@ -22,21 +22,27 @@ public class Perso extends Entite {
         super(dx, dy);
         inventaire.add(new Epee("epee",10,10,10));
         inventaire.add(new Epee("epee",10,10,10));
+        inventaire.add(new Epee("epee",10,10,10));
     }
 
-    public void attraperObjet(List<Objet> objet) {
+    public void interagir(List<Objet> objet) {
         Objet objetAttraper = null;
-        if (!objet.isEmpty()) {
-            for (Objet obj : objet){
-                if (this.getX() == obj.getX() && this.getY() == obj.getY()){
-                    if (inventaire.size() < 4){
-                        objetAttraper = obj;
-                    }
+        for (Objet obj : objet){
+            if (this.getX() == obj.getX() && this.getY() == obj.getY()){
+                if (inventaire.size() < 4){
+                    objetAttraper = obj;
                 }
             }
-            if (objetAttraper!= null) {
-                inventaire.add(objetAttraper);
-                objet.remove(objetAttraper);
+        }
+        if (objetAttraper!= null) {
+            inventaire.add(objetAttraper);
+            objet.remove(objetAttraper);
+        } else {
+            if (this.itemSelecte != null) {
+                inventaire.remove(itemSelecte);
+                itemSelecte.setX(this.getX());
+                itemSelecte.setY(this.getY());
+                objet.add(itemSelecte);
             }
         }
     }
