@@ -21,10 +21,11 @@ public class LabyJeu implements Jeu{
 
     public LabyJeu(String nomFichier) throws IOException {
         LabyJeu.labyrinthe = new Labyrinthe(nomFichier);
+        LabyJeu.niveaux = null;
     }
 
     public LabyJeu(List<String> niveaux) throws IOException {
-        niveau = 0;
+        LabyJeu.niveau = 0;
         LabyJeu.niveaux = niveaux;
     }
 
@@ -65,7 +66,7 @@ public class LabyJeu implements Jeu{
 
     public static void niveauSuivant() throws IOException{
         LabyJeu.niveau++;
-        if(LabyJeu.niveau <= LabyJeu.niveaux.size()){
+        if(LabyJeu.niveaux != null && LabyJeu.niveau <= LabyJeu.niveaux.size()){
             LabyJeu.labyrinthe = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau));
         }else{
             System.out.println("Vous avez terminé la partie");
