@@ -115,12 +115,12 @@ public class Labyrinthe {
                         // ajoute PJ ou conserver l'ancien
                         if (p == null){
                             this.pj = new Perso(colonne, numeroLigne);
+                            this.pj.setHP(10);
+                            this.pj.setAtk(1);
                         }else{
                             this.pj = p;
                             this.pj.setX(colonne);
                             this.pj.setY(numeroLigne);
-                            this.pj.setHP(10);
-                            this.pj.setAtk(1);
                         }
                         break;
                     case CaseDeclencheuse.PIEGE:
@@ -203,6 +203,10 @@ public class Labyrinthe {
             boolean deplacementPossible;
             String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
             for (Entite entite : monstres) {
+                if(!entite.estVivant()){
+                    monstres.remove(entite);
+                    continue;
+                }
                 int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
                 deplacementPossible = isEmpty(position[0],position[1]);
                 if (deplacementPossible) {
@@ -214,6 +218,7 @@ public class Labyrinthe {
                 if(entite.peutAttaquer(pj)) {
                     entite.attaquer(pj);
                 }
+
             }
             deplacement = false;
         } else {
@@ -369,5 +374,9 @@ public class Labyrinthe {
             }
         }
         return true;
+    }
+
+    public void supprimerEntite(Entite ent){
+        monstres.remove(ent);
     }
 }
