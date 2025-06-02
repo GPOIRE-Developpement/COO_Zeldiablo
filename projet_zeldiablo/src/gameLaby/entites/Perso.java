@@ -90,7 +90,11 @@ public class Perso extends Entite {
      * @param entite l'entite à attaquer
      */
     public void attaquer(Entite entite) {
-        entite.setHP(-atk);
+        if (itemSelecte != null && itemSelecte.getNom().equals("sword")) {
+            entite.subirDegat(-atk + ((Epee)itemSelecte).getDommage());
+        } else {
+            entite.subirDegat(-atk);
+        }
     }
 
     /**
@@ -98,9 +102,8 @@ public class Perso extends Entite {
      * @param hp Nouveaux Hp
      */
     @Override
-    public void setHP(int hp){
-        super.setHP(hp);
-
+    public void subirDegat(int hp){
+        super.subirDegat(hp);
         if(!super.estVivant()){
             System.exit(0);
         }

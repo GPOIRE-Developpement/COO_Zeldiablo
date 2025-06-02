@@ -15,7 +15,7 @@ public class CasePiege implements CaseDeclencheuse {
         System.out.println("Vous êtes sur une case piégée !");
         System.out.println("Avant le piège : "+ent.getHP()+" HP");
         if (ent.estVivant()) {
-            ent.setHP(-1);
+            ent.subirDegat(-1);
         }
         System.out.println("Après le piège : "+ent.getHP()+" HP");
     }

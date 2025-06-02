@@ -12,7 +12,12 @@ abstract public class Entite {
 	public static final String GAUCHE = "Gauche";
 	public static final String DROITE = "Droite";
 
+	//permet de gérer les frames
 	private String position = "Bas";
+
+	//permet de gérer aussi l'état d'affichage
+	protected boolean estBlesse = false;
+	protected long tempsDernierHit = 0; // en ms
 
 	protected int x,y,atk,hp;
 
@@ -44,6 +49,7 @@ abstract public class Entite {
 	public void setX(int x) {
 		this.x = x;
 	}
+
 	public void setY(int y) {
 		this.y = y;
 	}
@@ -52,15 +58,15 @@ abstract public class Entite {
 		return hp;
 	}
 
-	public int getATK() {
-		return atk;
-	}
-
 	public boolean estVivant(){
 		return hp > 0;
 	}
 
-	public void setHP(int n){ this.hp = hp + n; }
+	public void subirDegat(int n){
+		this.hp = hp + n;
+		estBlesse = true;
+		tempsDernierHit = System.currentTimeMillis();
+	}
 
 	public void setAtk(int n){
 		this.atk = atk + n;
@@ -131,5 +137,29 @@ abstract public class Entite {
 				((this.x == posX) && (this.y + 1 == posY) && Objects.equals(this.position, BAS)) ||
 				((this.x - 1 == posX) && (this.y == posY) && Objects.equals(this.position, GAUCHE)) ||
 				((this.x + 1 == posX) && (this.y == posY) && Objects.equals(this.position, DROITE));
+	}
+
+	/**
+	 * Méthode permettant d'avoir le temps du dernier Hit reçu
+	 * @return
+	 */
+	public long getTempsDernierHit() {
+		return tempsDernierHit;
+	}
+
+	/**
+	 * Méthode permettant d'avoir l'état (bléssé ou non) de l'entité
+	 * @return
+	 */
+	public boolean isEstBlesse() {
+		return estBlesse;
+	}
+
+	public void setEstBlesse(boolean estBlesse) {
+		this.estBlesse = estBlesse;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
 }

@@ -102,7 +102,6 @@ public class LabyDessin implements DessinJeu {
             }
         }
 
-
         //gestion de l'affichage des HP
         gc.setFill(Color.rgb(246,56,65));
         int pv = laby.getPj().getHP();
@@ -183,17 +182,23 @@ public class LabyDessin implements DessinJeu {
             String rep = "monstre/"; //permet de gérer si il y a d'autres monstres qui se comportent comme le monstre de base
             if (entite instanceof Fantome) {
                 fantomes.add(entite);
+            } else {
+                if (entite.isEstBlesse()) {
+                    rep += "blesse/";
+                } else {
+                    rep += "neutre/";
+                }
+                String path_monster = MONSTER + rep + entite.getPosition() + ".png";
+                File imgf_monster = new File(path_monster);
+                Image img_monster = new Image(imgf_monster.toURI().toString());
+                gc.drawImage(img_monster, entite.getX() * size, entite.getY() * size, size, size);
             }
-            String path_monster = MONSTER + rep + entite.getPosition() + ".png";
-            File imgf_monster = new File(path_monster);
-            Image img_monster = new Image(imgf_monster.toURI().toString());
-            gc.drawImage(img_monster, entite.getX() * size, entite.getY() * size, size, size);
         }
 
         //gestion joueur
         Perso pj = laby.getPj();
-
-        String path = SKIN + pj.getPosition() + ".png";
+        String etat = pj.isEstBlesse() ? "blesse/" : "neutre/";
+        String path = SKIN + etat + pj.getPosition() + ".png";
         File imgf_pj = new File(path);
         Image img_pj = new Image(imgf_pj.toURI().toString());
         int posX = pj.getX();
@@ -225,7 +230,8 @@ public class LabyDessin implements DessinJeu {
 
         //creation des fantomes, ils doivent être devant les murs en back
         for (Entite fantome : fantomes) {
-            File imgf_fantome = new File(MONSTER+"fantome/"+ fantome.getPosition()+".png");
+            String etat2 = fantome.isEstBlesse() ? "blesse/" : "neutre/";
+            File imgf_fantome = new File(MONSTER+"fantome/"+etat2+ fantome.getPosition()+".png");
             Image img_fantomes = new Image(imgf_fantome.toURI().toString());
             gc.drawImage(img_fantomes, fantome.getX() * size, fantome.getY() * size, size, size);
         }

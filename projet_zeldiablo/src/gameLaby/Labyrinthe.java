@@ -114,7 +114,7 @@ public class Labyrinthe {
 						// ajoute PJ
 						if (p == null){
 							this.pj = new Perso(colonne, numeroLigne);
-							this.pj.setHP(10);
+							this.pj.setHp(10);
 							this.pj.setAtk(1);
 						}else{
 							this.pj = p;

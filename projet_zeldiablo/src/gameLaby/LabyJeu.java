@@ -49,6 +49,16 @@ public class LabyJeu implements Jeu{
             labyrinthe.deplacerPerso(Entite.BAS);
         }
 
+        for (Entite monstre : labyrinthe.getMonstres()) {
+            if (monstre.isEstBlesse() && System.currentTimeMillis() - monstre.getTempsDernierHit() > 200) {
+                monstre.setEstBlesse(false);
+            }
+        }
+
+        if (labyrinthe.getPj().isEstBlesse() && System.currentTimeMillis() - labyrinthe.getPj().getTempsDernierHit() > 200) {
+            labyrinthe.getPj().setEstBlesse(false);
+        }
+
         labyrinthe.getPj().selectionnerObjet(clavier.getItemSelectionne());
 
         labyrinthe.deplacerMonstre();
@@ -57,6 +67,14 @@ public class LabyJeu implements Jeu{
 
     public static void interagir() {
         labyrinthe.getPj().interagir(labyrinthe.getObjets());
+    }
+
+    public static void pjAttaque() {
+        for (Entite m : labyrinthe.getMonstres()) {
+            if (labyrinthe.getPj().peutAttaquer(m)) {
+                labyrinthe.getPj().attaquer(m);
+            }
+        }
     }
 
     public void init() {

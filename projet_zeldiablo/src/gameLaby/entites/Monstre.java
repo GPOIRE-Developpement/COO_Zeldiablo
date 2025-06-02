@@ -21,7 +21,7 @@ public class Monstre extends Entite {
 
 	@Override
 	public void attaquer(Entite entite) {
-		entite.setHP(-1);
+		entite.subirDegat(-1);
 	}
 
 

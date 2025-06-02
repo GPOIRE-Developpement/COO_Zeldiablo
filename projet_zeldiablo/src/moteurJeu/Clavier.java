@@ -63,8 +63,9 @@ public class Clavier {
             case E:
                 LabyJeu.interagir();
                 break;
+
             case SPACE:
-                this.attaquer = true;
+                LabyJeu.pjAttaque();
                 break;
         }
     }
@@ -98,9 +99,6 @@ public class Clavier {
                 this.droite = false;
                 break;
 
-            case SPACE:
-                this.attaquer = false;
-                break;
         }
     }
 
