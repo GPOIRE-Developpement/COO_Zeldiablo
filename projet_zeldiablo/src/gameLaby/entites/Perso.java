@@ -3,6 +3,7 @@ import gameLaby.objets.Epee;
 import gameLaby.objets.Objet;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * gere un personnage situe en x,y
@@ -21,6 +22,23 @@ public class Perso extends Entite {
         super(dx, dy);
         inventaire.add(new Epee("epee",10,10,10));
         inventaire.add(new Epee("epee",10,10,10));
+    }
+
+    public void attraperObjet(List<Objet> objet) {
+        Objet objetAttraper = null;
+        if (!objet.isEmpty()) {
+            for (Objet obj : objet){
+                if (this.getX() == obj.getX() && this.getY() == obj.getY()){
+                    if (inventaire.size() < 4){
+                        objetAttraper = obj;
+                    }
+                }
+            }
+            if (objetAttraper!= null) {
+                inventaire.add(objetAttraper);
+                objet.remove(objetAttraper);
+            }
+        }
     }
 
     public void selectionnerObjet(int indice) {

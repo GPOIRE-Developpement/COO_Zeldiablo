@@ -36,6 +36,10 @@ public class LabyJeu implements Jeu{
             labyrinthe.deplacerPerso(Entite.BAS);
         }
 
+        if (clavier.interaction){
+            labyrinthe.getPj().attraperObjet(labyrinthe.getObjets());
+        }
+
         labyrinthe.getPj().selectionnerObjet(clavier.getItemSelectionne());
 
         labyrinthe.deplacerMonstre();
