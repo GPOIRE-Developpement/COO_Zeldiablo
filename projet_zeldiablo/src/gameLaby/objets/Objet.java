@@ -31,19 +31,19 @@ public abstract class Objet {
         this.Y = y;
     }
 
-//    /**
-//     * @param x nouvelle position X
-//     */
-//    public void setX(int x){
-//        this.X = x;
-//    }
-//
-//    /**
-//     * @param y nouvelle position Y
-//     */
-//    public void setY(int y){
-//        this.Y = y;
-//    }
+    /**
+     * @param x nouvelle position X
+     */
+    public void setX(int x) {
+        this.X = x;
+    }
+
+    /**
+     * @param y nouvelle position Y
+     */
+    public void setY(int y) {
+        this.Y = y;
+    }
 
     /**
      * @return position X de l'objet

@@ -3,6 +3,7 @@ package gameLaby;
 import gameLaby.casesSpe.*;
 import gameLaby.entites.Entite;
 import gameLaby.entites.Fantome;
+import gameLaby.entites.Fantome;
 import gameLaby.entites.Monstre;
 import gameLaby.entites.Perso;
 import gameLaby.objets.Bouclier;
@@ -13,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * classe labyrinthe. represente un labyrinthe avec
@@ -197,27 +199,31 @@ public class Labyrinthe {
 	 */
 	public void deplacerMonstre() {
 		if (deplacement) {
-			boolean deplacementPossible = false;
+			boolean deplacementPossible;
 			String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
+			List<Entite> morts = new ArrayList<>();
 			for (Entite entite : monstres) {
+				if(!entite.estVivant()){
+					morts.add(entite);
+					continue;
+				}
 				int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
-				if (entite instanceof Monstre) {
-                deplacementPossible = isEmpty(position[0], position[1]);
-                }
-                if (entite instanceof Fantome) {
-                    deplacementPossible = isEmptyFant(position[0], position[1]);
-                }
+				deplacementPossible = isEmpty(position[0],position[1]);
 				if (deplacementPossible) {
 					// on met a jour le monstre
 					entite.setX(position[0]);
 					entite.setY(position[1]);
 					estSurCase(entite);
 				}
-				if (entite.peutAttaquer(pj)) {
+				if(entite.peutAttaquer(pj)) {
 					entite.attaquer(pj);
 				}
+
 			}
 			deplacement = false;
+			for(Entite ent : morts){
+				monstres.remove(ent);
+			}
 		} else {
 			deplacement = true;
 		}
@@ -393,6 +399,20 @@ public class Labyrinthe {
         }
         return true;
     }
+	public boolean isEmptyFant(int x, int y) {
+		if ((this.pj.getX() == x && this.pj.getY() == y)) {
+			return false;
+		}
+		for (Entite mstr : monstres) {
+			if (mstr.getX() == x && mstr.getY() == y) {
+				return false;
+			}
+		}
+		if (x < 0 || y < 0 || x > murs.length - 1 || y > murs[0].length - 1) {
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * Methode permettant de gérer la génération aléatoire des fantômes
@@ -411,9 +431,5 @@ public class Labyrinthe {
 			Fantome fantome = new Fantome(x, y);
 			monstres.add(fantome);
 		}
-	}
-
-	public void supprimerEntite(Entite ent) {
-		monstres.remove(ent);
 	}
 }
