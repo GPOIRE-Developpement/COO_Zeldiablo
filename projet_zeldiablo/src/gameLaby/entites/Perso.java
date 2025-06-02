@@ -91,7 +91,7 @@ public class Perso extends Entite {
      */
     public void attaquer(Entite entite) {
         if (itemSelecte != null && itemSelecte.getNom().equals("sword")) {
-            entite.subirDegat(-atk + ((Epee)itemSelecte).getDommage());
+            entite.subirDegat(-(atk + ((Epee)itemSelecte).getDommage()));
         } else {
             entite.subirDegat(-atk);
         }
