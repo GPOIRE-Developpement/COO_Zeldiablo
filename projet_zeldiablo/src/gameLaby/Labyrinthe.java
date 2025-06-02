@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * classe labyrinthe. represente un labyrinthe avec
@@ -202,9 +203,10 @@ public class Labyrinthe {
         if (deplacement) {
             boolean deplacementPossible;
             String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
+            List<Entite> morts = new ArrayList<>();
             for (Entite entite : monstres) {
                 if(!entite.estVivant()){
-                    monstres.remove(entite);
+                    morts.add(entite);
                     continue;
                 }
                 int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
@@ -221,6 +223,9 @@ public class Labyrinthe {
 
             }
             deplacement = false;
+            for(Entite ent : morts){
+                monstres.remove(ent);
+            }
         } else {
             deplacement = true;
         }
@@ -374,9 +379,5 @@ public class Labyrinthe {
             }
         }
         return true;
-    }
-
-    public void supprimerEntite(Entite ent){
-        monstres.remove(ent);
     }
 }
