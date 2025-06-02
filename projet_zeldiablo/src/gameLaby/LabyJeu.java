@@ -5,6 +5,7 @@ import moteurJeu.Clavier;
 import moteurJeu.Jeu;
 
 import java.io.IOException;
+import java.util.List;
 
 public class LabyJeu implements Jeu{
 
@@ -13,10 +14,18 @@ public class LabyJeu implements Jeu{
 
     public static final double INTERFACE_HEIGHT = 2* LabyDessin.size;
 
-    public final Labyrinthe labyrinthe;
+    public static Labyrinthe labyrinthe;
+
+    private static int niveau;
+    private static List<String> niveaux;
 
     public LabyJeu(String nomFichier) throws IOException {
-        this.labyrinthe = new Labyrinthe(nomFichier);
+        LabyJeu.labyrinthe = new Labyrinthe(nomFichier);
+    }
+
+    public LabyJeu(List<String> niveaux) throws IOException {
+        niveau = 0;
+        LabyJeu.niveaux = niveaux;
     }
 
     public void update(double seconde, Clavier clavier) {
@@ -53,5 +62,6 @@ public class LabyJeu implements Jeu{
     public Labyrinthe getLabyrinthe() {
         return labyrinthe;
     }
+
 
 }
