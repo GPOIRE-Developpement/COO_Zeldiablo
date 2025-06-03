@@ -4,8 +4,10 @@ import gameLaby.casesSpe.CaseDeclencheuse;
 import gameLaby.casesSpe.Sortie;
 import gameLaby.entites.Entite;
 import gameLaby.entites.Perso;
+import javafx.application.Platform;
 import moteurJeu.Clavier;
 import moteurJeu.Jeu;
+import moteurJeu.MoteurJeu;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +25,8 @@ public class LabyJeu implements Jeu{
     private static int niveau;
     private static List<String> niveaux;
     private static List<Labyrinthe> labys;
+
+    private boolean tutoAffiche = false;
 
     private static boolean lastLvl;
 
@@ -42,6 +46,14 @@ public class LabyJeu implements Jeu{
     }
 
     public void update(double seconde, Clavier clavier) {
+        if (!tutoAffiche && niveau == 0) {
+            tutoAffiche = true;
+            Platform.runLater(() -> {
+                MoteurJeu.AfficherTuto(niveau);
+                clavier.reset(); // À faire si tu veux régler le bug de touche maintenue
+            });
+        }
+
         if (clavier.gauche) {
             labyrinthe.deplacerPerso(Entite.GAUCHE);
         }
@@ -121,6 +133,9 @@ public class LabyJeu implements Jeu{
                 p.setX(coordSortie[0]);
                 p.setY(coordSortie[1]);
                 labyrinthe.setPJ(p);
+            }
+            if (niveau < 6 && niveau > 0) {
+                MoteurJeu.AfficherTuto(niveau);
             }
         }else{
             jeuFini();

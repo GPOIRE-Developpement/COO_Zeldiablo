@@ -5,6 +5,7 @@ package moteurJeu;
 import gameLaby.LabyJeu;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.event.ActionEvent;
@@ -60,7 +61,21 @@ public class MoteurJeu extends Application {
     /**
      * touches appuyee entre deux frame
      */
-    Clavier controle = new Clavier();
+    static Clavier controle = new Clavier();
+
+    private static final String[] informations = {
+            "Vous pouvez vous déplacer à l'aide des touches Z,Q,S et D ou bien les flèches directionnelles" +
+                    "Allez au niveau suivant en allant sur l'escalier en face",
+            "Ces interrupteurs au sol permettent d'ouvrir les portes. Attention, si vous remarchez dessus, cela la ferme",
+            "ATTENTION, UN MONSTRE !!" +
+                    "Essayez de le battre en le regardant et en appuyant sur la barre d'espace",
+            "Durant votre aventure, vous rencontrerez des pièges, même si ils sont invisible au départ, il suffit de marcher " +
+                    "dessus et ils vous seront visibles",
+            "Maintenant essayez d'intéragir avec les objets, le bouclier vous protegera, l'épée permettra d'attaquer autour de vous et la potion " +
+                    "vous soignera." + "\n Afin vous n'avez qu'à vous positionner sur un objet et appuyer sur la touche E de votre clavier pour intéragir. Pour utiliser la potion, appuyez également sur E en selectionnant " +
+                    "l'objet avec les touches 1 à 4 de votre clavier (pas le pavé numérique)",
+            "Mes conseils s'arrêtent ici, vous devez continuer votre chemin. Je vous préviens tout de même, plus vous avancerez et plus les monstres seront efficaces pour vous traquer..."
+    };
 
     /**
      * attribut permettant de gérer la génération du labyrinthe
@@ -310,4 +325,18 @@ public class MoteurJeu extends Application {
         // lance l'animation
         timer.start();
     }
+
+    public static void AfficherTuto(int i) {
+        Platform.runLater(() -> {
+            controle.reset();
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Tuto n°" + i);
+            dialog.setContentText(informations[i]);
+            dialog.setWidth(WIDTH / 2);
+            dialog.setHeight(HEIGHT / 2);
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
+            dialog.showAndWait();
+        });
+    }
+
 }

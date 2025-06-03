@@ -22,6 +22,7 @@ public class MainLaby {
         MoteurJeu.setFPS(pFPS);
 
         MoteurJeu.launch(labyJeu,labyDessin);
+        MoteurJeu.AfficherTuto(0);
     }
 
     private static List<String> getNiveaux() {

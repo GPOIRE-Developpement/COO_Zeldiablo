@@ -117,4 +117,13 @@ public class Clavier {
     public int getItemSelectionne() {
         return itemSelectionne;
     }
+
+    public void reset() {
+        gauche = false;
+        droite = false;
+        attaquer = false;
+        bas = false;
+        haut = false;
+        interaction = false;
+    }
 }
