@@ -2,6 +2,7 @@ package gameLaby;
 
 import gameLaby.casesSpe.*;
 import gameLaby.entites.*;
+import gameLaby.graphe.Graphe;
 import gameLaby.objets.*;
 
 import java.io.BufferedReader;
@@ -26,6 +27,7 @@ public class Labyrinthe {
 	public static final char MONSTER = 'M';
 	public static final char PORTE = 'D';
 	public static final char SORTIE = 'S';
+	public static final char ORQUE = 'O';
 
 	/**
 	 * attribut du personnage
@@ -158,6 +160,10 @@ public class Labyrinthe {
 						this.murs[colonne][numeroLigne] = false;
 						cases[colonne][numeroLigne] = new Sortie();
 						break;
+					case ORQUE:
+						this.murs[colonne][numeroLigne] = false;
+						monstres.add(new Orque(colonne, numeroLigne));
+						break;
 					default:
 						throw new Error("caractere inconnu " + c);
 				}
@@ -184,7 +190,7 @@ public class Labyrinthe {
 	public void deplacerPerso(String action) {
 
 		// calcule case suivante
-		int[] suivante = pj.deplacer(action);
+		int[] suivante = pj.deplacer(action, null, null);
 
 		boolean deplacementPossible = isEmpty(suivante[0], suivante[1], pj);
 
@@ -204,6 +210,7 @@ public class Labyrinthe {
 	 * Méthode permettant de déplacer toutes les entités de la liste monstres
 	 */
 	public void deplacerMonstre() {
+		Graphe g = new Graphe(murs, cases, portes);
 		if (nbActu == 4) {
 			boolean deplacementPossible = false;
 			String[] direction = {Entite.GAUCHE, Entite.DROITE, Entite.HAUT, Entite.BAS};
@@ -213,7 +220,7 @@ public class Labyrinthe {
 					morts.add(entite);
 					continue;
 				}
-				int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)]);
+				int[] position = entite.deplacer(direction[(int) Math.floor(Math.random() * direction.length)], pj, g);
 				deplacementPossible = isEmpty(position[0],position[1],entite);
 				if (deplacementPossible) {
 					// on met a jour le monstre
