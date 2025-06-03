@@ -12,5 +12,5 @@ XXXXXXXXXXXXXXXXXXDX
 X......X.......VX..X
 XS..X.....XTXXXXX..X
 X..XXX...XX....XX..X
-X..T...............X
+X..T..............SX
 XXXXXXXXXXXXXXXXXXXX
