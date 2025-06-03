@@ -1,4 +1,5 @@
 package gameLaby.entites;
+import gameLaby.objets.Bouclier;
 import gameLaby.objets.Epee;
 import gameLaby.objets.Objet;
 
@@ -19,6 +20,11 @@ public class Perso extends Entite {
      * Représente l'objet qui est séléctionné dans l'inventaire
      */
     private Objet itemSelecte;
+
+    /**
+     * Représente le bouclier du personnage
+     */
+    private Bouclier bouclier;
 
     /**
      * constructeur
@@ -46,8 +52,14 @@ public class Perso extends Entite {
             }
         }
         if (objetAttraper!= null) {
-            inventaire.add(objetAttraper);
-            objet.remove(objetAttraper);
+            if (objetAttraper instanceof Bouclier) {
+                this.bouclier = (Bouclier) objetAttraper;
+                objet.remove(objetAttraper);
+                System.out.println(this.bouclier);
+            } else {
+                inventaire.add(objetAttraper);
+                objet.remove(objetAttraper);
+            }
         } else {
             if (this.itemSelecte != null && !objetPied) {
                 inventaire.remove(itemSelecte);
@@ -103,9 +115,17 @@ public class Perso extends Entite {
      */
     @Override
     public void subirDegat(int n){
-        super.subirDegat(n);
-        if(!super.estVivant()){
-            System.exit(0);
+        if (this.bouclier != null && this.bouclier.getDef() > 0 ){
+            this.bouclier.setDef(this.bouclier.getDef() + n);
+            System.out.println(this.bouclier.getDef());
+            if (this.bouclier.getDef() <= 0){
+                this.bouclier = null;
+            }
+        } else {
+            super.subirDegat(n);
+            if(!super.estVivant()){
+                System.exit(0);
+            }
         }
     }
 }
