@@ -27,6 +27,7 @@ public class Perso extends Entite {
      */
     private Bouclier bouclier;
 
+    private int vieDeBase;
     /**
      * constructeur
      *
@@ -56,7 +57,11 @@ public class Perso extends Entite {
 
         if (this.itemSelecte instanceof Potion){
             if (!((Potion) this.itemSelecte).isUsed() ){
-                this.setHp(this.getHP() + ((Potion) this.itemSelecte).getVie());
+                int vie = this.getHP() + ((Potion) this.itemSelecte).getVie();
+                if (vie > vieDeBase){
+                    vie = vieDeBase;
+                }
+                this.setHp(vie);
                 ((Potion) this.itemSelecte).utliser();
             }
         }
@@ -137,5 +142,10 @@ public class Perso extends Entite {
                 System.exit(0);
             }
         }
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+        vieDeBase = hp;
     }
 }

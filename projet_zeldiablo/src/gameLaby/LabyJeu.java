@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LabyJeu implements Jeu{
+public class LabyJeu implements Jeu {
 
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
 
-    public static final double INTERFACE_HEIGHT = 2* LabyDessin.size;
+    public static final double INTERFACE_HEIGHT = 2 * LabyDessin.size;
 
     public static Labyrinthe labyrinthe;
 
@@ -42,7 +42,7 @@ public class LabyJeu implements Jeu{
         labyrinthe = lab;
         labys = new ArrayList<>();
         labys.add(lab);
-        lastLvl = niveau == (niveaux.size() -1);
+        lastLvl = niveau == (niveaux.size() - 1);
     }
 
     public void update(double seconde, Clavier clavier) {
@@ -91,7 +91,10 @@ public class LabyJeu implements Jeu{
     }
 
     public static void sortir() {
-        labyrinthe.getCase()[labyrinthe.getPj().getX()][labyrinthe.getPj().getY()].activer(labyrinthe.getPj());
+        CaseDeclencheuse caseDec = labyrinthe.getCase()[labyrinthe.getPj().getX()][labyrinthe.getPj().getY()];
+        if (caseDec != null) {
+            caseDec.activer(labyrinthe.getPj());
+        }
     }
 
     public static void pjAttaque() {
@@ -114,12 +117,12 @@ public class LabyJeu implements Jeu{
         return labyrinthe;
     }
 
-    public static void niveauSuivant(Perso p){
-        lastLvl = niveau == (niveaux.size() -1);
-        if (niveau < niveaux.size()-1) {
+    public static void niveauSuivant(Perso p) {
+        lastLvl = niveau == (niveaux.size() - 1);
+        if (niveau < niveaux.size() - 1) {
             niveau++;
         }
-        if(LabyJeu.niveau < LabyJeu.niveaux.size() && !lastLvl){
+        if (LabyJeu.niveau < LabyJeu.niveaux.size() && !lastLvl) {
             try {
                 LabyJeu.labyrinthe = labys.get(niveau);
             } catch (Exception e) {
@@ -142,7 +145,7 @@ public class LabyJeu implements Jeu{
             if (niveau < 6 && niveau > 0) {
                 MoteurJeu.AfficherTuto(niveau);
             }
-        }else{
+        } else {
             jeuFini();
         }
         System.out.println(niveau);
@@ -165,7 +168,7 @@ public class LabyJeu implements Jeu{
         labyrinthe.setPJ(pj);
     }
 
-    public static void jeuFini(){
+    public static void jeuFini() {
         System.out.println("Vous avez terminé la partie");
     }
 
