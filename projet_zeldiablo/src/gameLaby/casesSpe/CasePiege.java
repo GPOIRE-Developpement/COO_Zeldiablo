@@ -7,6 +7,9 @@ import gameLaby.entites.Entite;
  * @author GPOIRE-Developpement
  */
 public class CasePiege implements CaseDeclencheuse {
+
+    private boolean active = false;
+
     /**
      * Méthode activer définit les actions à faire lorsqu'une entité est sur une case piégée
      * @param ent
@@ -18,9 +21,15 @@ public class CasePiege implements CaseDeclencheuse {
             ent.subirDegat(-1);
         }
         System.out.println("Après le piège : "+ent.getHP()+" HP");
+        active = true;
     }
 
     public String getType() {
         return "piege";
     }
+
+    public boolean estActive() {
+        return active;
+    }
+
 }

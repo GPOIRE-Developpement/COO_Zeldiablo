@@ -1,6 +1,7 @@
 package gameLaby;
 
 import gameLaby.casesSpe.CaseDeclencheuse;
+import gameLaby.casesSpe.CasePiege;
 import gameLaby.casesSpe.Porte;
 import gameLaby.entites.Entite;
 import gameLaby.entites.Fantome;
@@ -124,8 +125,11 @@ public class LabyDessin implements DessinJeu {
                 if (cases[colonne][ligne] != null) {
                     switch (cases[colonne][ligne].getType()) {
                         case "piege":
-                            gc.setFill(Color.ORANGE);
-                            gc.fillRect(colonne * size + 3, ligne * size + 3, size - 6, size - 6);
+                            if (((CasePiege)cases[colonne][ligne]).estActive()) {
+                                File imgf_trap = new File(PATH+"ground/trap_active.png");
+                                Image img_trap = new Image(imgf_trap.toURI().toString());
+                                gc.drawImage(img_trap, colonne*size, ligne*size, size, size);
+                            }
                             break;
                         case "interrupteur":
                             gc.setFill(Color.RED);

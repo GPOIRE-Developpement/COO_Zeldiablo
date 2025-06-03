@@ -9,8 +9,8 @@ X........X..X......X
 X...X....X.........X
 X..................X
 X..............X...X
-X..................X
-XP..BTTTTTTTTTT...SX
+X.P............TT.SX
+XS..BTTTTTTTTTT....X
 XXXXXX.............X
-XTS................X
+XT.................X
 XXXXXXXXXXXXXXXXXXXX
