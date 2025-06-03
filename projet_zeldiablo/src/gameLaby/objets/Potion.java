@@ -47,6 +47,13 @@ public class Potion extends Objet {
     }
 
     /**
+     * Permet d'indiquer que la potion est utilisée
+     */
+    public void utliser(){
+        used = true;
+    }
+
+    /**
      * @return indique si la potion est utilisé ou non
      */
     public boolean isUsed() {

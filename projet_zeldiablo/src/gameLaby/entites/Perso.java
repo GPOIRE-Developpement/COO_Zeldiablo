@@ -2,6 +2,7 @@ package gameLaby.entites;
 import gameLaby.objets.Bouclier;
 import gameLaby.objets.Epee;
 import gameLaby.objets.Objet;
+import gameLaby.objets.Potion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class Perso extends Entite {
     public void interagir(List<Objet> objet) {
         Objet objetAttraper = null;
         boolean objetPied = false;
+
         for (Objet obj : objet){
             if (this.getX() == obj.getX() && this.getY() == obj.getY()){
                 if (inventaire.size() < 4){
@@ -51,11 +53,18 @@ public class Perso extends Entite {
                 objetPied = true;
             }
         }
+
+        if (this.itemSelecte instanceof Potion){
+            if (!((Potion) this.itemSelecte).isUsed() ){
+                this.setHp(this.getHP() + ((Potion) this.itemSelecte).getVie());
+                ((Potion) this.itemSelecte).utliser();
+            }
+        }
+
         if (objetAttraper!= null) {
             if (objetAttraper instanceof Bouclier) {
                 this.bouclier = (Bouclier) objetAttraper;
                 objet.remove(objetAttraper);
-                System.out.println(this.bouclier);
             } else {
                 inventaire.add(objetAttraper);
                 objet.remove(objetAttraper);
@@ -68,9 +77,11 @@ public class Perso extends Entite {
                 objet.add(itemSelecte);
             }
         }
+
         if (inventaire.isEmpty()){
             itemSelecte = null;
         }
+
     }
 
     /**
@@ -117,7 +128,6 @@ public class Perso extends Entite {
     public void subirDegat(int n){
         if (this.bouclier != null && this.bouclier.getDef() > 0 ){
             this.bouclier.setDef(this.bouclier.getDef() + n);
-            System.out.println(this.bouclier.getDef());
             if (this.bouclier.getDef() <= 0){
                 this.bouclier = null;
             }

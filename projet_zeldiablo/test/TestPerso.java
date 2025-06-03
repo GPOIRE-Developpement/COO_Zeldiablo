@@ -9,11 +9,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Classe de teste de la méthode Interagir de Perso
+ */
 public class TestPerso {
 
     private Perso perso;
     private Epee epee1, epee2, epee3, epee4, epee5;
 
+    /**
+     * Méthode d'initialisation pour chaque Test
+     */
     @BeforeEach
     public void setUp() {
         perso = new Perso(2, 2);
@@ -24,6 +30,9 @@ public class TestPerso {
         epee5 = new Epee("sword5",5,2, 2);
     }
 
+    /**
+     * Test la méthode interagir lorsqu'elle est utilisée pour ramassé un objet
+     */
     @Test
     public void testInteragirRamasseObjet() {
         List<Objet> objets = new ArrayList<>();
@@ -36,6 +45,9 @@ public class TestPerso {
         assertFalse(objets.contains(epee1), "L'objet aurait dû être retiré du sol.");
     }
 
+    /**
+     * Test la méthode interagir lorsqu'elle est utilisée pour ramassé un objet mais que l'inventaire est plein
+     */
     @Test
     public void testInteragirInventairePlein() {
         List<Objet> objets = new ArrayList<>();
@@ -52,6 +64,9 @@ public class TestPerso {
         assertTrue(objets.contains(epee5), "L'objet au sol ne doit pas être ramassé.");
     }
 
+    /**
+     * Test la méthode interagir lorsqu'elle est utilisée pour lacher un objet
+     */
     @Test
     public void testInteragirDeposerObjet() {
         List<Objet> objets = new ArrayList<>();
@@ -67,6 +82,9 @@ public class TestPerso {
         assertEquals(2, epee1.getY(), "L'objet doit être déposé à la position Y du perso.");
     }
 
+    /**
+     * Test la méthode interagir lorsqu'elle est utilisée pour lacher un objet mais qu'il existe déjà un objet sur la case
+     */
     @Test
     public void testInteragirDeposerObjetSurObjet() {
         List<Objet> objets = new ArrayList<>();
@@ -81,6 +99,9 @@ public class TestPerso {
         assertFalse(objets.contains(epee2), "L'inventaire ne doit pas avoir déposé l'objet.");
     }
 
+    /**
+     * Test la déselection Automatique lorsque l'inventaire est vide
+     */
     @Test
     public void testDeselectionAutomatiqueSiInventaireVide() {
         List<Objet> objets = new ArrayList<>();
