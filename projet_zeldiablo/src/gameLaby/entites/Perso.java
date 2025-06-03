@@ -3,6 +3,7 @@ import gameLaby.objets.Bouclier;
 import gameLaby.objets.Epee;
 import gameLaby.objets.Objet;
 import gameLaby.objets.Potion;
+import moteurJeu.MoteurJeu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class Perso extends Entite {
             }
         }
 
-        if (this.itemSelecte instanceof Potion){
+        if (this.itemSelecte instanceof Potion && !objetPied){
             if (!((Potion) this.itemSelecte).isUsed() ){
                 int vie = this.getHP() + ((Potion) this.itemSelecte).getVie();
                 if (vie > vieDeBase){
@@ -80,6 +81,7 @@ public class Perso extends Entite {
                 itemSelecte.setX(this.getX());
                 itemSelecte.setY(this.getY());
                 objet.add(itemSelecte);
+                itemSelecte = null;
             }
         }
 
@@ -131,8 +133,12 @@ public class Perso extends Entite {
      */
     @Override
     public void subirDegat(int n){
-        if (this.bouclier != null && this.bouclier.getDef() > 0 ){
-            this.bouclier.setDef(this.bouclier.getDef() + n);
+        if (this.bouclier != null){
+            int degat = this.bouclier.getDef() + n;
+            this.bouclier.setDef(degat);
+            if (degat < 0) {
+                super.subirDegat(degat);
+            }
             if (this.bouclier.getDef() <= 0){
                 this.bouclier = null;
             }
@@ -147,5 +153,13 @@ public class Perso extends Entite {
     public void setHp(int hp) {
         this.hp = hp;
         vieDeBase = hp;
+    }
+
+    public Bouclier getBouclier() {
+        return bouclier;
+    }
+
+    public String getName() {
+        return "personnage";
     }
 }

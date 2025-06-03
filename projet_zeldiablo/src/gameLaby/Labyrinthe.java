@@ -27,7 +27,7 @@ public class Labyrinthe {
 	public static final char MONSTER = 'M';
 	public static final char PORTE = 'D';
 	public static final char SORTIE = 'S';
-	public static final char ORQUE = 'O';
+	public static final char ARAIGNEE = 'A';
 	public static final char FANTOME = 'F';
 
 	/**
@@ -170,9 +170,9 @@ public class Labyrinthe {
                             cases[colonne][numeroLigne] = new Sortie(montee);
                         }
                         break;
-					case ORQUE:
+					case ARAIGNEE:
 						this.murs[colonne][numeroLigne] = false;
-						monstres.add(new Orque(colonne, numeroLigne));
+						monstres.add(new Spider(colonne, numeroLigne));
                         break;
 					case MONSTER:
 						Monstre m = new Monstre(colonne, numeroLigne);

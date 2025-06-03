@@ -26,7 +26,7 @@ public class Sortie implements CaseDeclencheuse {
                 try {
                     LabyJeu.niveauSuivant((Perso) ent);
                 } catch (Exception e) {
-                    LabyJeu.jeuFini();
+                    System.out.println("problème dans le chargement du niveau d'après");
                 }
             } else {
                 LabyJeu.niveauPrec((Perso) ent);

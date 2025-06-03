@@ -10,6 +10,4 @@ public class Cle extends Objet{
         return "cle";
     }
 
-
-
 }

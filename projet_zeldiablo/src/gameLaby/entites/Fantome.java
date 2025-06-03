@@ -18,4 +18,8 @@ public class Fantome extends Entite {
 		entite.subirDegat(-1);
 	}
 
+	public String getName() {
+		return "fantome";
+	}
+
 }

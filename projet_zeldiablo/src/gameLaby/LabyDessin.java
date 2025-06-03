@@ -7,6 +7,7 @@ import gameLaby.entites.Entite;
 import gameLaby.entites.Fantome;
 import gameLaby.entites.Monstre;
 import gameLaby.entites.Perso;
+import gameLaby.objets.Bouclier;
 import gameLaby.objets.Objet;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -103,6 +104,14 @@ public class LabyDessin implements DessinJeu {
             }
         }
 
+        //gestion du bouclier
+        Bouclier bouclier = laby.getPj().getBouclier();
+        if (bouclier != null) {
+            File imgf_bouclier = new File(ITEM + bouclier.getNom() + "_" + bouclier.getDef() + ".png");
+            Image img_bouclier = new Image(imgf_bouclier.toURI().toString());
+            gc.drawImage(img_bouclier, x1 + 22,y1 + 8 + 4*2.25, 16 * 2.25, 16 * 2.25);
+        }
+
         //gestion de l'affichage des HP
         gc.setFill(Color.rgb(246,56,65));
         int pv = laby.getPj().getHP();
@@ -151,7 +160,7 @@ public class LabyDessin implements DessinJeu {
         ArrayList<Porte> portes = laby.getPortes();
         for (Porte porte : portes) {
             if (porte.getVerti()) {
-                System.out.println("blabla");
+                System.out.println("à ajouter");
             } else {
                 String etat = porte.getOuverte() ? "open" : "closed";
                 String path = DOOR+"front_door_" + etat + ".png";
@@ -168,7 +177,12 @@ public class LabyDessin implements DessinJeu {
         //gestion de l'affichege des objets
         ArrayList<Objet> objets = laby.getObjets();
         for (Objet objet : objets) {
-            String path = ITEM + objet.getNom() + ".png";
+            String path;
+            if (objet instanceof Bouclier) {
+                path = ITEM + objet.getNom()+ "_3.png";
+            } else {
+                path = ITEM + objet.getNom() + ".png";
+            }
             //creation du fichier à partir du path
             File imgf_item = new File(path);
             Image img_item = new Image(imgf_item.toURI().toString());
@@ -184,8 +198,8 @@ public class LabyDessin implements DessinJeu {
         //dessin des monstre
         ArrayList<Entite> monstres = laby.getMonstres();
         for (Entite entite : monstres) {
-            String rep = "monstre/"; //permet de gérer si il y a d'autres monstres qui se comportent comme le monstre de base
-            if (entite instanceof Fantome) {
+            String rep = entite.getName() + "/";
+            if (entite.getName().equals("fantome")) {
                 fantomes.add(entite);
             } else {
                 if (entite.isEstBlesse()) {

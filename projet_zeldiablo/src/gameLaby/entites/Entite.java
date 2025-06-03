@@ -171,4 +171,7 @@ abstract public class Entite {
 	public void setPosition(String position) {
 		this.position = position;
 	}
+
+	public abstract String getName();
+
 }

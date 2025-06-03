@@ -63,9 +63,11 @@ public class MoteurJeu extends Application {
      */
     static Clavier controle = new Clavier();
 
+    public static Stage primaryStageRef;
+
     private static final String[] informations = {
             "Vous pouvez vous déplacer à l'aide des touches Z,Q,S et D ou bien les flèches directionnelles" +
-                    "Allez au niveau suivant en allant sur l'escalier en face",
+                    "Allez au niveau suivant en allant sur l'escalier en face et en appuyant sur la touche A",
             "Ces interrupteurs au sol permettent d'ouvrir les portes. Attention, si vous remarchez dessus, cela la ferme",
             "ATTENTION, UN MONSTRE !!" +
                     "Essayez de le battre en le regardant et en appuyant sur la barre d'espace",
@@ -85,7 +87,7 @@ public class MoteurJeu extends Application {
         public void handle(ActionEvent event) {
             Button b = (Button) event.getSource();
             try {
-                MoteurJeu.jeu = new LabyJeu("labySimple/"+b.getText());
+                MoteurJeu.jeu = new LabyJeu("labySimple/" + b.getText());
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new Error("Problèmes dans la gestion des niveaux");
@@ -133,6 +135,10 @@ public class MoteurJeu extends Application {
      * creation de l'application avec juste un canvas et des statistiques
      */
     public void start(Stage primaryStage) {
+
+        //on stock le stage de départ
+        primaryStageRef = primaryStage;
+
         // initialisation du canvas de dessin et du container
         final Canvas canvas = new Canvas();
         final Pane canvasContainer = new Pane(canvas);
@@ -166,39 +172,39 @@ public class MoteurJeu extends Application {
 
         //Bouton play
         Button play = new Button("Commencer");
-        play.setLayoutX(WIDTH/3-30);
-        play.setLayoutY(HEIGHT/2);
+        play.setLayoutX(WIDTH / 3 - 30);
+        play.setLayoutY(HEIGHT / 2);
         play.setOnAction(e -> {
             primaryStage.setScene(scene);
             startAnimation(canvas);
         });
 
         //bouton de selection de niveau
-        Button lvlSelector = new Button("Niveaux");
-        lvlSelector.setLayoutX((WIDTH*2)/3-30);
-        lvlSelector.setLayoutY(HEIGHT/2);
-        lvlSelector.setOnAction(e -> {
-            afficherNiveaux();
+        Button quit = new Button("Quitter");
+        quit.setLayoutX((WIDTH * 2) / 3 - 30);
+        quit.setLayoutY(HEIGHT / 2);
+        quit.setOnAction(e -> {
+            System.exit(0);
         });
 
         //titre
         Image title_img = new Image("file:texture/title/zeldiablo_title.png");
         ImageView title = new ImageView(title_img);
-        title.setLayoutX(WIDTH/4 - 20);
+        title.setLayoutX(WIDTH / 4 - 20);
         title.setLayoutY(-50);
 
-        Pane root2 = new Pane(bg1, bg2, play, title, lvlSelector);
+        Pane root2 = new Pane(bg1, bg2, play, title, quit);
         Scene scene2 = new Scene(root2, WIDTH, HEIGHT);
 
         //timer pour le gif qui tourne à l'"infini"
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                // Faire défiler les deux images vers la gauche
+                // permet de faire glisser l'image vers la gauche
                 bg1.setX(bg1.getX() - 0.5);
                 bg2.setX(bg2.getX() - 0.5);
 
-                // Si une image est complètement hors de l'écran à gauche, la replacer à droite de l'autre
+                // on remet à droite de la seconde image si l'image est totalement hors de l'écran
                 if (bg1.getX() + bg1.getImage().getWidth() <= 0) {
                     bg1.setX(bg2.getX() + bg2.getImage().getWidth());
                 }
@@ -208,7 +214,6 @@ public class MoteurJeu extends Application {
             }
         };
         timer.start();
-
 
         primaryStage.setScene(scene2);
         primaryStage.show();
@@ -241,44 +246,44 @@ public class MoteurJeu extends Application {
                     }
                 });
     }
-
-    /**
-     * Methode permettant d'afficher le menu pour selectionner le niveau
-     */
-    private void afficherNiveaux() {
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("test selection niveau");
-        dialog.setWidth(WIDTH/2);
-        dialog.setHeight(HEIGHT/2);
-
-        File dossLaby = new File("labySimple/");
-        File[] labys = dossLaby.listFiles();
-        ArrayList<String> nomLabys = new ArrayList<>();
-
-        for (File f : labys) {
-            nomLabys.add(f.getName());
-        }
-
-        GridPane choix = new GridPane();
-        choix.setHgap(10);
-        choix.setVgap(10);
-
-        for (int i = 1; i <= nomLabys.size(); i++) {
-            Label label = new Label("Niveau " + i);
-            Button button = new Button(nomLabys.get(i-1));
-            Auditeur audi = new Auditeur();
-            button.addEventHandler(ActionEvent.ACTION,audi);
-            choix.add(label,0,i);
-            choix.add(button,1,i);
-        }
-        choix.setAlignment(Pos.CENTER);
-
-        dialog.getDialogPane().setContent(choix);
-
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
-//        dialog.getDialogPane().setContent(test2);
-        dialog.showAndWait();
-    }
+//
+//    /**
+//     * Methode permettant d'afficher le menu pour selectionner le niveau
+//     */
+//    private void afficherNiveaux() {
+//        Dialog<String> dialog = new Dialog<>();
+//        dialog.setTitle("test selection niveau");
+//        dialog.setWidth(WIDTH / 2);
+//        dialog.setHeight(HEIGHT / 2);
+//
+//        File dossLaby = new File("labySimple/");
+//        File[] labys = dossLaby.listFiles();
+//        ArrayList<String> nomLabys = new ArrayList<>();
+//
+//        for (File f : labys) {
+//            nomLabys.add(f.getName());
+//        }
+//
+//        GridPane choix = new GridPane();
+//        choix.setHgap(10);
+//        choix.setVgap(10);
+//
+//        for (int i = 1; i <= nomLabys.size(); i++) {
+//            Label label = new Label("Niveau " + i);
+//            Button button = new Button(nomLabys.get(i - 1));
+//            Auditeur audi = new Auditeur();
+//            button.addEventHandler(ActionEvent.ACTION, audi);
+//            choix.add(label, 0, i);
+//            choix.add(button, 1, i);
+//        }
+//        choix.setAlignment(Pos.CENTER);
+//
+//        dialog.getDialogPane().setContent(choix);
+//
+//        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
+////        dialog.getDialogPane().setContent(test2);
+//        dialog.showAndWait();
+//    }
 
     /**
      * gestion de l'animation (boucle de jeu)

@@ -1,13 +1,13 @@
 package gameLaby;
 
-import gameLaby.casesSpe.CaseDeclencheuse;
-import gameLaby.casesSpe.Sortie;
-import gameLaby.entites.Entite;
-import gameLaby.entites.Perso;
+import gameLaby.casesSpe.*;
+import gameLaby.entites.*;
 import javafx.application.Platform;
-import moteurJeu.Clavier;
-import moteurJeu.Jeu;
-import moteurJeu.MoteurJeu;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import moteurJeu.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -169,7 +169,22 @@ public class LabyJeu implements Jeu {
     }
 
     public static void jeuFini() {
-        System.out.println("Vous avez terminé la partie");
+        VBox layout = new VBox(new Label("Bravo !"), new Button("Retour au menu"));
+        layout.setAlignment(Pos.CENTER);
+        layout.setSpacing(10);
+
+        Scene winScene = new Scene(layout, 400, 300);
+
+        Button retour = (Button) layout.getChildren().get(1);
+        retour.setOnAction(e -> {
+            try {
+                new MoteurJeu().start(MoteurJeu.primaryStageRef);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        MoteurJeu.primaryStageRef.setScene(winScene);
     }
 
 }

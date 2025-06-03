@@ -24,5 +24,9 @@ public class Monstre extends Entite {
 		entite.subirDegat(-1);
 	}
 
+	public String getName() {
+		return "monstre";
+	}
+
 
 }

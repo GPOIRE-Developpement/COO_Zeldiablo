@@ -9,6 +9,7 @@ public class Bouclier extends Objet {
      * Point de résistance du bouclier
      */
     private int def;
+    private int defDeBase;
 
     /**
      * constructeur de bouclier
@@ -20,6 +21,7 @@ public class Bouclier extends Objet {
     public Bouclier(String nom, int def, int x, int y) {
         super(nom,x,y);
         this.def = def;
+        this.defDeBase = def;
     }
 
     /**
@@ -36,8 +38,12 @@ public class Bouclier extends Objet {
         return this.def;
     }
 
-    /**
+    /**Méthode permettant d'obtenir la def du bouclier
      * @param def Nouvelle valeur de def
      */
     public void setDef(int def){ this.def = def; }
+
+    public int getDefDeBase(){
+        return this.defDeBase;
+    }
 }

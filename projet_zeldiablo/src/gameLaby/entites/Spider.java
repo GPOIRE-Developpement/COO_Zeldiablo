@@ -2,14 +2,14 @@ package gameLaby.entites;
 
 import gameLaby.graphe.*;
 
-public class Orque extends Entite {
+public class Spider extends Entite {
     /**
      * constructeur
      *
      * @param posx position selon x
      * @param posy position selon y
      */
-    public Orque(int posx, int posy) {
+    public Spider(int posx, int posy) {
         super(posx, posy);
         this.atk = 1;
         this.hp = 5;
@@ -36,5 +36,9 @@ public class Orque extends Entite {
 
         int[] res = {pos.getX(), pos.getY()};
         return res;
+    }
+
+    public String getName() {
+        return "spider";
     }
 }
