@@ -14,14 +14,19 @@ public class MainLaby {
         int pFPS = 11;
 
         List<String> niveaux = new ArrayList<>();
-        niveaux.add("labySimple/laby2.txt");
-        niveaux.add("labySimple/laby3.txt");
-        niveaux.add("labySimple/laby4.txt");
-        niveaux.add("labySimple/laby5.txt");
-        niveaux.add("labySimple/laby6.txt");
-        niveaux.add("labySimple/laby7.txt");
-        niveaux.add("labySimple/laby8.txt");
-        niveaux.add("labySimple/laby9.txt");
+        niveaux.add("labySimple/niveau1.txt");
+        niveaux.add("labySimple/niveau2.txt");
+        niveaux.add("labySimple/niveau3.txt");
+        niveaux.add("labySimple/niveau4.txt");
+        niveaux.add("labySimple/niveau5.txt");
+        niveaux.add("labySimple/niveau6.txt");
+        niveaux.add("labySimple/niveau7.txt");
+        niveaux.add("labySimple/niveau8.txt");
+        niveaux.add("labySimple/niveau9.txt");
+        niveaux.add("labySimple/niveau10.txt");
+        niveaux.add("labySimple/niveau11.txt");
+        niveaux.add("labySimple/niveau12.txt");
+        niveaux.add("labySimple/niveau13.txt");
 
 
         LabyJeu labyJeu = new LabyJeu(niveaux);
