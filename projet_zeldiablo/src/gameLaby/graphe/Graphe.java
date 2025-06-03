@@ -18,6 +18,10 @@ public class Graphe {
         noeuds = new ArrayList<>();
         adjacents = new ArrayList<>();
 
+        posPortes = new ArrayList<>();
+        portes = new ArrayList<>();
+        passePortes = new ArrayList<>();
+
         List<Position> listeC = new ArrayList<>();
         List<Position> listeP = new ArrayList<>();
 
@@ -93,7 +97,7 @@ public class Graphe {
 
     private int creerPorte(Porte p){
         Position pos = new Position(p.getX(), p.getY());
-        if(porteExiste(pos)){
+        if(!porteExiste(pos)){
             posPortes.add(pos);
             portes.add(p);
             passePortes.add(new Arcs());
@@ -124,6 +128,8 @@ public class Graphe {
     }
 
     public Position resourdre(Position depart, Position arrivee){
+        Valeurs v = new Valeurs();
+
         // Parcourir l'ensemble des portes pour définir leurs status
         for(int i = 0; i < portes.size(); i++){
             List<Arc> arcs = passePortes.get(i).getArcs();
@@ -138,9 +144,42 @@ public class Graphe {
 
         // Calculer ensuite le trajet le plus court entre depart et arrivée
 
+        for(int i = 0; i < this.noeuds.size(); i++){
+            Position noeud = this.noeuds.get(i);
+            v.setParent(noeud, depart);
+            if(noeud.equals(depart)){
+                v.setValeur(noeud, 0);
+            }else{
+                v.setValeur(noeud, Double.MAX_VALUE);
+            }
+        }
 
+        boolean termine = false;
+        while(!termine){
+            termine = true;
+            for (int i = 0; i < this.noeuds.size(); i++) {
+                Position noeud = this.noeuds.get(i);
+                List<Arc> suivant = this.suivants(this.noeuds.get(i));
+                for (int j = 0; j < suivant.size(); j++) {
+                    Arc adj = suivant.get(j);
+                    double chemin = v.getValeur(noeud) + adj.getCout();
+                    if (chemin < v.getValeur(adj.getDestination())) {
+                        v.setValeur(adj.getDestination(), chemin);
+                        v.setParent(adj.getDestination(), noeud);
+                        termine = false;
+                    }
+                }
+            }
+        }
 
-        return null;
+        List<Position> chemin = v.calculerChemin(arrivee);
+
+        return chemin.getFirst();
+    }
+
+    public List<Arc> suivants(Position p){
+        int i = getIndice(p);
+        return adjacents.get(i).getArcs();
     }
 
     @Override

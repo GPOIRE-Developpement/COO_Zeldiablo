@@ -1,6 +1,6 @@
 package gameLaby.graphe;
 
-public class Position {
+public class Position implements Comparable<Position> {
     private int x;
     private int y;
 
@@ -34,5 +34,20 @@ public class Position {
             }
         }
         return false;
+    }
+
+    @Override
+    public int compareTo(Position other) {
+        // Exemple de comparaison : d'abord sur x, puis sur y
+        if (this.x != other.x) {
+            return Integer.compare(this.x, other.x);
+        } else {
+            return Integer.compare(this.y, other.y);
+        }
+    }
+
+    @Override
+    public String toString(){
+        return "[" + x + ", " + y + "]";
     }
 }
