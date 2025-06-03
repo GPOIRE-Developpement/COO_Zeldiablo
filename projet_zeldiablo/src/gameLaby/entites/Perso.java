@@ -55,7 +55,6 @@ public class Perso extends Entite {
             if (objetAttraper instanceof Bouclier) {
                 this.bouclier = (Bouclier) objetAttraper;
                 objet.remove(objetAttraper);
-                System.out.println(this.bouclier);
             } else {
                 inventaire.add(objetAttraper);
                 objet.remove(objetAttraper);
@@ -117,7 +116,6 @@ public class Perso extends Entite {
     public void subirDegat(int n){
         if (this.bouclier != null && this.bouclier.getDef() > 0 ){
             this.bouclier.setDef(this.bouclier.getDef() + n);
-            System.out.println(this.bouclier.getDef());
             if (this.bouclier.getDef() <= 0){
                 this.bouclier = null;
             }
