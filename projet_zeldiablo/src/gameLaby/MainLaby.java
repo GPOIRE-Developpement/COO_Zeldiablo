@@ -13,6 +13,18 @@ public class MainLaby {
         int height = 600;
         int pFPS = 11;
 
+        List<String> niveaux = getNiveaux();
+
+        LabyJeu labyJeu = new LabyJeu(niveaux);
+        LabyDessin labyDessin = new LabyDessin();
+
+        MoteurJeu.setTaille(labyJeu.getLabyrinthe().getLength()*LabyDessin.size, labyJeu.getLabyrinthe().getLengthY()*LabyDessin.size + LabyJeu.INTERFACE_HEIGHT);
+        MoteurJeu.setFPS(pFPS);
+
+        MoteurJeu.launch(labyJeu,labyDessin);
+    }
+
+    private static List<String> getNiveaux() {
         List<String> niveaux = new ArrayList<>();
         niveaux.add("labySimple/niveau1.txt");
         niveaux.add("labySimple/niveau2.txt");
@@ -27,14 +39,6 @@ public class MainLaby {
         niveaux.add("labySimple/niveau11.txt");
         niveaux.add("labySimple/niveau12.txt");
         niveaux.add("labySimple/niveau13.txt");
-
-
-        LabyJeu labyJeu = new LabyJeu(niveaux);
-        LabyDessin labyDessin = new LabyDessin();
-
-        MoteurJeu.setTaille(labyJeu.getLabyrinthe().getLength()*LabyDessin.size, labyJeu.getLabyrinthe().getLengthY()*LabyDessin.size + LabyJeu.INTERFACE_HEIGHT);
-        MoteurJeu.setFPS(pFPS);
-
-        MoteurJeu.launch(labyJeu,labyDessin);
+        return niveaux;
     }
 }
