@@ -1,0 +1,53 @@
+@startuml
+package graphe {
+class Arc {
+- cout : int
++ Arc(destination : Position, cout : int)
+}
+
+class Arcs {
++ Arcs()
++ ajouterArc(arc : Arc)
+}
+
+class Graphe {
++ Graphe(m : boolean[][], c : CaseDeclencheuse[][], p : ArrayList<Porte>)
++ creerArc(p1 : Position, p2 : Position, listeC : List<Position>, listeP : List<Position, p : ArrayListe<Porte>)
++ noeudExiste(pos Position) : boolean
++ porteExiste(pos : Position) : boolean
++ creerPorte(p : Porte) : int
++ creerNoeud(Position pos)
++ ajouterArc(depart Position, arrivee : Position, cout : int)
++ resoudre(depart : Position, arrivee Position) : Position
++ suivants(p : Position) : List<Arc>
+}
+
+class Position {
+- x : int
+- y : int
++ Position(x : int, y : int)
++ equals(Objetc o) : boolean
++ compareTo(other : Position) : int
+}
+
+class Valeurs {
+- valeur : Map<Positionn, Double>
+- parent : Map<Position, Position>
++ setValeur(pos : Position, valeur : double)
++ setParent(pos : Position, posParent : Position)
++ calculerChemein(posDest : Position) : List<Position>
+}
+
+}
+
+
+Arcs -> "*" Arc : -arcs
+
+Graphe -> "*" Position : - noeuds
+Graphe -> "*" Arcs : - adjacents
+Graphe -> "*" Arcs : - passePortes
+Graphe -> "*" Position : - posPortes
+Graphe -> "*" Porte : - portes
+
+
+@enduml

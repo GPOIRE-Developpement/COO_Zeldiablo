@@ -1,0 +1,193 @@
+@startuml
+
+package casesSpe {
+
+interface CaseDeclencheuse {
++<static> SORTIE : char
++<static> INTERRUPTEUR : char
++<static> PIEGE : char
++getType() : String
++activer(Entite entite)
+}
+
+class CasePiege {
++ activer(Entiter ent)
++ getType() : String
+}
+
+class Interrupteur {
+- active : boolean
++ Interrupteur()
++ activer(Entiter ent)
++ setPorte(Porte p)
++ getType() : String
++ estActive() : boolean
+}
+
+class Porte {
+- x : int
+- y : int
+- ouverte : boolean
+- verticale : boolean
++ Porte(x : int, y : int, verti : boolean)
++ fermer()
++ ouvrir()
+}
+
+class Sortie {
+- monter : boolean
++ activer(Entiter ent)
++ getType() : String
++ getMonter() : boolean
+}
+}
+
+package entites {
+
+abstract class Entite {
++<static> HAUT : String
++<static> BAS : String
++<static> GAUCHE : String
++<static> DROITE : String
+- position : String
+- x : int
+- y : int
+- atk : int
+- hp : int
+- estBlesse : boolean
+- tempsDernierHit : long
++ Entite(x : int, y : int)
++ etrePresent(dx : int, dy : int) : boolean
++ setX(x : int)
++ setY(y : int)
++ subireDegat(n : int)
++ estVivant() : boolean
++ getSuivant(x : int, y : int, action : String) : int[]
++ deplacer(action : String) : int[]
++ attaquer(ent : Entite)
++ peutAttaquer(entite : Entite)
++ getName() : String
+}
+
+class Monstre {
++ Monstre(posx : int, posy : int)
++ attaquer(ent : Entite)
+}
+
+class Fantome {
++ Fantome(posx : int, posy : int)
++ attaquer(ent : Entite)
+}
+
+class Perso {
++ Perso(dx : int, dy : int)
++ selectionnerObjet(indice : int)
++ getItemSelecte() : Objet
++ getInventaire : ArrayList<Objet>
++ interagir(objet List<Objet>)
++ attaquer(ent : Entite)
++ subirDegat(n : int)
+}
+
+class Spider {
++ attaquer(ent : Entite)
++ deplacer(action : String, perso : Perso, graphe : Graphe) : int[]
+}
+}
+
+package objets {
+
+abstract class Objet {
++<static> EPEE : char
++<static> BOUCLIER : char
+- x : int
+- y : int
+- nom : String
++ Objet(nom : String, x : int, y : int)
++ getNom() : String
+}
+
+class Epee {
+- dommage : int
++ Epee(nom : String, x : int, y : int)
++ getNom() : String
++ getDommage() : int
+}
+
+class Bouclier {
+- def : int
++ Bouclier(nom : String, x : int, y : int)
++ getNom() : String
++ getDef() : int
+
+}
+
+class Potion {
+- vie : int
+- used : boolean
++ Potion(nom : String, vie : int, posX : int, posY : vie)
++ utilsier()
+}
+}
+
+
+
+class Labyrinthe {
++<static> MUR : char
++<static> PJ : char
++<static> VIDE : char
++<static> PORTE : char
++<static> MONSTRE : char
++<static> FANTOME : char
++<static> ARAIGNEE : char
+- murs : boolean[][]
+- deplacement : boolean
++ Labyrinthe(nom : String)
++ deplacerPerso(action String)
++ deplacerMonstre() 
++ etreFini() : boolean
++ getLength() : int
++ getLengthY() : int
++ getMur(x : int, y : int) : boolean
++ getPJ() : Perso
++ getObjets() : ArrayList<Objet>
++ estSurCase(Entite ent)
++ getMonstres : ArrayList<Entite>
++ getCase() : CaseDeclencheuse[][]
++ associerPorteInt(nbColonnes : int, nbLignes : int)
++ getPortes() : ArrayList<Porte>
++ isEmpty(x : int, y : int, ent : Entite) : boolean
++ getSortie(monter : boolean)
++ gerMursLaby() : boolean[][]
+
+}
+
+/'Relations'/
+
+CaseDeclencheuse <|.. CasePiege
+CaseDeclencheuse <|.. Interrupteur
+CaseDeclencheuse <|.. Sortie
+
+Entite <|-- Monstre
+Entite <|-- Perso
+Entite <|-- Fantome
+Entite <|-- Spider
+
+Objet <|-- Epee
+Objet <|-- Bouclier
+Objet <|-- Potion
+
+/'Attributs'/
+Interrupteur -> "1" Porte : + porte
+
+Perso -> "1" Objet : - itemSelecte
+Perso -> "1..4" Objet : - inventaire
+
+Labyrinthe -> "1" Perso : - pj
+Labyrinthe -> "*" Entite : - monstres
+Labyrinthe -> "*" Objet : - objets
+Labyrinthe -> "*" CaseDeclencheuse : - cases
+Labyrinthe -> "*" Porte : - portes
+
+
+@enduml

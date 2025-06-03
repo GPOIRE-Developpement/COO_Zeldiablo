@@ -56,14 +56,6 @@ public class Labyrinthe {
 	 */
 	private CaseDeclencheuse[][] cases;
 
-	/**
-	 * nombre de monstres voulus
-	 */
-	private int nbMonstre = 2;
-
-    private int nbFantome = 1;
-
-
 	private ArrayList<Porte> portes;
 
 	/**

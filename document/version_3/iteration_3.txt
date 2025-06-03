@@ -1,0 +1,32 @@
+Itération 3 : 
+
+Gestion d'un labyrinthe multi-étage
+Critères de validation : 
+	• Les escaliers sont des cases traversables par le héros et les monstres.
+	• Lorsque le héros se trouve sur un escalier, il peut l'activer et il change alors de niveau.
+	• Les monstres du niveau où le héros se trouvait avant l'escalier n'apparaissent pas dans l'étage supérieur/inférieur. Ils restent à leur position et conservent leur points de vie.
+	• De nouveaux monstres peuvent être présents à l'étage supérieur en fonction du descriptif du niveau.
+	• Le Héros arrive aux mêmes coordonnées dans l'étage supérieur/inférieur après avoir emprunté les escaliers.
+	• Les escaliers peuvent être de deux types : un escalier qui monte ou un escalier qui descend.
+	• Les escaliers sont empruntables dans les deux sens : un escalier qui monte vers un étage possède un escalier qui descend à la même position dans l'étage supérieur (et inversement).
+
+Monstres au comportement intelligent
+Critères de validation : 
+	• Avant son déplacement, le monstre détermine le meilleur chemin pour atteindre le héros.
+	• Le monstre prend en compte les obstacles qui le concernent pour trouver le meilleur chemin.
+	• lorsqu'il se déplace, le monstre suit eectivement le meilleur chemin et parvient jusqu'au héros même s'il y a des obstacles.
+	• vous pourrez vous inspirer (a) des transparents "IA dans le jeu vidéo" (transparents 112-130) ou (b) (c) du site redblob (avec de nombreuses démonstrations autour du jeu vidéo)
+
+Utilisation de la potion 
+Critères de validation : 
+	• Quand le personnage sélectionne une potion dans son inventaire, il peut l'utiliser en appuyant sur une touche spécifique du clavier
+	• Le héro ne peut pas utiliser 2 fois la même potion, la potion utilisée est consommée jusqu'à la fin des temps
+
+Défense du bouclier (suite)
+Critères de validation : 
+	• Quand le héro subit des dégâts, si il possède un bouclier, celui ci subit les dégâts à ça place
+
+Hors fonctionnalités 
+
+Création de plusieurs labyrinthe
+Création d'un "Tuto" afin de prendre le jeu en main

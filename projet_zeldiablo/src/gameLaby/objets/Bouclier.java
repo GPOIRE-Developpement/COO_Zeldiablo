@@ -43,7 +43,7 @@ public class Bouclier extends Objet {
      */
     public void setDef(int def){ this.def = def; }
 
-    public int getDefDeBase(){
-        return this.defDeBase;
-    }
+//    public int getDefDeBase(){
+//        return this.defDeBase;
+//    }
 }

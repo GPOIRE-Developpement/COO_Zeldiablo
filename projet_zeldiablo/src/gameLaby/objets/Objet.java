@@ -18,9 +18,6 @@ public abstract class Objet {
     public static final char BOUCLIER = 'B';
     public static final char POTION = 'V';
 
-    private boolean possede = false;
-
-
     /**
      * nom de l'objet
      */
