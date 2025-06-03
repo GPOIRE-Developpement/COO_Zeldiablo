@@ -16,8 +16,15 @@ public class MainLaby {
         List<String> niveaux = new ArrayList<>();
         niveaux.add("labySimple/laby2.txt");
         niveaux.add("labySimple/laby3.txt");
+        niveaux.add("labySimple/laby4.txt");
+        niveaux.add("labySimple/laby5.txt");
+        niveaux.add("labySimple/laby6.txt");
+        niveaux.add("labySimple/laby7.txt");
+        niveaux.add("labySimple/laby8.txt");
+        niveaux.add("labySimple/laby9.txt");
 
-        LabyJeu labyJeu = new LabyJeu(niveaux);
+
+        LabyJeu labyJeu = new LabyJeu("labySimple/laby2.txt");
         LabyDessin labyDessin = new LabyDessin();
 
         MoteurJeu.setTaille(labyJeu.getLabyrinthe().getLength()*LabyDessin.size, labyJeu.getLabyrinthe().getLengthY()*LabyDessin.size + LabyJeu.INTERFACE_HEIGHT);

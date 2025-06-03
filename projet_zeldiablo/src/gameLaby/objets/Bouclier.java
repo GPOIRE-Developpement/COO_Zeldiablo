@@ -35,4 +35,9 @@ public class Bouclier extends Objet {
     public int getDef(){
         return this.def;
     }
+
+    /**
+     * @param def Nouvelle valeur de def
+     */
+    public void setDef(int def){ this.def = def; }
 }

@@ -1,6 +1,7 @@
 package gameLaby.entites;
 
 import java.util.Objects;
+import gameLaby.graphe.*;
 
 abstract public class Entite {
 
@@ -115,7 +116,7 @@ abstract public class Entite {
 
 
 
-	public int[] deplacer(String action) {
+	public int[] deplacer(String action, Perso p, Graphe g) {
 		// case courante
 		int[] courante = {this.x, this.y};
 
@@ -165,5 +166,9 @@ abstract public class Entite {
 
 	public void setHp(int hp) {
 		this.hp = hp;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
 	}
 }
