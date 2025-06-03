@@ -24,7 +24,7 @@ public class MainLaby {
         niveaux.add("labySimple/laby9.txt");
 
 
-        LabyJeu labyJeu = new LabyJeu("labySimple/laby2.txt");
+        LabyJeu labyJeu = new LabyJeu(niveaux);
         LabyDessin labyDessin = new LabyDessin();
 
         MoteurJeu.setTaille(labyJeu.getLabyrinthe().getLength()*LabyDessin.size, labyJeu.getLabyrinthe().getLengthY()*LabyDessin.size + LabyJeu.INTERFACE_HEIGHT);
