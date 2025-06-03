@@ -95,6 +95,9 @@ public class Labyrinthe {
 		// stocke les indices courants
 		int numeroLigne = 0;
 
+		//nombre de sortie
+		int numSortie = 0;
+
 		// parcours le fichier
 		while (ligne != null) {
 
@@ -156,7 +159,13 @@ public class Labyrinthe {
 						break;
 					case SORTIE:
 						this.murs[colonne][numeroLigne] = false;
-						cases[colonne][numeroLigne] = new Sortie();
+						boolean montee = (numSortie == 0);
+						if (montee) {
+							cases[colonne][numeroLigne] = new Sortie(montee);
+							numSortie++;
+						} else {
+							cases[colonne][numeroLigne] = new Sortie(montee);
+						}
 						break;
 					default:
 						throw new Error("caractere inconnu " + c);
@@ -415,6 +424,36 @@ public class Labyrinthe {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Méthode permettant de set le pj
+	 */
+	public void setPJ(Perso pj) {
+		if (pj != null) this.pj = pj;
+	}
+
+	/**
+	 * Méthode permettant de trouver les cases de sorties du labyrinthe
+	 */
+	public int[] getSortie(boolean monter) {
+		int[] coordonnees = new int[2];
+		for (int i = 0; i < this.getLength(); i++) {
+			for (int j = 0; j < this.getLengthY(); j++ ) {
+				if (cases[i][j] instanceof Sortie) {
+					if (monter && ((Sortie) cases[i][j]).getMonter()) {
+						coordonnees[0] = i;
+						coordonnees[1] = j;
+					} else {
+						if (!monter && !((Sortie)cases[i][j]).getMonter()) {
+							coordonnees[0] = i;
+							coordonnees[1] = j;
+						}
+					}
+				}
+			}
+		}
+		return coordonnees;
 	}
 
 }

@@ -1,11 +1,14 @@
 package gameLaby;
 
+import gameLaby.casesSpe.CaseDeclencheuse;
+import gameLaby.casesSpe.Sortie;
 import gameLaby.entites.Entite;
 import gameLaby.entites.Perso;
 import moteurJeu.Clavier;
 import moteurJeu.Jeu;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LabyJeu implements Jeu{
@@ -19,6 +22,9 @@ public class LabyJeu implements Jeu{
 
     private static int niveau;
     private static List<String> niveaux;
+    private static List<Labyrinthe> labys;
+
+    private static boolean lastLvl;
 
     public LabyJeu(String nomFichier) throws IOException {
         LabyJeu.labyrinthe = new Labyrinthe(nomFichier, null);
@@ -28,8 +34,11 @@ public class LabyJeu implements Jeu{
     public LabyJeu(List<String> niveaux) throws IOException {
         LabyJeu.niveau = 0;
         LabyJeu.niveaux = niveaux;
-
-        LabyJeu.niveauSuivant(null);
+        Labyrinthe lab = new Labyrinthe(niveaux.get(0), null);
+        labyrinthe = lab;
+        labys = new ArrayList<>();
+        labys.add(lab);
+        lastLvl = niveau == (niveaux.size() -1);
     }
 
     public void update(double seconde, Clavier clavier) {
@@ -89,20 +98,55 @@ public class LabyJeu implements Jeu{
         return labyrinthe;
     }
 
-    public static void niveauSuivant(Perso p) throws IOException{
-        if(LabyJeu.niveaux != null && LabyJeu.niveau < LabyJeu.niveaux.size()){
-            LabyJeu.labyrinthe = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau),p);
+    public static void niveauSuivant(Perso p){
+        lastLvl = niveau == (niveaux.size() -1);
+        if (niveau < niveaux.size()-1) {
+            niveau++;
+        }
+        if(LabyJeu.niveau < LabyJeu.niveaux.size() && !lastLvl){
+            try {
+                LabyJeu.labyrinthe = labys.get(niveau);
+            } catch (Exception e) {
+                try {
+                    Labyrinthe labyrinthe1 = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau), p);
+                    LabyJeu.labyrinthe = labyrinthe1;
+                    labys.add(labyrinthe1);
+                } catch (IOException e1) {
+                    System.out.println("fichier introuvable");
+                }
+            }
+            if (p != null) {
+                int[] coordSortie = labyrinthe.getSortie(false);
+                System.out.println("x : " + coordSortie[0] + " y : " + coordSortie[1]);
+                p.setX(coordSortie[0]);
+                p.setY(coordSortie[1]);
+                labyrinthe.setPJ(p);
+            }
         }else{
             jeuFini();
         }
-        LabyJeu.niveau++;
+        System.out.println(niveau);
+    }
+
+    public static void niveauPrec(Perso pj) {
+        LabyJeu.niveau--;
+        try {
+            LabyJeu.labyrinthe = labys.get(niveau);
+        } catch (Exception e) {  // on ne devrait jamais arriver ici
+            try {
+                LabyJeu.labyrinthe = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau), pj);
+            } catch (IOException e2) {
+                System.out.println("fichier introuvable");
+            }
+        }
+        int[] coordSortie = labyrinthe.getSortie(true);
+        pj.setX(coordSortie[0]);
+        pj.setY(coordSortie[1]);
+        labyrinthe.setPJ(pj);
     }
 
     public static void jeuFini(){
         System.out.println("Vous avez terminé la partie");
     }
 
-    public static int getNiveau() {
-        return niveau;
-    }
 }
