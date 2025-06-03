@@ -162,7 +162,11 @@ public class Graphe {
                 List<Arc> suivant = this.suivants(this.noeuds.get(i));
                 for (int j = 0; j < suivant.size(); j++) {
                     Arc adj = suivant.get(j);
-                    double chemin = v.getValeur(noeud) + adj.getCout();
+                    int cout = adj.getCout();
+                    if(cout == 0){
+                        cout = Integer.MAX_VALUE;
+                    }
+                    double chemin = v.getValeur(noeud) + cout;
                     if (chemin < v.getValeur(adj.getDestination())) {
                         v.setValeur(adj.getDestination(), chemin);
                         v.setParent(adj.getDestination(), noeud);
@@ -174,7 +178,7 @@ public class Graphe {
 
         List<Position> chemin = v.calculerChemin(arrivee);
 
-        return chemin.getFirst();
+        return chemin.get(1);
     }
 
     public List<Arc> suivants(Position p){
