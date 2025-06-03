@@ -417,4 +417,8 @@ public class Labyrinthe {
 		return true;
 	}
 
+	public boolean[][] getMursLaby(){
+		return murs;
+	}
+
 }
