@@ -90,6 +90,10 @@ public class LabyJeu implements Jeu{
         labyrinthe.getPj().interagir(labyrinthe.getObjets());
     }
 
+    public static void sortir() {
+        labyrinthe.getCase()[labyrinthe.getPj().getX()][labyrinthe.getPj().getY()].activer(labyrinthe.getPj());
+    }
+
     public static void pjAttaque() {
         for (Entite m : labyrinthe.getMonstres()) {
             if (labyrinthe.getPj().peutAttaquer(m)) {
@@ -123,6 +127,7 @@ public class LabyJeu implements Jeu{
                     Labyrinthe labyrinthe1 = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau), p);
                     LabyJeu.labyrinthe = labyrinthe1;
                     labys.add(labyrinthe1);
+                    System.out.println("test");
                 } catch (IOException e1) {
                     System.out.println("fichier introuvable");
                 }

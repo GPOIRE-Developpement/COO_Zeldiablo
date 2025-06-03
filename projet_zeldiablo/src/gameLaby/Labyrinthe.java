@@ -328,7 +328,7 @@ public class Labyrinthe {
 	 */
 	public void estSurCase(Entite ent) {
 		CaseDeclencheuse caseDeclencheuse = cases[ent.getX()][ent.getY()];
-		if (caseDeclencheuse != null) {
+		if (caseDeclencheuse != null && !(caseDeclencheuse instanceof Sortie)) {
 			caseDeclencheuse.activer(ent);
 		}
 	}

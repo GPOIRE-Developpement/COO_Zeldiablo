@@ -71,6 +71,9 @@ public class Clavier {
             case SPACE:
                 LabyJeu.pjAttaque();
                 break;
+
+            case A:
+                LabyJeu.sortir();
         }
     }
 
