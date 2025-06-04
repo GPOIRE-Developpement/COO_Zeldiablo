@@ -130,7 +130,6 @@ public class LabyJeu implements Jeu {
                     Labyrinthe labyrinthe1 = new Labyrinthe(LabyJeu.niveaux.get(LabyJeu.niveau), p);
                     LabyJeu.labyrinthe = labyrinthe1;
                     labys.add(labyrinthe1);
-                    System.out.println("test");
                 } catch (IOException e1) {
                     System.out.println("fichier introuvable");
                 }
@@ -146,9 +145,10 @@ public class LabyJeu implements Jeu {
                 MoteurJeu.AfficherTuto(niveau);
             }
         } else {
-            jeuFini();
+            if (labyrinthe.getPj().getItemSelecte().getNom().equals("cle")) {
+                jeuFini();
+            }
         }
-        System.out.println(niveau);
     }
 
     public static void niveauPrec(Perso pj) {

@@ -2,6 +2,7 @@ package gameLaby;
 
 import gameLaby.casesSpe.CaseDeclencheuse;
 import gameLaby.casesSpe.CasePiege;
+import gameLaby.casesSpe.Interrupteur;
 import gameLaby.casesSpe.Porte;
 import gameLaby.entites.Entite;
 import gameLaby.entites.Fantome;
@@ -141,8 +142,11 @@ public class LabyDessin implements DessinJeu {
                             }
                             break;
                         case "interrupteur":
-                            gc.setFill(Color.RED);
-                            gc.fillRect(colonne * size + 3, ligne * size + 3, size - 6, size - 6);
+                            String etat = (((Interrupteur)cases[colonne][ligne]).getActive()) ? "button_activated" : "button_released";
+                            String path = PATH+"ground/" + etat + ".png";
+                            File imgf_button = new File(path);
+                            Image img_button = new Image(imgf_button.toURI().toString());
+                            gc.drawImage(img_button, colonne*size, ligne*size, size, size);
                             break;
                         case "sortie":
                             File imgf_stair = new File(PATH+"ground/stair.png");

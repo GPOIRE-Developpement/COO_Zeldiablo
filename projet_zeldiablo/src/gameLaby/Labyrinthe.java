@@ -140,6 +140,11 @@ public class Labyrinthe {
                         Potion potion = new Potion("potion de vie", 2, colonne, numeroLigne);
                         objets.add(potion);
                         break;
+					case Objet.CLE:
+						this.murs[colonne][numeroLigne] = false;
+						Cle cle = new Cle("cle", colonne, numeroLigne);
+						objets.add(cle);
+						break;
 					case CaseDeclencheuse.INTERRUPTEUR:
 						this.murs[colonne][numeroLigne] = false;
 						cases[colonne][numeroLigne] = new Interrupteur();

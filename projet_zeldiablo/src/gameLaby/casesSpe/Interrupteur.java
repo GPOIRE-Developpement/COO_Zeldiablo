@@ -7,7 +7,10 @@ public class Interrupteur implements CaseDeclencheuse {
 
     Porte porte;
 
+    private boolean isActive = false;
+
     public void activer(Entite ent) {
+        isActive = true;
         if (ent instanceof Perso) {
             if (porte.getOuverte()) {
                 porte.fermer();
@@ -15,6 +18,7 @@ public class Interrupteur implements CaseDeclencheuse {
                 porte.ouvrir();
             }
         }
+        isActive = false;
     }
 
     public Interrupteur() {
@@ -27,6 +31,10 @@ public class Interrupteur implements CaseDeclencheuse {
 
     public String getType() {
         return "interrupteur";
+    }
+
+    public boolean getActive() {
+        return isActive;
     }
 
 }

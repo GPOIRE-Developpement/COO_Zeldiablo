@@ -7,7 +7,7 @@ public class Cle extends Objet{
     }
 
     public String getNom() {
-        return "cle";
+        return super.getNom();
     }
 
 }
