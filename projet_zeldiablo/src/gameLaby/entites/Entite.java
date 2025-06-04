@@ -25,6 +25,8 @@ abstract public class Entite {
 	public Entite(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.atk = 1;
+		this.hp = 5;
 	}
 
 	/**
