@@ -135,13 +135,20 @@ abstract public class Entite {
 	 * @param entite
 	 * @return boolean
 	 */
-	public boolean peutAttaquer(Entite entite) {
+	public boolean peutAttaquer(Entite entite, boolean atkZone) {
 		int posX = entite.getX();
 		int posY = entite.getY();
-		return ((this.x == posX) && (this.y - 1 == posY) && Objects.equals(this.position, HAUT)) ||
-				((this.x == posX) && (this.y + 1 == posY) && Objects.equals(this.position, BAS)) ||
-				((this.x - 1 == posX) && (this.y == posY) && Objects.equals(this.position, GAUCHE)) ||
-				((this.x + 1 == posX) && (this.y == posY) && Objects.equals(this.position, DROITE));
+		if (!atkZone) {
+			return ((this.x == posX) && (this.y - 1 == posY) && Objects.equals(this.position, HAUT)) ||
+					((this.x == posX) && (this.y + 1 == posY) && Objects.equals(this.position, BAS)) ||
+					((this.x - 1 == posX) && (this.y == posY) && Objects.equals(this.position, GAUCHE)) ||
+					((this.x + 1 == posX) && (this.y == posY) && Objects.equals(this.position, DROITE));
+		} else {
+			return ((this.x == posX) && (this.y - 1 == posY)) ||
+					((this.x == posX) && (this.y + 1 == posY)) ||
+					((this.x - 1 == posX) && (this.y == posY)) ||
+					((this.x + 1 == posX) && (this.y == posY));
+		}
 	}
 
 	/**

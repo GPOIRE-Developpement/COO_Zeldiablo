@@ -2,6 +2,7 @@ package gameLaby;
 
 import gameLaby.casesSpe.*;
 import gameLaby.entites.*;
+import gameLaby.objets.Objet;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -98,8 +99,10 @@ public class LabyJeu implements Jeu {
     }
 
     public static void pjAttaque() {
+        Objet itemEquip = labyrinthe.getPj().getItemSelecte();
+        boolean isEpee = itemEquip.getNom().equals("sword");
         for (Entite m : labyrinthe.getMonstres()) {
-            if (labyrinthe.getPj().peutAttaquer(m)) {
+            if (labyrinthe.getPj().peutAttaquer(m, isEpee)) {
                 labyrinthe.getPj().attaquer(m);
             }
         }

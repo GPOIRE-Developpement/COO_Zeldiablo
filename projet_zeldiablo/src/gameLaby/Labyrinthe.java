@@ -251,7 +251,7 @@ public class Labyrinthe {
 					entite.setY(position[1]);
 					estSurCase(entite);
 				}
-				if(entite.peutAttaquer(pj)) {
+				if(entite.peutAttaquer(pj,  false)) {
 					entite.attaquer(pj);
 				}
 
