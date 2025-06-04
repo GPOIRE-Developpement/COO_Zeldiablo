@@ -28,7 +28,7 @@ public class FantomeTest {
 	@Test
 	public void testAttaquer() {
 		Fantome fantome = new Fantome(1, 1);
-		Entite cible = new Entite(2, 2) {
+		Fantome cible = new Fantome(2, 2) {
 			@Override
 			public void attaquer(Entite entite) {
 				// Ne fait rien pour le test
@@ -50,13 +50,13 @@ public class FantomeTest {
 	@Test
 	public void testPeutAttaquer() {
 		Fantome fantome = new Fantome(1, 1);
-		Entite cibleAdjacente = new Entite(1, 2) {
+		Fantome cibleAdjacente = new Fantome(1, 2) {
 			@Override
 			public void attaquer(Entite entite) {
 				// Ne fait rien pour le test
 			}
 		};
-		Entite cibleNonAdjacente = new Entite(3, 3) {
+		Fantome cibleNonAdjacente = new Fantome(3, 3) {
 			@Override
 			public void attaquer(Entite entite) {
 				// Ne fait rien pour le test
