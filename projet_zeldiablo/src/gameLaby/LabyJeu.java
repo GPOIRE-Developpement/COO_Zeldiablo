@@ -187,4 +187,7 @@ public class LabyJeu implements Jeu {
         MoteurJeu.primaryStageRef.setScene(winScene);
     }
 
+    public static int getNiveau() {
+        return niveau;
+    }
 }
