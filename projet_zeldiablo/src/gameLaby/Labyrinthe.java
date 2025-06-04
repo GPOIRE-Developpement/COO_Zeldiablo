@@ -172,12 +172,19 @@ public class Labyrinthe {
 						monstres.add(new Spider(colonne, numeroLigne));
                         break;
 					case MONSTER:
+						this.murs[colonne][numeroLigne] = false;
 						Monstre m = new Monstre(colonne, numeroLigne);
 						monstres.add(m);
 						break;
 					case FANTOME:
+						this.murs[colonne][numeroLigne] = false;
 						Fantome f = new Fantome(colonne, numeroLigne);
 						monstres.add(f);
+						break;
+					case ZOMBIE:
+						this.murs[colonne][numeroLigne] = false;
+						Zombie z = new Zombie(colonne, numeroLigne);
+						monstres.add(z);
 						break;
 					default:
 						throw new Error("caractere inconnu " + c);
