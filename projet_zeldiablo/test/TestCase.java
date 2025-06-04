@@ -43,7 +43,7 @@ public class TestCase {
     @Test
     public void joueurSurSortie() throws Exception {
         Perso perso = new Perso(5, 9);
-        Sortie sortie = new Sortie();
+        Sortie sortie = new Sortie(true);
 
         List<String> niveaux = new ArrayList<>();
         niveaux.add("labySimple/laby2.txt");
