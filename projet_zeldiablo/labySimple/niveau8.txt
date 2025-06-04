@@ -4,7 +4,7 @@ XXXXXXXXXXXXXXXXXXXX
 X....X..XSX...X...VX
 X.XXIX..X...X...XT.X
 X.XXXXTTXXXDXXXXXXXX
-X....X.............X
+X....X..........Z..X
 X....X...X.........X
 X..F....X.X........X
 X..X...XX.XX....X..X
