@@ -4,13 +4,13 @@ XXXXXXXXXXXXXXXXXXXX
 X........X......TTVX
 X........X......TTTX
 X...X....X......TTTX
-X........X.........X
+X...Z....X.........X
 X........X..X......X
 X...X....X.........X
-X..................X
+X........Z.........X
 X..............X...X
 X.P............TT.SX
 XS..BTTTTTTTTTT....X
 XXXXXX.............X
-XT.................X
+XT.........M.......X
 XXXXXXXXXXXXXXXXXXXX

@@ -2,6 +2,7 @@ package gameLaby.graphe;
 
 import gameLaby.casesSpe.CaseDeclencheuse;
 import gameLaby.casesSpe.Porte;
+import gameLaby.entites.Entite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +128,11 @@ public class Graphe {
         return arc;
     }
 
+    public List<Arc> suivants(Position p){
+        int i = getIndice(p);
+        return adjacents.get(i).getArcs();
+    }
+
     public Position resourdre(Position depart, Position arrivee){
         Valeurs v = new Valeurs();
 
@@ -181,9 +187,22 @@ public class Graphe {
         return chemin.get(1);
     }
 
-    public List<Arc> suivants(Position p){
-        int i = getIndice(p);
-        return adjacents.get(i).getArcs();
+    public static String resoudre2(int x1, int y1, int x2, int y2){
+        if(Math.abs(x1-x2) > Math.abs(y1-y2)){
+            if(x1-x2 > 0){
+                return Entite.GAUCHE;
+            }else if(x1-x2 < 0){
+                return Entite.DROITE;
+            }
+        }else{
+            if(y1-y2 > 0){
+                return Entite.HAUT;
+            }else if(y1-y2 < 0){
+                return Entite.BAS;
+            }
+        }
+
+        return Entite.HAUT;
     }
 
     @Override

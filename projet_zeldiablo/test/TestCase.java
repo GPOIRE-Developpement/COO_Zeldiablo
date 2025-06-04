@@ -1,4 +1,5 @@
 import gameLaby.LabyJeu;
+import gameLaby.MainLaby;
 import gameLaby.casesSpe.CasePiege;
 import gameLaby.casesSpe.Interrupteur;
 import gameLaby.casesSpe.Porte;
@@ -43,18 +44,18 @@ public class TestCase {
     @Test
     public void joueurSurSortie() throws Exception {
         Perso perso = new Perso(5, 9);
-        Sortie sortie = new Sortie();
+        Sortie sortie = new Sortie(true);
 
         List<String> niveaux = new ArrayList<>();
-        niveaux.add("labySimple/laby2.txt");
-        niveaux.add("labySimple/laby3.txt");
+        niveaux.add("labySimple/niveau1.txt");
+        niveaux.add("labySimple/niveau2.txt");
 
         LabyJeu labyJeu = new LabyJeu(niveaux);
 
-        assertEquals("Un problème lors de l'initialisation du jeu", 1, labyJeu.getNiveau());
+        assertEquals("Un problème lors de l'initialisation du jeu", 0, labyJeu.getNiveau());
 
         sortie.activer(perso);
 
-        assertEquals("Un problème lors de la sortie du personnage", 2, labyJeu.getNiveau());
+        assertEquals("Un problème lors de la sortie du personnage", 1, labyJeu.getNiveau());
     }
 }

@@ -29,6 +29,7 @@ public class Labyrinthe {
 	public static final char SORTIE = 'S';
 	public static final char ARAIGNEE = 'A';
 	public static final char FANTOME = 'F';
+	public static final char ZOMBIE = 'Z';
 
 	/**
 	 * attribut du personnage

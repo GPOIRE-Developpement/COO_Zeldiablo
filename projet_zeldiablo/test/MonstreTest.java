@@ -19,7 +19,7 @@ public class MonstreTest {
 	@Test
 	void testAttaquer() {
 		Monstre monstre = new Monstre(1, 1);
-		Entite cible = new Entite(2, 2) {
+		Monstre cible = new Monstre(2, 2) {
 			@Override
 			public void attaquer(Entite entite) {
 				// Ne fait rien pour le test
@@ -41,13 +41,13 @@ public class MonstreTest {
 	@Test
 	void testPeutAttaquer() {
 		Monstre monstre = new Monstre(1, 1);
-		Entite cibleAdjacente = new Entite(1, 2) {
+		Monstre cibleAdjacente = new Monstre(1, 2) {
 			@Override
 			public void attaquer(Entite entite) {
 				// Ne fait rien pour le test
 			}
 		};
-		Entite cibleNonAdjacente = new Entite(3, 3) {
+		Monstre cibleNonAdjacente = new Monstre(3, 3) {
 			@Override
 			public void attaquer(Entite entite) {
 				// Ne fait rien pour le test
