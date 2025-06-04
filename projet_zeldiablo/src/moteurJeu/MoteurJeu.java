@@ -10,6 +10,7 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -21,9 +22,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -343,5 +343,40 @@ public class MoteurJeu extends Application {
             dialog.showAndWait();
         });
     }
+
+    public static void GameOver() {
+        Platform.runLater(() -> {
+            Stage gameOverStage = new Stage();
+            gameOverStage.setTitle("Game Over");
+            gameOverStage.initModality(Modality.APPLICATION_MODAL);
+
+            File imgf_gameOver = new File("texture/gameOver.png");
+            Image img_gameOver = new Image(imgf_gameOver.toURI().toString());
+            ImageView background = new ImageView(img_gameOver);
+            background.setPreserveRatio(false);
+            background.setFitWidth(500);
+            background.setFitHeight(300);
+
+            Button quitBtn = new Button("Quitter");
+            quitBtn.setOnAction(e -> System.exit(0));
+            quitBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px 20px;");
+
+            // Utiliser une VBox pour centrer horizontalement et descendre verticalement
+            VBox vbox = new VBox();
+            vbox.setAlignment(Pos.CENTER);
+            vbox.setSpacing(20);
+            vbox.setPadding(new Insets(150, 0, 0, 0)); // décale vers le bas
+            vbox.getChildren().add(quitBtn);
+
+            StackPane root = new StackPane();
+            root.getChildren().addAll(background, vbox);
+
+            Scene scene = new Scene(root, 500, 300);
+            gameOverStage.setScene(scene);
+            gameOverStage.show();
+        });
+    }
+
+
 
 }

@@ -145,7 +145,7 @@ public class Perso extends Entite {
         } else {
             super.subirDegat(n);
             if(!super.estVivant()){
-                System.exit(0);
+                MoteurJeu.GameOver();
             }
         }
     }
