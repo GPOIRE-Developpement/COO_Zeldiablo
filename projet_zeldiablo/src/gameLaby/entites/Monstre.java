@@ -15,8 +15,6 @@ public class Monstre extends Entite {
 	 */
 	public Monstre(int posx, int posy) {
 		super(posx, posy);
-		this.atk = 1;
-		this.hp = 5;
 	}
 
 	@Override
