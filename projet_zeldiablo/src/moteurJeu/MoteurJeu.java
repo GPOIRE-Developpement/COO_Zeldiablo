@@ -71,7 +71,7 @@ public class MoteurJeu extends Application {
             "Ces interrupteurs au sol permettent d'ouvrir les portes. Attention, si vous remarchez dessus, cela la ferme",
             "ATTENTION, UN MONSTRE !!" +
                     "Essayez de le battre en le regardant et en appuyant sur la barre d'espace",
-            "Durant votre aventure, vous rencontrerez des pièges, même si ils sont invisible au départ, il suffit de marcher " +
+            "Durant votre aventure, vous rencontrerez des pièges, même si ils sont invisibles au départ, il suffit de marcher " +
                     "dessus et ils vous seront visibles",
             "Maintenant essayez d'intéragir avec les objets, le bouclier vous protegera, l'épée permettra d'attaquer autour de vous et la potion " +
                     "vous soignera." + "\n Afin vous n'avez qu'à vous positionner sur un objet et appuyer sur la touche E de votre clavier pour intéragir. Pour utiliser la potion, appuyez également sur E en selectionnant " +
