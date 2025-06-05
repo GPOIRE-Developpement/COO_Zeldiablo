@@ -15,12 +15,9 @@ public class CasePiege implements CaseDeclencheuse {
      * @param ent
      */
     public void activer(Entite ent){
-        System.out.println("Vous êtes sur une case piégée !");
-        System.out.println("Avant le piège : "+ent.getHP()+" HP");
         if (ent.estVivant()) {
             ent.subirDegat(-1);
         }
-        System.out.println("Après le piège : "+ent.getHP()+" HP");
         active = true;
     }
 

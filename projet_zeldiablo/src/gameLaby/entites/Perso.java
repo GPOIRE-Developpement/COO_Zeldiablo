@@ -149,6 +149,7 @@ public class Perso extends Entite {
                 MoteurJeu.GameOver();
             }
         }
+        System.out.println("Vous avez " + hp + "Points de vie");
     }
 
     public void setHp(int hp) {
