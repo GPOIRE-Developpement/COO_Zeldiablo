@@ -1,4 +1,5 @@
 package gameLaby.entites;
+import gameLaby.LabyJeu;
 import gameLaby.objets.Bouclier;
 import gameLaby.objets.Epee;
 import gameLaby.objets.Objet;

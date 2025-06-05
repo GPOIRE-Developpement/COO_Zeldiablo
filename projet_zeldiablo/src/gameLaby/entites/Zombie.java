@@ -11,6 +11,7 @@ public class Zombie extends Entite {
      */
     public Zombie(int posx, int posy) {
         super(posx, posy);
+        this.hp = 10;
     }
 
     @Override

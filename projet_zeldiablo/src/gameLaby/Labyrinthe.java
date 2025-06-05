@@ -346,43 +346,6 @@ public class Labyrinthe {
 		return cases;
 	}
 
-//	/**
-//	 * Methode permettant de gérer la génération aléatoire des monstres
-//	 *
-//	 * @param nbColonne nombre de colonnes du laby
-//	 * @param nbLigne   nombre de lignes du laby
-//	 */
-//	public void generationMonstre(int nbColonne, int nbLigne) {
-//		for (int i = 0; i < nbMonstre; i++) {
-//			int x = (int) Math.floor(Math.random() * nbColonne);
-//			int y = (int) Math.floor(Math.random() * nbLigne);
-//			while (this.murs[x][y] || pj.getX() == x && pj.getY() == y) {
-//				x = (int) Math.floor(Math.random() * nbColonne);
-//				y = (int) Math.floor(Math.random() * nbLigne);
-//			}
-//			Monstre monstre = new Monstre(x, y);
-//			monstres.add(monstre);
-//		}
-//	}
-//
-//	/**
-//	 * Methode permettant de gérer la génération aléatoire des fantômes
-//	 *
-//	 * @param nbColonne nombre de colonnes du laby
-//	 * @param nbLigne   nombre de lignes du laby
-//	 */
-//	public void generationFantome(int nbColonne, int nbLigne) {
-//		for (int i = 0; i < nbFantome; i++) {
-//			int x = (int) Math.floor(Math.random() * nbColonne);
-//			int y = (int) Math.floor(Math.random() * nbLigne);
-//			while (this.murs[x][y] || pj.getX() == x && pj.getY() == y) {
-//				x = (int) Math.floor(Math.random() * nbColonne);
-//				y = (int) Math.floor(Math.random() * nbLigne);
-//			}
-//			Fantome fantome = new Fantome(x, y);
-//			monstres.add(fantome);
-//		}
-//	}
 
 	/**
 	 * Methode permettant d'associer des interrupteurs avec des portes

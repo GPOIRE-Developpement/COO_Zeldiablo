@@ -9,6 +9,7 @@ public class Fantome extends Entite {
 	 */
 	public Fantome(int posx, int posy) {
 		super(posx, posy);
+		this.hp = 8;
 	}
 
 	@Override

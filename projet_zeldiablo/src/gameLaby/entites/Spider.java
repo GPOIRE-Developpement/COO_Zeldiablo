@@ -11,6 +11,7 @@ public class Spider extends Entite {
      */
     public Spider(int posx, int posy) {
         super(posx, posy);
+        this.hp = 12;
     }
 
     @Override

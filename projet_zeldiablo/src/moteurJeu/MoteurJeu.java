@@ -65,19 +65,9 @@ public class MoteurJeu extends Application {
 
     public static Stage primaryStageRef;
 
-    private static final String[] informations = {
-            "Vous pouvez vous déplacer à l'aide des touches Z,Q,S et D ou bien les flèches directionnelles" +
-                    "Allez au niveau suivant en allant sur l'escalier en face et en appuyant sur la touche A",
-            "Ces interrupteurs au sol permettent d'ouvrir les portes. Attention, si vous remarchez dessus, cela la ferme",
-            "ATTENTION, UN MONSTRE !!" +
-                    "Essayez de le battre en le regardant et en appuyant sur la barre d'espace",
-            "Durant votre aventure, vous rencontrerez des pièges, même si ils sont invisibles au départ, il suffit de marcher " +
-                    "dessus et ils vous seront visibles",
-            "Maintenant essayez d'intéragir avec les objets, le bouclier vous protegera, l'épée permettra d'attaquer autour de vous et la potion " +
-                    "vous soignera." + "\n Afin vous n'avez qu'à vous positionner sur un objet et appuyer sur la touche E de votre clavier pour intéragir. Pour utiliser la potion, appuyez également sur E en selectionnant " +
-                    "l'objet avec les touches 1 à 4 de votre clavier (pas le pavé numérique)",
-            "Mes conseils s'arrêtent ici, vous devez continuer votre chemin. Je vous préviens tout de même, plus vous avancerez et plus les monstres seront efficaces pour vous traquer..."
-    };
+    public static Scene scene;
+
+    private static AnimationTimer timer;
 
     /**
      * attribut permettant de gérer la génération du labyrinthe
@@ -155,7 +145,7 @@ public class MoteurJeu extends Application {
         root.setBottom(stats);
 
         // creation de la scene
-        final Scene scene = new Scene(root, WIDTH, HEIGHT);
+        scene = new Scene(root, WIDTH, HEIGHT);
 
         //écran d'accueil
         Image backgroundImage = new Image("file:texture/background/test.png");
@@ -246,44 +236,7 @@ public class MoteurJeu extends Application {
                     }
                 });
     }
-//
-//    /**
-//     * Methode permettant d'afficher le menu pour selectionner le niveau
-//     */
-//    private void afficherNiveaux() {
-//        Dialog<String> dialog = new Dialog<>();
-//        dialog.setTitle("test selection niveau");
-//        dialog.setWidth(WIDTH / 2);
-//        dialog.setHeight(HEIGHT / 2);
-//
-//        File dossLaby = new File("labySimple/");
-//        File[] labys = dossLaby.listFiles();
-//        ArrayList<String> nomLabys = new ArrayList<>();
-//
-//        for (File f : labys) {
-//            nomLabys.add(f.getName());
-//        }
-//
-//        GridPane choix = new GridPane();
-//        choix.setHgap(10);
-//        choix.setVgap(10);
-//
-//        for (int i = 1; i <= nomLabys.size(); i++) {
-//            Label label = new Label("Niveau " + i);
-//            Button button = new Button(nomLabys.get(i - 1));
-//            Auditeur audi = new Auditeur();
-//            button.addEventHandler(ActionEvent.ACTION, audi);
-//            choix.add(label, 0, i);
-//            choix.add(button, 1, i);
-//        }
-//        choix.setAlignment(Pos.CENTER);
-//
-//        dialog.getDialogPane().setContent(choix);
-//
-//        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
-////        dialog.getDialogPane().setContent(test2);
-//        dialog.showAndWait();
-//    }
+
 
     /**
      * gestion de l'animation (boucle de jeu)
@@ -295,7 +248,7 @@ public class MoteurJeu extends Application {
         final LongProperty lastUpdateTime = new SimpleLongProperty(0);
 
         // timer pour boucle de jeu
-        final AnimationTimer timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             @Override
             public void handle(long timestamp) {
 
@@ -331,12 +284,82 @@ public class MoteurJeu extends Application {
         timer.start();
     }
 
-    public static void AfficherTuto(int i) {
+    public static void jeuFini() {
+        VBox layout = new VBox(new Label("Bravo !"), new Button("Retour au menu"));
+        layout.setAlignment(Pos.CENTER);
+        layout.setSpacing(10);
+
+        Scene winScene = new Scene(layout, 400, 300);
+
+        Button retour = (Button) layout.getChildren().get(1);
+        retour.setOnAction(e -> {
+            try {
+                if (timer != null) {
+                    timer.stop();
+                }
+                // Réinitialisation complète
+                controle.reset();
+                ((LabyJeu)jeu).refresh();
+                scene = null;
+
+                new MoteurJeu().start(primaryStageRef);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        MoteurJeu.primaryStageRef.setScene(winScene);
+    }
+
+    public static void GameOver() {
+        Platform.runLater(() -> {
+
+            VBox layout = new VBox();
+            layout.setAlignment(Pos.CENTER);
+            layout.setSpacing(20);
+            layout.setPadding(new Insets(20));
+
+            Label gameOverLabel = new Label("Défaite !");
+            gameOverLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+
+            // Bouton Rejouer
+            Button rejouerBtn = new Button("Rejouer");
+            rejouerBtn.setStyle("-fx-font-size: 16px;");
+            rejouerBtn.setOnAction(e -> {
+                try {
+                    if (timer != null) {
+                        timer.stop();
+                    }
+                    // Réinitialisation complète
+                    controle.reset();
+                    ((LabyJeu)jeu).refresh();
+                    scene = null;
+
+                    new MoteurJeu().start(primaryStageRef);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+            // Bouton Quitter
+            Button quitterBtn = new Button("Quitter");
+            quitterBtn.setStyle("-fx-font-size: 16px;");
+            quitterBtn.setOnAction(e -> System.exit(0));
+
+            layout.getChildren().addAll(gameOverLabel, rejouerBtn, quitterBtn);
+
+            // Affichage de la scène
+            Scene gameOverScene = new Scene(layout, 400, 300);
+            primaryStageRef.setScene(gameOverScene);
+        });
+    }
+
+    public static void afficherIndication() {
         Platform.runLater(() -> {
             controle.reset();
             Dialog<String> dialog = new Dialog<>();
-            dialog.setTitle("Tuto n°" + i);
-            dialog.setContentText(informations[i]);
+            dialog.setTitle("Comment gagner ? ");
+            dialog.setContentText("Il faut récupérer la clé et s'échapper par l'escalier en haut");
             dialog.setWidth(WIDTH / 2);
             dialog.setHeight(HEIGHT / 2);
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
@@ -344,39 +367,6 @@ public class MoteurJeu extends Application {
         });
     }
 
-    public static void GameOver() {
-        Platform.runLater(() -> {
-            Stage gameOverStage = new Stage();
-            gameOverStage.setTitle("Game Over");
-            gameOverStage.initModality(Modality.APPLICATION_MODAL);
-
-            File imgf_gameOver = new File("texture/gameOver.png");
-            Image img_gameOver = new Image(imgf_gameOver.toURI().toString());
-            ImageView background = new ImageView(img_gameOver);
-            background.setPreserveRatio(false);
-            background.setFitWidth(500);
-            background.setFitHeight(300);
-
-            Button quitBtn = new Button("Quitter");
-            quitBtn.setOnAction(e -> System.exit(0));
-            quitBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px 20px;");
-
-            // Utiliser une VBox pour centrer horizontalement et descendre verticalement
-            VBox vbox = new VBox();
-            vbox.setAlignment(Pos.CENTER);
-            vbox.setSpacing(20);
-            vbox.setPadding(new Insets(150, 0, 0, 0)); // décale vers le bas
-            vbox.getChildren().add(quitBtn);
-
-            StackPane root = new StackPane();
-            root.getChildren().addAll(background, vbox);
-
-            Scene scene = new Scene(root, 500, 300);
-            gameOverStage.setScene(scene);
-            gameOverStage.show();
-        });
-    }
-
-
-
 }
+
+

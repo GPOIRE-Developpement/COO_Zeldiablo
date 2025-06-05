@@ -4,12 +4,19 @@ import gameLaby.casesSpe.*;
 import gameLaby.entites.*;
 import gameLaby.objets.Objet;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import moteurJeu.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +43,15 @@ public class LabyJeu implements Jeu {
         LabyJeu.niveaux = null;
     }
 
+    public void refresh() throws IOException {
+        LabyJeu.niveau = 0;
+        Labyrinthe lab = new Labyrinthe(niveaux.get(0), null);
+        labyrinthe = lab;
+        labys = new ArrayList<>();
+        labys.add(lab);
+        lastLvl = niveau == (niveaux.size() - 1);
+    }
+
     public LabyJeu(List<String> niveaux) throws IOException {
         LabyJeu.niveau = 0;
         LabyJeu.niveaux = niveaux;
@@ -47,13 +63,6 @@ public class LabyJeu implements Jeu {
     }
 
     public void update(double seconde, Clavier clavier) {
-        if (!tutoAffiche && niveau == 0) {
-            tutoAffiche = true;
-            Platform.runLater(() -> {
-                MoteurJeu.AfficherTuto(niveau);
-                clavier.reset(); // À faire si tu veux régler le bug de touche maintenue
-            });
-        }
 
         if (clavier.gauche) {
             labyrinthe.deplacerPerso(Entite.GAUCHE);
@@ -100,7 +109,9 @@ public class LabyJeu implements Jeu {
 
     public static void pjAttaque() {
         Objet itemEquip = labyrinthe.getPj().getItemSelecte();
-        boolean isEpee = itemEquip.getNom().equals("sword");
+        boolean isEpee;
+        if (itemEquip == null) isEpee = false;
+        else isEpee = itemEquip.getNom().equals("sword");
         for (Entite m : labyrinthe.getMonstres()) {
             if (labyrinthe.getPj().peutAttaquer(m, isEpee)) {
                 labyrinthe.getPj().attaquer(m);
@@ -122,6 +133,9 @@ public class LabyJeu implements Jeu {
 
     public static void niveauSuivant(Perso p) {
         lastLvl = niveau == (niveaux.size() - 1);
+        if (niveau == niveaux.size()-2) {
+            MoteurJeu.afficherIndication();
+        }
         if (niveau < niveaux.size() - 1) {
             niveau++;
         }
@@ -144,12 +158,9 @@ public class LabyJeu implements Jeu {
                 p.setY(coordSortie[1]);
                 labyrinthe.setPJ(p);
             }
-            if (niveau < 6 && niveau > 0) {
-                MoteurJeu.AfficherTuto(niveau);
-            }
         } else {
             if (labyrinthe.getPj().getItemSelecte().getNom().equals("cle")) {
-                jeuFini();
+                MoteurJeu.jeuFini();
             }
         }
     }
@@ -171,26 +182,8 @@ public class LabyJeu implements Jeu {
         labyrinthe.setPJ(pj);
     }
 
-    public static void jeuFini() {
-        VBox layout = new VBox(new Label("Bravo !"), new Button("Retour au menu"));
-        layout.setAlignment(Pos.CENTER);
-        layout.setSpacing(10);
-
-        Scene winScene = new Scene(layout, 400, 300);
-
-        Button retour = (Button) layout.getChildren().get(1);
-        retour.setOnAction(e -> {
-            try {
-                new MoteurJeu().start(MoteurJeu.primaryStageRef);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
-
-        MoteurJeu.primaryStageRef.setScene(winScene);
-    }
-
     public static int getNiveau() {
         return niveau;
     }
+
 }
