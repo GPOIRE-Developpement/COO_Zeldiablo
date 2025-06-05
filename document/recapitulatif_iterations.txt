@@ -1,0 +1,212 @@
+Récapitulatif des itérations : 
+
+Itération 1 : 
+
+fonctionnalités :
+
+Création d'un labyrinthe par défaut
+Critères de validation :
+	• Le labyrinthe par défaut est constitué d'une arène de taille 10*10 ;
+	• Le personnage est placé au centre de l'arène ;
+	• Les monstres (s'il y en a) sont placés sur des cases vides (à adapter).
+
+
+Collision avec murs 
+Critères de validation : 
+	• La collision fonctionne dans les 4 directions ;
+	• Si la case est vide, le personnage avance.
+
+
+Création de monstre immobile (placement aléatoire) : 
+Critères de validation : 
+	• Il est possible de construire un labyrinthe par défaut contenant quelques monstres (le labyrinthe par défaut est à définir).
+	• Les monstres sont créés sur des cases vides.
+	• Il n'est pas possible de générer des monstres sur des cases non vides (position du joueur, d'autres monstres ou de murs)
+	• Les monstres doivent apparaitre dans l'interface graphique sous la forme d'un cercle rouge.
+	• Les monstres ne se déplacent pas (mais attaquent éventuellement le héros s'il passe à proximité - cf taches attaque dans les parties suivantes).
+
+collision avec monstre
+Critère de validation
+	• La collision fonctionne dans les 4 directions.
+	• Si la case est vide, le personnage avance.
+	• (Le monstre se déplace à chaque fois après le joueur.)
+
+Case déclencheur
+Critères de validation : 
+	• Les cases avec effet sont des cases traversables.
+	• Lorsqu'un personnage (héros ou monstre) marche sur cette case, elle déclenche immédiatement un effet
+	• cet effet se traduit pour le moment, par un affichage dans la console à préciser
+
+Case piégée
+Critères de validation : 
+Les dégâts ne se déclenchent que lorsque le joueur arrive sur la case, il peut ensuite
+rester sur cette case aussi longtemps qu'il le souhaite sans subir d'autres dégâts.
+	• Lorsque la case devient à nouveau vide, le piège se réamorce.
+	• (optionnel) Lorsqu'une case a été détectée comme un piège, elle s'affiche différemment dans le labyrinthe (en brun) ce qui permet au joueur d'en tenir compte ensuite.
+
+Inventaire (Terminal, objets)
+Critères de validation : 
+	• L'inventaire est de taille infinie.
+	• Lorsque le joueur cherche à prendre un objet alors qu'il n'y a rien sur la case où il se trouve, rien ne se passe.
+	• Lorsqu'un joueur prend un objet, l'objet disparait du labyrinthe (et n'est plus affiché) mais apparait dans son inventaire.
+	• A chaque évolution du jeu, le jeu affiche dans la console l'inventaire du héros.
+	• Les objets sont affichés dans le labyrinthe tant qu'ils sont présents (sous la forme d'un cercle noir)
+
+Armes
+Critères de validation :
+	• Une arme est définie par ses dégâts.
+	• Lorsque le héros prend une arme, l'arme est ajoutée à son inventaire et disparait du labyrinthe.
+	• Lorsqu'un héros possède une arme et attaque un monstre, son attaque est augmentée des dégâts de l'arme.
+	• Un héros ne peut utiliser qu'une seule arme à la fois. Lorsqu'un héros possède plusieurs armes dans son inventaire, il s'équipe automatiquement de l'arme la plus forte.
+
+######################################################################################################################################################################################
+
+Itération 2 :
+
+finalisation des Armes : 
+Critères validés : 
+	• Lorsque le héros prend une arme, l'arme est ajoutée à son inventaire et disparait du labyrinthe.
+	• Lorsqu'un héros possède une arme et attaque un monstre, son attaque est augmentée des dégâts de l'arme.
+	• Un héros ne peut utiliser qu'une seule arme à la fois. Lorsqu'un héros possède plusieurs armes dans son inventaire, il s'équipe automatiquement de l'arme la plus forte.
+
+reprise de la fonctionnalité de l'inventaire : 
+Critères validés : 
+	• A chaque fois qu'un joueur prend un objet, en plus de disparaitre dans le labyrinthe, celui-ci s'affiche dans l'inventaire 
+	• Les objets sélectionnés (meilleure arme et meilleur bouclier) sont d'une couleur différente. 
+	• Les objets affichés dans l'inventaire ont des formes spécifiques (rond pour un bouclier et un trait vertical pour une arme).
+
+finalisation de la fonctionnalité basique des monstres : 
+Critère validé : 
+      	• Les monstres ne se déplacent pas (mais attaquent éventuellement le héros s'il passe à proximité - cf taches attaque dans les parties suivantes).
+
+Ouverture de passage secret : 
+Critères de validation :
+	• Une porte est un type de case particulière. Une porte n'a pas d'orientation et occupe toute une case.
+	• Une porte peut être fermée ou ouverte. Une porte fermée bloque le trajet et une porte ouverte est traversable.
+	• La porte s'ouvre au passage du personnage sur la case qui déclenche son ouverture.
+	• Une fois la porte ouverte, elle reste ouverte.
+	• Les portes sont affichées d'une manière particulière : elles sont de couleur noire et sont représentées par des carrés qui occupent toute la case. Le carré est plein ou vide en fonction de l'état de la porte (ouverte/fermée).
+
+Fermeture de passage : 
+Critères de validation : 
+	• Cette case a l'effet inverse de la case précédente.
+	• Une porte fermée reste fermée.
+	• Une même porte peut être manipulée par plusieurs cases (de type fermeture/ouverture)
+
+Gestion du labyrinthe multi-Etage
+Critère de validation visé : 
+	• Les escaliers sont des cases traversables par le héros et les monstres.
+	• Lorsque le héros se trouve sur un escalier, il peut l'activer et il change alors de niveau
+
+Déplacement aléatoire de monstres : 
+Critères de validation : 
+A chaque évolution du jeu, que le joueur se déplace ou non, les monstres se déplacent.
+	• Les monstres sont bloqués par les obstacles. S'ils ont choisi de se diriger vers un obstacle (mur, joueur, ...), leur mouvement est alors annulé (sauf s'il s'agit de fantômes).
+	• Deux monstres ou un monstre et un joueur ne peuvent pas se trouver sur la même case (Si la tache Collision entre monstre est fonctionnelle).
+	• A chaque évolution, tous les monstres tentent de se déplacer.
+	• L'interface graphique se met à jour en fonction des déplacements des Monstres
+
+Fantômes : 
+Critères de validation : 
+	• Les fantômes peuvent traverser des murs mais pas les autres personnages (les autres monstres ou le héros)
+	• Les autres monstres continuent à être bloqués par des murs.
+	• Les attaques des fantômes fonctionnent de la même manière que les attaques des monstres de base.
+ 
+(
+Attaque des monstres :
+Critères de validation :
+	• Lorsque le monstre est à côté du joueur, il attaque et ne se déplace pas. Par défaut,
+	• le Héros perd 1 point de vie.
+	• Lorsque le monstre est loin du joueur, il n'attaque pas mais se déplace.
+)
+
+Attaque du joueur : 
+Critères de validation : 
+	• L'attaque a effectivement lieu quand le joueur appuie sur la touche.
+	• TOUS les monstres à côté du joueur prennent un point de dégât.
+	• TOUS les monstres éloignés du joueur ne subissent pas de dégâts.
+	• S'il n'y a aucun monstre autour du joueur, l'attaque à quand même lieu et empêche le déplacement du joueur, mais les monstres ne prennent pas de dégâts.
+
+Attaque directionnelle :
+Critères de validation : 
+	• L'attaque a lieu dans la dernière direction suivie par le héros.
+	• L'attaque ne peut toucher au maximum qu'un monstre et seulement si ce monstre se trouve juste devant le personnage.
+	• Les monstres situés à côté du personnage dans une autre direction ne subissent pas de dégâts.
+	• Si aucun monstre n'est présent devant le héros, aucun monstre ne subit de dégâts.
+
+Mort des monstres : 
+Critères de validation :
+	• Les monstres ont par défaut 2 points de vie et ne peuvent pas avoir de points de vie négatifs.
+	• Lorsqu'un monstre par défaut est touché deux fois, il disparait.
+	• Le héros attaque avant le monstre, si le monstre meurt, le monstre n'a pas le temps de répliquer et disparait avant.
+
+Fin du Jeu : Mort du Héro
+Critère de validation :
+	• Le héros par défaut dispose de 5 points de vie.
+	• Chaque monstre fait 1 point de dégât lorsque le héros se fait attaquer.
+	• Quand le héros meurt, un message de n est affiché sur la console et le jeu s'arrête
+
+######################################################################################################################################################################################
+
+Itération 3 : 
+
+Gestion d'un labyrinthe multi-étage
+Critères de validation : 
+	• Les escaliers sont des cases traversables par le héros et les monstres.
+	• Lorsque le héros se trouve sur un escalier, il peut l'activer et il change alors de niveau.
+	• Les monstres du niveau où le héros se trouvait avant l'escalier n'apparaissent pas dans l'étage supérieur/inférieur. Ils restent à leur position et conservent leur points de vie.
+	• De nouveaux monstres peuvent être présents à l'étage supérieur en fonction du descriptif du niveau.
+	• Le Héros arrive aux mêmes coordonnées dans l'étage supérieur/inférieur après avoir emprunté les escaliers.
+	• Les escaliers peuvent être de deux types : un escalier qui monte ou un escalier qui descend.
+	• Les escaliers sont empruntables dans les deux sens : un escalier qui monte vers un étage possède un escalier qui descend à la même position dans l'étage supérieur (et inversement).
+
+Monstres au comportement intelligent
+Critères de validation : 
+	• Avant son déplacement, le monstre détermine le meilleur chemin pour atteindre le héros.
+	• Le monstre prend en compte les obstacles qui le concernent pour trouver le meilleur chemin.
+	• lorsqu'il se déplace, le monstre suit eectivement le meilleur chemin et parvient jusqu'au héros même s'il y a des obstacles.
+	• vous pourrez vous inspirer (a) des transparents "IA dans le jeu vidéo" (transparents 112-130) ou (b) (c) du site redblob (avec de nombreuses démonstrations autour du jeu vidéo)
+
+Utilisation de la potion 
+Critères de validation : 
+	• Quand le personnage sélectionne une potion dans son inventaire, il peut l'utiliser en appuyant sur une touche spécifique du clavier
+	• Le héro ne peut pas utiliser 2 fois la même potion, la potion utilisée est consommée jusqu'à la fin des temps
+
+Défense du bouclier (suite)
+Critères de validation : 
+	• Quand le héro subit des dégâts, si il possède un bouclier, celui ci subit les dégâts à ça place
+
+Hors fonctionnalités 
+
+Création de plusieurs labyrinthe
+Création d'un "Tuto" afin de prendre le jeu en main
+
+######################################################################################################################################################################################
+
+Itération 4 : 
+
+Finalisation du Labyrinthe multi-étages
+Critères de validation :
+	• Les escaliers sont des cases traversables par le héros et les monstres.
+	• Lorsque le héros se trouve sur un escalier, il peut l'activer et il change alors de niveau.
+	• Les monstres du niveau où le héros se trouvait avant l'escalier n'apparaissent pas dans l'étage supérieur/inférieur. Ils restent à leur position et conservent leur points de vie.
+	• De nouveaux monstres peuvent être présents à l'étage supérieur en fonction du descriptif du niveau.
+	• Le Héros arrive aux mêmes coordonnées dans l'étage supérieur/inférieur après avoir emprunté les escaliers.
+	• Les escaliers peuvent être de deux types : un escalier qui monte ou un escalier qui descend.
+	• Les escaliers sont empruntables dans les deux sens : un escalier qui monte vers un étage possède un escalier qui descend à la même position dans l'étage supérieur (et inversement).
+
+Monstres attirés par le Héro : 
+Critères de validation : 
+
+	• Après son déplacement, un monstre doit être plus proche du héros qu'avant son déplacement (distance de Manhattan sans prise en compte des murs).
+	• Les monstres soumis aux obstacles peuvent se retrouver bloqués dans des cul-de-sac.
+
+Attaque boostée par l'épée :
+Critères de validation : 
+	Si le personnage possède une épée, il effectue des attaques de zone
+	Les attaques font en plus, des dégâts boostés (on ajoute l'attaque de l'épée)
+
+Hors fonctionnalités 
+
+Finalisation du Tuto
+Ajout des monstres dans les différents niveaux

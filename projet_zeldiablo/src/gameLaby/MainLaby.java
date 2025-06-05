@@ -26,6 +26,10 @@ public class MainLaby {
 
     private static List<String> getNiveaux() {
         List<String> niveaux = new ArrayList<>();
+//        niveaux.add("labySimple/niveau1.txt");
+//        niveaux.add("labySimple/niveau2.txt");
+//        niveaux.add("labySimple/niveau3.txt");
+//        niveaux.add("labySimple/niveau4.txt");
         niveaux.add("labySimple/niveau5.txt");
         niveaux.add("labySimple/niveau6.txt");
         niveaux.add("labySimple/niveau7.txt");
